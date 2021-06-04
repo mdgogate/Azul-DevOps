@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:orientation="horizontal"
+    android:layout_gravity="bottom"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/dialog"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginStart="2dp"
+        android:layout_marginEnd="2dp"
+        android:weightSum="4"
+        android:background="@drawable/ic_bottom_message_style">
+
+        <RelativeLayout
+            android:id="@+id/lastDayBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:fontFamily="@font/vag_bold"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                android:text="@string/last_day" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="64dp"
+            android:background="#717BAF"/>
+
+        <RelativeLayout
+            android:id="@+id/monthToDateBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:fontFamily="@font/vag_bold"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                android:text="@string/month_to_date" />
+
+        </RelativeLayout>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="64dp"
+            android:background="#717BAF"/>
+
+        <RelativeLayout
+            android:id="@+id/previousMonthBtn"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:textColor="@color/white"
+                android:fontFamily="@font/vag_bold"
+                android:textSize="12sp"
+                android:textAlignment="center"
+                android:text="@string/previous_month" />
+
+        </RelativeLayout>
+
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="64dp"
+            android:background="#717BAF"/>
+
+
+        <RelativeLayout
+            android:id="@+id/btnAdvancedFilter"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_marginTop="6dp"
+            android:padding="16dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:text="@string/advanced"
+                android:textAlignment="center"
+                android:fontFamily="@font/vag_bold"
+                android:textSize="12sp"
+                android:textColor="@color/white" />
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</RelativeLayout>

@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activities.menuitems.MyProfile"
+    android:orientation="vertical"
+    android:background="@color/create_font">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:background="@color/blue_2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/profileBackButton"
+                android:src="@drawable/ic_left_arrow"
+                android:layout_centerVertical="true"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+
+            <TextView
+                android:id="@+id/toolbarTextTitle"
+                android:textAlignment="center"
+                android:textColor="@color/create_font"
+                android:fontFamily="@font/vag_bold"
+                android:textSize="16sp"
+                android:text="@string/profile"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/my_info"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:paddingTop="32dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/my_info"
+                android:textColor="@color/font_hint"
+                android:fontFamily="@font/vag_bold"
+                android:textSize="16sp"
+                android:drawablePadding="28dp"
+                app:drawableEndCompat="@drawable/ic_right_arrow"
+                app:drawableTint="@color/font_hint" />
+
+            <TextView
+                android:id="@+id/access_data"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/access_data"
+                android:textColor="@color/font_hint"
+                android:fontFamily="@font/vag_bold"
+                android:textAlignment="viewStart"
+                android:textSize="16sp"
+                android:drawablePadding="28dp"
+                app:drawableEndCompat="@drawable/ic_right_arrow"
+                app:drawableTint="@color/font_hint" />
+
+            <TextView
+                android:id="@+id/my_business"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:paddingTop="16dp"
+                android:paddingBottom="16dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/my_business"
+                android:textColor="@color/font_hint"
+                android:fontFamily="@font/vag_bold"
+                android:textAlignment="viewStart"
+                android:textSize="16sp"
+                android:drawablePadding="28dp"
+                app:drawableEndCompat="@drawable/ic_right_arrow"
+                app:drawableTint="@color/font_hint" />
+
+            <TextView
+                android:id="@+id/units_location"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="?attr/selectableItemBackgroundBorderless"
+                android:paddingTop="16dp"
+                android:paddingBottom="32dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/units_locations"
+                android:textColor="@color/font_hint"
+                android:fontFamily="@font/vag_bold"
+                android:textAlignment="viewStart"
+                android:textSize="16sp"
+                android:drawablePadding="28dp"
+                app:drawableEndCompat="@drawable/ic_right_arrow"
+                app:drawableTint="@color/font_hint" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>

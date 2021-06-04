@@ -1,0 +1,680 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/create_font"
+    android:orientation="vertical"
+    tools:context=".activities.menuitems.UnitsLocation">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue_2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/unitsLocationBackButton"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_left_arrow" />
+
+            <TextView
+                android:id="@+id/toolbarTextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/vag_bold"
+                android:text="@string/units_locations"
+                android:textAlignment="center"
+                android:textColor="@color/create_font"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:id="@+id/unit1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/location_units_background"
+                android:onClick="firstBusinessClicked"
+                android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/levelTwoName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Filarmonici Auto Rental"
+                    android:textColor="@color/font_hint"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/downArrow1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_icon_down_arrow_blue" />
+
+            </RelativeLayout>
+
+            --------------------------------------------------------------------------
+
+            <ScrollView
+                android:id="@+id/subMenu"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:id="@+id/data"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/affiliationNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="390677031619"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/businessName"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental RAM"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:id="@+id/lineDesign"
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="391677031616"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental - Almirante"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="390677031619"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental - Piantini"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="391677031618"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental - Jardines del Sur"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="391677031613"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental - General Antonio Duvergé"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="391677031819"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental - Ensanche Naco"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="391677031614"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental - Honduras del Norte"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="391677031613"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental - Honduras del Sur"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+            --------------------------------------------------------------------------
+
+            <RelativeLayout
+                android:id="@+id/unit2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/location_units_background"
+                android:onClick="secondBusinessClicked"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Intous Auto Rental"
+                    android:textColor="@color/font_hint"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/downArrow2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_icon_down_arrow_blue" />
+
+            </RelativeLayout>
+            ---------------------------------------------------------------------------
+
+            <ScrollView
+                android:id="@+id/subMenu1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="391677031618"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental - Jardines del Sur"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="391677031669"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental - General Antonio Duvergé"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="391677031819"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Auto Rental - Ensanche Naco"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+            ---------------------------------------------------------------------------
+
+            <RelativeLayout
+                android:id="@+id/unit3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/location_units_background"
+                android:onClick="thirdBusinessClicked"
+                android:padding="16dp">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Affiliated Auto Rental"
+                    android:textColor="@color/font_hint"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:id="@+id/downArrow3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/ic_icon_down_arrow_blue" />
+
+            </RelativeLayout>
+            ----------------------------------------------------------------------------
+
+            <ScrollView
+                android:id="@+id/subMenu2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="098765432"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Espacio para colocar nombre fe localidad"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="098765432"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Espacio para colocar nombre de localidad"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/white"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:text="098765432"
+                            android:textColor="@color/blue_2"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:paddingStart="16dp"
+                            android:paddingEnd="16dp"
+                            android:paddingBottom="8dp"
+                            android:text="Espacio para colocar nombre re localidad"
+                            android:textColor="@color/font_hint"
+                            android:textSize="16sp" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="@color/line_style" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+            </ScrollView>
+            ----------------------------------------------------------------------------
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/unlink_background"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/grid_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="2dp"
+        android:background="@color/white">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RelativeLayout
+                android:id="@+id/layoutLocation_ref_no"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="14dp">
+
+                <TextView
+                    android:id="@+id/tvLocationName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/vag_bold"
+                    android:textColor="@color/slider_heading"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvTime"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/slider_heading"
+                    android:textSize="10sp" />
+
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutLocation_Price"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutLocation_ref_no"
+                android:layout_marginStart="16dp"
+                android:layout_marginBottom="12dp">
+
+                <TextView
+                    android:id="@+id/tvReferenceNo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_centerVertical="true"
+                    android:fontFamily="@font/vag_light"
+                    android:textColor="@color/button_generar_estado"
+                    android:textSize="10sp"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/tvPrice"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/vag_bold"
+                    android:gravity="center_vertical"
+                    android:textColor="@color/button_generar_estado"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </LinearLayout>
+
+</LinearLayout>

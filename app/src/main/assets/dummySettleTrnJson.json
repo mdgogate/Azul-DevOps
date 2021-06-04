@@ -1,0 +1,91 @@
+{
+  "status": "ok",
+  "settleTransactions": {
+    "Transactions": [{
+      "CardNumber": "8860 12** **** 4760",
+      "CardName": "Débito  |",
+      "ApprovalNumber": "333315",
+      "TransactionDate": "02/05/2021 - 5:20 p.m.",
+      "Amount": "450.00",
+      "ReferenceNo": "0302121729",
+      "SettleDaate": "03/06/2021",
+      "TerminalId": "3577411",
+      "TransactionType": "Venta",
+      "lotNo": "05",
+      "cardType": "0"
+    }, {
+      "CardNumber": "1155 55** **** 5555",
+      "CardName": "Débito  |",
+      "ApprovalNumber": "319919",
+      "TransactionDate": "02/05/2021 - 5:20 p.m.",
+      "Amount": "555.00",
+      "ReferenceNo": "0302121729",
+      "SettleDaate": "03/06/2021",
+      "TerminalId": "7898945",
+      "TransactionType": "Venta",
+      "lotNo": "10",
+      "cardType": "1"
+    }, {
+      "CardNumber": "5555 12** **** 8055",
+      "CardName": "Débito  |",
+      "ApprovalNumber": "333315",
+      "TransactionDate": "02/05/2021 - 5:20 p.m.",
+      "Amount": "650.00",
+      "ReferenceNo": "0302121729",
+      "SettleDaate": "03/06/2021",
+      "TerminalId": "1545474",
+      "TransactionType": "Venta",
+      "lotNo": "55",
+      "cardType": "2"
+    }, {
+      "CardNumber": "5555 87** **** 6740",
+      "CardName": "Débito  |",
+      "ApprovalNumber": "319919",
+      "TransactionDate": "02/05/2021 - 5:20 p.m.",
+      "Amount": "444.00",
+      "ReferenceNo": "0302121729",
+      "SettleDaate": "03/06/2021",
+      "TerminalId": "7898745",
+      "TransactionType": "Venta",
+      "lotNo": "25",
+      "cardType": "2"
+    }, {
+      "CardNumber": "8520 74** **** 7896",
+      "CardName": "Débito  |",
+      "ApprovalNumber": "333315",
+      "TransactionDate": "02/05/2021 - 5:20 p.m.",
+      "Amount": "350.00",
+      "ReferenceNo": "0302121729",
+      "SettleDaate": "03/06/2021",
+      "TerminalId": "5285647",
+      "TransactionType": "Venta",
+      "lotNo": "52",
+      "cardType": "1"
+    }, {
+      "CardNumber": "6088 21** **** 7648",
+      "CardName": "Débito  |",
+      "ApprovalNumber": "488455",
+      "TransactionDate": "02/05/2021 - 5:20 p.m.",
+      "Amount": "850.00",
+      "ReferenceNo": "0302121729",
+      "SettleDaate": "03/06/2021",
+      "TerminalId": "7412588",
+      "TransactionType": "Venta",
+      "lotNo": "25",
+      "cardType": "2"
+    }, {
+      "CardNumber": "6666 66** **** 5665",
+      "CardName": "Débito  |",
+      "ApprovalNumber": "319919",
+      "TransactionDate": "02/05/2021 - 5:20 p.m.",
+      "Amount": "400.00",
+      "ReferenceNo": "0302121729",
+      "SettleDaate": "03/06/2021",
+      "TerminalId": "7563582",
+      "TransactionType": "Venta",
+      "lotNo": "10",
+      "cardType": "0"
+    }
+    ]
+  }
+}

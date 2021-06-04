@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple_500">#FF6200EE</color>
+    <color name="purple_700">#FF3700B3</color>
+    <color name="teal_200">#FF03DAC5</color>
+    <color name="teal_700">#FF018786</color>
+    <color name="black">#FF000000</color>
+    <color name="aert_black">#000000</color>
+    <color name="aert_light_black">#787777</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="white_bg">#FFFFFF</color>
+    <color name="blue_1">#27316E</color>
+    <color name="blue_2">#0057B8</color>
+    <color name="blue_3">#0091DF</color>
+    <color name="font_hint">#2C3B89</color>
+    <color name="font_hint_light">#002C3B89</color>
+    <color name="login_error_font">#FFB1B1</color>
+    <color name="gradient_button_left">#0057B8</color>
+    <color name="gradient_button_right">#3EAEC9</color>
+    <color name="qr_button_font">#E9F4FA</color>
+    <color name="reset_password_font">#3EAEC9</color>
+    <color name="create_font">#E9F4FA</color>
+    <color name="qr_border">#3EAEC9</color>
+    <color name="color_bar">#0057B8</color>
+    <color name="cursor_circle">#0091DF</color>
+    <color name="text_border">#E9F4FA</color>
+    <color name="square_style">#8F2C3B89</color>
+    <color name="line_style">#CBD6E8</color>
+    <color name="login_button_font">#E9F4FA</color>
+    <color name="bottom_sheet_font1">#0057B8</color>
+    <color name="unlink_background">#D9E5F1</color>
+    <color name="centro_azul_background">#290091DF</color>
+    <color name="location_units_background">#D9E5F1</color>
+    <color name="slider_heading">#006EB8</color>
+    <color name="slider_dot_active">#0091DF</color>
+    <color name="slider_dot_inactive">#FFFFFF</color>
+    <color name="slider_dot_background">#0057B8</color>
+    <color name="dashboard_icon_border">#05000000</color>
+    <color name="bottom_navigation_bar_selector">#0091DF</color>
+    <color name="bottom_navigation_icon_selected">#0091DF</color>
+    <color name="toast_col">#ABDFFB</color>
+    <color name="bottom_navigation_bar_text">#0057B8</color>
+    <color name="bottom_navigation_icon_not_selected">#0057B8</color>
+    <color name="button_generar_estado">#2C3B89</color>
+    <color name="button_generar_estado_text">#E9F4FA</color>
+    <color name="date_filter_title">#2C3B89</color>
+    <color name="date_border_color">#3EAEC9 </color>
+    <color name="init_date_brd_color">#E9F4FA</color>
+    <color name="editText_bg">#F8FBFC</color>
+    <color name="clear_bg">#F3A900</color>
+    <color name="no_record_found">#9699AA</color>
+    <color name="total_received">#006EB8</color>
+    <color name="time_frame">#9699AA</color>
+    <color name="date_range_bg">#F6F9FB</color>
+
+</resources>

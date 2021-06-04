@@ -1,0 +1,155 @@
+<resources>
+    <string name="app_name">Azul</string>
+    <string name="user">User</string>
+    <string name="ok_lable">OK</string>
+    <string name="continue_lable">Continue</string>
+    <string name="loading_lbl">Loading…</string>
+    <string name="error_label">Error</string>
+    <string name="session_msg">Your session has expired. Please login again.</string>
+    <string name="no_internet_msg">Please check your internet connection.</string>
+    <string name="user_incorrect">User name incorrect</string>
+    <string name="password_incorrect">Login error Invalid password.</string>
+    <string name="login">Log in</string>
+    <string name="forgot_password">Did you forget your password?</string>
+    <string name="membership_request">Request your membership here</string>
+    <string name="not_azul_customer">Still not a AZUL customer?</string>
+    <string name="get_blue_code">Get your BLUE QR Code</string>
+    <string name="qr_bar">BLUE QR Code Request</string>
+    <string name="forgot_bar">I forgot my password</string>
+    <string name="register_bar">BLUE affiliation</string>
+    <string name="alert">To complete the application, you will be \n directed to the AZUL website \n in azul.com.do Do you want to continue \n the process?</string>
+    <string name="pin_text">Set your security PIN \n</string>
+    <string name="access_data">Access data</string>
+    <string name="profile">My profile</string>
+    <string name="my_info">My information</string>
+    <string name="my_business">My business</string>
+    <string name="units_locations">locations</string>
+    <string name="call_center">BLUE\nCenter</string>
+    <string name="back_text">Get out</string>
+    <string name="confirm_pin">Enter your PIN</string>
+    <string name="location">Location</string>
+    <string name="slider_heading">Sales summary</string>
+    <string name="home">beginning</string>
+    <string name="add">Create request</string>
+    <string name="generate_statement">Generate status</string>
+    <string name="consultant">Consultant</string>
+    <string name="order_product">Order products</string>
+    <string name="qr_code">QR code</string>
+    <string name="linkPage">Payments Link</string>
+    <string name="hello">Hello!</string>
+    <string name="blue_qr_code">BLUE QR Code</string>
+    <string name="quick_sale">Quick Sale</string>
+    <string name="access_account">Access your account</string>
+    <string name="Transacciones_qr">QR transactions</string>
+
+    <!-- Pin access-->
+    <string name="alert_title">The digits don\'t match.</string>
+    <string name="alert_message">Please try again.</string>
+    <string name="alert_continue">CONTINUE</string>
+    <string name="confirm_pin_first_time">Confirm your pin</string>
+
+    <!--Error messages -->
+    <string name="username_error">Please enter your username to continue.</string>
+    <string name="pass_error">Please enter your password to continue.</string>
+
+    <!--Sale Widget -->
+    <string name="total_received">Total received</string>
+    <string name="net_sales">Net sales</string>
+    <string name="total_discount">Total discount</string>
+    <string name="amount">Amount:</string>
+    <string name="quantity">Quantity:</string>
+    <string name="time_frame1">- Last day</string>
+    <string name="time_frame2">- Month to date</string>
+    <string name="time_frame3">- Previous Month</string>
+
+    <!-- My information -->
+    <string name="change_profile_picture">Change profile picture</string>
+    <string name="username">Username</string>
+    <string name="username_lastname">Names(s)/Last Name(s)</string>
+    <string name="identification_number">No. identification (Certificate or Passport)</string>
+    <string name="dob">Date of birth</string>
+    <string name="occupation">Occupation</string>
+    <string name="telephone">Telephone</string>
+    <string name="cellular">Cellular</string>
+    <string name="email">Email</string>
+    <string name="role">Role</string>
+
+    <!-- Access Data -->
+    <string name="last_access">Last access</string>
+    <string name="password">Password</string>
+
+    <!-- Access Data -->
+    <string name="unlink_accounts">Unlink accounts</string>
+    <string name="my_profile">My profile</string>
+
+
+    <!-- Business -->
+    <string name="name">Name</string>
+    <string name="rnc">RNC</string>
+    <string name="industrial_sector">Industrial sector</string>
+
+    <!-- keypad -->
+    <string name="zero">0</string>
+    <string name="one">1</string>
+    <string name="two">2</string>
+    <string name="three">3</string>
+    <string name="four">4</string>
+    <string name="five">5</string>
+    <string name="six">6</string>
+    <string name="seven">7</string>
+    <string name="eight">8</string>
+    <string name="nine">9</string>
+
+    <!-- qrCode dashboard-->
+    <string name="my_qr_code">My QR Code</string>
+    <string name="my_payment_received">My payments received</string>
+    <string name="show_qrcode">Show this QR code to your customers</string>
+    <string name="swipe_left">Swipe left to see the day\'s sales</string>
+    <string name="sales_of_day">Sales of the day</string>
+
+    <!-- consultant dashboard bottomsheet-->
+    <string name="consultation">Consultation</string>
+    <string name="liquidated_transactions">Liquidated Transactions</string>
+    <string name="qr_transactions">QR transactions</string>
+
+    <!-- bottom message dialog-->
+    <string name="last_day">Last\nDay</string>
+    <string name="month_to_date">Month to\ndate</string>
+    <string name="previous_month">Previous\nMonth</string>
+    <string name="advanced">Advanced</string>
+
+
+    <!--Hard value in sale widget-->
+    <string name="amount_number">RD$ 145,674,784.9</string>
+    <string name="net_sale_amount">RD$ 145,674.90</string>
+    <string name="net_discount_amount">RD$  3,641,894.6</string>
+    <string name="quantity_number">89</string>
+    <string name="date">20/04/2021</string>
+    <string name="fifteen_day">01/04/2021 - 15/04/2021</string>
+    <string name="month">March 2021</string>
+
+    <string name="generate_status">Generate Status</string>
+    <string name="select_date_range">Select Date range</string>
+    <string name="date_compare">To date must be smaller than from date</string>
+    <string name="current_date_compare">Selected date must be smaller than current date</string>
+    <string name="from_date">Since</string>
+    <string name="to_date">Until</string>
+    <string name="req_product">Request product</string>
+    <string name="payment_link">Payment link</string>
+    <string name="today">Today</string>
+
+    <string name="monto">Amount</string>
+    <string name="reference_no">Reference No.</string>
+    <string name="Cancel">Cancel</string>
+    <string name="no_records">There are no transactions</string>
+
+    <string name="ref_no_label">No. Ref. </string>
+    <string name="amount_label">RD$ </string>
+    <string name="swipe_right">Swipe right to see your QR Code</string>
+
+    <string name="No.lot">No. lot</string>
+    <string name="No.approval">No. approval</string>
+    <string name="No.terminal">No. terminal</string>
+    <string name="No.card">No. card</string>
+
+</resources>

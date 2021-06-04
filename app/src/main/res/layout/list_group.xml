@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:id="@+id/parentView"
+    android:background="@color/location_units_background">
+
+        <RelativeLayout
+            android:id="@+id/groupContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="16dp">
+
+                <TextView
+                    android:id="@+id/tvGroup"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Group"
+                    android:textSize="16sp"
+                    android:fontFamily="@font/vag_bold"
+                    android:textColor="@color/font_hint"/>
+
+                <ImageView
+                    android:id="@+id/tvAmount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_icon_down_arrow_blue"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/lineContainer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/groupContainer">
+                <View
+                    android:id="@+id/lineDesign"
+                    android:layout_width="match_parent"
+                    android:layout_height="2dp"
+                    android:background="@color/text_border"/>
+        </RelativeLayout>
+
+</RelativeLayout>

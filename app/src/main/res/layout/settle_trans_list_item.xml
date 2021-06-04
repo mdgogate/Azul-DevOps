@@ -1,0 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/create_font"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|center_vertical"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/card_back_with_shadow"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/cardImgView"
+                android:layout_width="match_parent"
+                android:layout_height="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="12dp"
+                android:layout_marginEnd="3dp"
+                android:layout_weight="0.7"
+                android:src="@drawable/mastercard_logo" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="10dp"
+                android:layout_weight="0.1"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvCardNumber"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/l2"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="5360 12** **** 4760"
+                        android:textColor="@color/total_received"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/tvDateTime"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardNameNo"
+                        android:layout_gravity="top"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_bold"
+                        android:gravity="top"
+                        android:text="02/05/2021 - 5:20 p.m."
+                        android:textColor="@color/cursor_circle"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/l2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/tvCardName1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_bold"
+                            android:text="Débito |"
+                            android:textColor="@color/button_generar_estado"
+                            android:textSize="10sp" />
+
+                        <TextView
+                            android:id="@+id/tvApprovalNo"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@id/l2"
+                            android:layout_marginStart="5dp"
+                            android:fontFamily="@font/vag_bold"
+                            android:text="Aprobado 319919"
+                            android:textColor="@color/date_border_color"
+                            android:textSize="10sp" />
+
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/tvAmount"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardNameNo"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="RD$ 400.00"
+                        android:textColor="@color/font_hint"
+                        android:textSize="11sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/l3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/l2"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="Tipo de transacción"
+                        android:textColor="@color/total_received"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tvtransactionType"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/cardNameNo"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_light"
+                        android:text="Venta"
+                        android:textColor="@color/font_hint"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <View
+                    android:id="@+id/v1"
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/l3"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/qr_button_font" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/l4"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/v1"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="Terminal ID"
+                        android:textColor="@color/total_received"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tvTerminalId"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/v21"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_light"
+                        android:text="5914100"
+                        android:textColor="@color/font_hint"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/l3"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/qr_button_font" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/l5"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="No. Lote"
+                        android:textColor="@color/total_received"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tvLotNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_light"
+                        android:text="No. Lote"
+                        android:textColor="@color/font_hint"
+                        android:textSize="10sp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/l3"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/qr_button_font" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/l6"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="No. Referencia"
+                        android:textColor="@color/total_received"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tvRefNo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/v23"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_light"
+                        android:text="0302121729"
+                        android:textColor="@color/font_hint"
+                        android:textSize="10sp" />
+
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:layout_below="@id/l3"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@color/qr_button_font" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="Fecha de liquidación"
+                        android:textColor="@color/total_received"
+                        android:textSize="10sp" />
+
+                    <TextView
+                        android:id="@+id/tvSettleDate"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/v24"
+                        android:layout_marginStart="8dp"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_light"
+                        android:text="03/06/2021"
+                        android:textColor="@color/font_hint"
+                        android:textSize="10sp" />
+
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>

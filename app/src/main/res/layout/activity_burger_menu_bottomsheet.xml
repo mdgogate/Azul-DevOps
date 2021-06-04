@@ -1,0 +1,159 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white"
+    tools:ignore="UnusedAttribute">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/qr_button_font"
+            android:orientation="vertical">
+
+            <!--line style-->
+
+            <View
+                android:layout_width="32dp"
+                android:layout_height="4dp"
+                android:layout_marginTop="16dp"
+                android:layout_gravity="center"
+                android:background="@color/line_style"/>
+
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="24dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="32dp">
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/cardView"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_centerVertical="true"
+                    app:cardCornerRadius="100dp">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:scaleType="centerCrop"
+                        android:background="@drawable/bg_gradient_background"
+                        android:src="@drawable/ic_bg_texture_grid_azul" />
+
+                </androidx.cardview.widget.CardView>
+
+                <TextView
+                    android:id="@+id/user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/cardView"
+                    android:text="Prueba Ficticio"
+                    android:fontFamily="@font/vag_bold"
+                    android:textColor="@color/bottom_sheet_font1"
+                    android:textSize="20sp"/>
+
+                <TextView
+                    android:id="@+id/user_prof"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/cardView"
+                    android:layout_below="@+id/user_name"
+                    android:text="Grupo Ficticio CxA"
+                    android:fontFamily="@font/vag_bold"
+                    android:textColor="@color/font_hint"
+                    android:textSize="16sp"/>
+
+                <TextView
+                    android:id="@+id/date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toEndOf="@+id/cardView"
+                    android:layout_below="@+id/user_prof"
+                    android:text="20 de Marzo, 2021"
+                    android:fontFamily="@font/vag_light"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp"/>
+
+            </RelativeLayout>
+
+            <!--line style-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_style"/>
+
+            <RelativeLayout
+                android:id="@+id/miPerfilLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:paddingTop="32dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="32dp">
+
+
+                <TextView
+                    android:id="@+id/my_profile"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="16dp"
+                    android:text="@string/my_profile"
+                    android:fontFamily="@font/vag_bold"
+                    android:textColor="@color/font_hint"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_user" />
+
+
+            </RelativeLayout>
+
+            <!--line style-->
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/line_style"/>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:background="@color/unlink_background"
+                android:paddingTop="24dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="24dp">
+
+
+                <TextView
+                    android:id="@+id/unlink_account"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawablePadding="16dp"
+                    android:text="@string/unlink_accounts"
+                    android:fontFamily="@font/vag_bold"
+                    android:textColor="@color/font_hint"
+                    android:textSize="20sp"
+                    app:drawableStartCompat="@drawable/ic_icon_desvincular"/>
+
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+</LinearLayout>

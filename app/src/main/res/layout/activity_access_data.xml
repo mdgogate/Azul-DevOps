@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/create_font"
+    android:orientation="vertical"
+    tools:context=".activities.menuitems.AccessData">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:background="@color/blue_2"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/accessDataBackButton"
+                android:src="@drawable/ic_left_arrow"
+                android:layout_centerVertical="true"
+                android:layout_width="24dp"
+                android:layout_height="24dp"/>
+
+            <TextView
+                android:id="@+id/toolbarTextTitle"
+                android:textAlignment="center"
+                android:textColor="@color/create_font"
+                android:fontFamily="@font/vag_bold"
+                android:textSize="16sp"
+                android:text="@string/access_data"
+                android:layout_centerVertical="true"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/last_access"
+                    android:textColor="@color/blue_2"
+                    android:fontFamily="@font/vag_bold"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="miércoles 17 de marzo, 2021 4:12 p.m."
+                    android:textColor="@color/font_hint"
+                    android:fontFamily="@font/vag_light"
+                    android:textSize="16sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line_style"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@color/white"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="@string/password"
+                    android:textColor="@color/blue_2"
+                    android:fontFamily="@font/vag_bold"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="8dp"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="********"
+                    android:textColor="@color/font_hint"
+                    android:fontFamily="@font/vag_light"
+                    android:textSize="16sp"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/line_style"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+
+</LinearLayout>
