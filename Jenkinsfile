@@ -30,7 +30,7 @@ pipeline {
               script {
               	 androidUtils.build(gradleArgs: "assembleRelease --parallel -x lintVitalRelease  " )
                 //androidUtils.signAPK(apksToSign: "**/**/*.apk",keyAlias: "", keyStoreId : "" )
-                step([$class: 'SignApksBuilder', apksToSign:  "**/**/*.apk", archiveSignedApks: false, skipZipalign: true, keyAlias: 'banco popular', keyStoreId: 'bpd-app-ampresarial-keystore'])
+                step([$class: 'SignApksBuilder', apksToSign:  "**/**/*.apk", archiveSignedApks: false, skipZipalign: true, keyAlias: 'banco popular', keyStoreId: 'bpd-app-azul-android-keystore'])
                
               }
                 
@@ -62,7 +62,7 @@ pipeline {
 					appEnv: "Development",
 					distributionGroup : "Testers",
 					artifactPath: "app/build/outputs/apk/release/app-release.apk",
-					appCenterApplication: "Banco-Popular-Dominicano-App-Testing/App-Empresarial-Android"
+					appCenterApplication: "Banco-Popular-Dominicano-App-Testing/azul-app-android"
 					)
                 }
                 
