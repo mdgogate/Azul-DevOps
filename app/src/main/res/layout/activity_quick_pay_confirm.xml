@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/blue_background"
+    android:orientation="vertical"
+    tools:context=".activities.payment.PaymentConfirmaActivity">
+
+    <RelativeLayout
+        android:id="@+id/toolbar_ic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/white_bg">
+
+        <ImageView
+            android:id="@+id/burgerMenuLoginBtn"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/blue_burger_menu" />
+
+        <ImageView
+            android:id="@+id/btnBackScreen"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginStart="16sp"
+            android:layout_marginTop="22dp"
+            android:layout_marginEnd="16dp"
+            android:src="@drawable/left_arrow"
+            android:visibility="visible" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/qrCodeIcon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbar_ic"
+        android:background="@color/white_bg">
+
+        <ImageView
+            android:id="@+id/qrIcon"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/ic_icon_link_de_pago_full_color" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/qrIcon"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="20sp"
+            android:fontFamily="@font/vag_bold"
+            android:gravity="center_horizontal"
+            android:text="Generar Link de Pagos"
+            android:textColor="#0057B8"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/qrCodeIcon"
+        android:layout_marginBottom="28dp"
+        android:background="@drawable/invoice_bg">
+
+        <RelativeLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:id="@+id/tvconfirmInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24sp"
+                android:layout_marginTop="14dp"
+                android:layout_marginEnd="23dp"
+                android:fontFamily="@font/vag_light"
+                android:gravity="center_horizontal"
+                android:text=" Confirma los siguientes campos \nantes de generar el Link de Pago:"
+                android:textColor="@color/time_frame"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvTitlePaymentdetails"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tvconfirmInfo"
+                android:layout_marginTop="12dp"
+                android:background="#F8FBFC"
+                android:fontFamily="@font/vag_bold"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Datos del pago"
+                android:textColor="@color/slider_dot_active"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/layoutCommerce"
+                android:layout_width="311dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitlePaymentdetails"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="9dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Comercio:"
+                    android:textColor="@color/slider_heading"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvComercio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_light"
+                    android:text="Importadora Wu SRL"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutLocations"
+                android:layout_width="311dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutCommerce"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvLocationTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Localidad:"
+                    android:textColor="@color/slider_heading"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvLocalidadName"
+                    android:layout_width="122dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="100dp"
+                    android:layout_toRightOf="@id/tvLocationTitle"
+                    android:fontFamily="@font/vag_light"
+                    android:layout_centerVertical="true"
+                    android:gravity="center_vertical"
+                    android:text="Affiliated Auto Rental"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
+
+                <ImageView
+                    android:id="@+id/openLocationBar"
+                    android:layout_width="18dp"
+                    android:layout_height="16dp"
+                    android:layout_marginStart="5dp"
+                    android:layout_toRightOf="@id/tvLocalidadName"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/location_edit" />
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutTranactions"
+                android:layout_width="311dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutLocations"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Tipo de transacción: "
+                    android:textColor="@color/slider_heading"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvTrnType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="7dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_light"
+                    android:text="Venta"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutOrderInfo"
+                android:layout_width="311dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutTranactions"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="No. orden/venta:"
+                    android:textColor="@color/slider_heading"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etOrderNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_background"
+                    android:fontFamily="@font/vag_light"
+                    android:hint="Opcional"
+                    android:textColor="@color/font_hint"
+                    android:textColorHint="#C4D0DC"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutCustomerName"
+                android:layout_width="311dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutOrderInfo"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Nombre Cliente:"
+                    android:textColor="@color/slider_heading"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etCustomerName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_background"
+                    android:fontFamily="@font/vag_light"
+                    android:hint="Opcional"
+                    android:textColor="@color/font_hint"
+                    android:textColorHint="#C4D0DC"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutEmail"
+                android:layout_width="311dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutCustomerName"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Correo Electrónico:"
+                    android:textColor="@color/slider_heading"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:background="@drawable/border_background"
+                    android:fontFamily="@font/vag_light"
+                    android:hint="Opcional"
+                    android:inputType="textEmailAddress"
+                    android:textColor="@color/font_hint"
+                    android:textColorHint="#C4D0DC"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutITBIS"
+                android:layout_width="311dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutEmail"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp">
+
+                <TextView
+                    android:id="@+id/tvItbisTitle"
+                    android:layout_width="85dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/vag_bold"
+                    android:gravity="center_vertical"
+                    android:text="Mostrar ITBIS:"
+                    android:textColor="@color/slider_heading"
+                    android:textSize="14sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/switchITBIS"
+                    android:layout_width="29dp"
+                    android:layout_height="16dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_toRightOf="@+id/tvItbisTitle"
+                    android:src="@drawable/switch_off_state" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginStart="17dp"
+                    android:layout_toRightOf="@+id/switchITBIS"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/layoutSearchByEdittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_background"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/searchinActive"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/vag_light"
+                            android:tag="bg"
+                            android:text="RD$ "
+                            android:textColor="#C4D0DC"
+                            android:textColorHint="#C4D0DC"
+                            android:textSize="12sp" />
+
+
+                        <EditText
+                            android:id="@+id/etITBISAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_toEndOf="@+id/searchinActive"
+                            android:background="@null"
+                            android:digits="0123456789.,"
+                            android:enabled="false"
+                            android:fontFamily="@font/vag_light"
+                            android:gravity="center_vertical"
+                            android:hint="0.00"
+                            android:inputType="number"
+                            android:textColor="@color/font_hint"
+                            android:textColorHint="#C4D0DC"
+                            android:textSize="12sp" />
+
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tvITBISError"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_light"
+                        android:textColor="#FF3A3A"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutTotalAmount"
+                android:layout_width="311dp"
+                android:layout_centerHorizontal="true"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutITBIS"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:id="@+id/tvAmountTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="Monto total:"
+                        android:textColor="@color/slider_heading"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvITBISInclude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_light"
+                        android:text="(Incluye ITBIS)"
+                        android:textColor="@color/slider_heading"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:visibility="visible" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/layoutAmountAllComp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_background"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/searchinAmount"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/vag_light"
+                            android:tag="bg"
+                            android:text="RD$ "
+                            android:textColor="#C4D0DC"
+                            android:textColorHint="#C4D0DC"
+                            android:textSize="12sp" />
+
+
+                        <EditText
+                            android:id="@+id/etTotalAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_toEndOf="@+id/searchinAmount"
+                            android:layout_weight="1"
+                            android:background="@null"
+                            android:digits="0123456789.,"
+                            android:fontFamily="@font/vag_light"
+                            android:gravity="center_vertical"
+                            android:hint="RD$ 0.00"
+                            android:inputType="number"
+                            android:textColor="@color/font_hint"
+                            android:textColorHint="#C4D0DC"
+                            android:textSize="12sp" />
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tvAmountError"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_light"
+                        android:textColor="#FF3A3A"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+
+            <Button
+                android:id="@+id/btnConfirmPayment"
+                android:layout_width="311dp"
+                android:layout_height="56dp"
+                android:layout_below="@+id/layoutTotalAmount"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="15dp"
+                android:background="@drawable/link_button_background"
+                android:fontFamily="@font/vag_bold"
+                android:text="Confirmar"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal|center_vertical"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cancelPayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnConfirmPayment"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="11dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/vag_light"
+                android:gravity="center_horizontal"
+                android:text="@string/Cancel"
+                android:textColor="#9699AA"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+</RelativeLayout>

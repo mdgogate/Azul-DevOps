@@ -6,6 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
+        android:id="@+id/mainShadowItem"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center|center_vertical"
@@ -24,7 +25,7 @@
             <ImageView
                 android:id="@+id/cardImgView"
                 android:layout_width="match_parent"
-                android:layout_height="24dp"
+                android:layout_height="26dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="12dp"
                 android:layout_marginEnd="3dp"
@@ -54,7 +55,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/vag_bold"
                         android:text="5360 12** **** 4760"
-                        android:textColor="@color/total_received"
+                        android:textColor="@color/blue_3"
                         android:textSize="14sp" />
 
                     <TextView
@@ -67,7 +68,6 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/vag_bold"
                         android:gravity="top"
-                        android:text="02/05/2021 - 5:20 p.m."
                         android:textColor="@color/cursor_circle"
                         android:textSize="11sp" />
                 </LinearLayout>
@@ -88,8 +88,10 @@
                             android:id="@+id/tvCardName1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:fontFamily="@font/vag_bold"
+                            android:fontFamily="@font/vag_light"
                             android:text="Débito |"
+                            android:gravity="center_vertical"
+                            android:layout_gravity="center_vertical"
                             android:textColor="@color/button_generar_estado"
                             android:textSize="10sp" />
 
@@ -115,7 +117,7 @@
                         android:layout_weight="1"
                         android:fontFamily="@font/vag_bold"
                         android:text="RD$ 400.00"
-                        android:textColor="@color/font_hint"
+                        android:textColor="@color/blue_2"
                         android:textSize="11sp" />
                 </LinearLayout>
 

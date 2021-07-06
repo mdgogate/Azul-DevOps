@@ -1,23 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:cardCornerRadius="8dp"
         android:layout_marginStart="8dp"
-        android:layout_marginEnd="8dp">
+        android:layout_marginEnd="8dp"
+        app:cardCornerRadius="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="16dp"
+            android:background="@drawable/bd_slider_widget"
             android:orientation="vertical"
-            android:background="@drawable/bd_slider_widget">
+            android:paddingTop="8dp"
+            android:paddingBottom="12dp"
+            android:paddingStart="16dp"
+            android:paddingEnd="13dp">
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -27,50 +30,66 @@
                     android:id="@+id/totalReceived"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:fontFamily="@font/vag_bold"
                     android:text="@string/total_received"
                     android:textColor="@color/total_received"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/vag_bold"
-                    android:layout_alignParentStart="true"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/month"
+                    android:layout_toRightOf="@+id/totalReceived"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="@color/font_hint"
-                    android:textSize="10sp"
+                    android:layout_marginTop="1.6dp"
+                    android:layout_toStartOf="@id/timeFrame"
                     android:fontFamily="@font/vag_bold"
-                    android:layout_toStartOf="@id/timeFrame"/>
+                    android:text="21/06/2021"
+                    android:textColor="@color/font_hint"
+                    android:textSize="11sp" />
 
                 <TextView
                     android:id="@+id/timeFrame"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="2dp"
-                    android:textColor="@color/time_frame"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/montserrat_semi_bold"
+                    android:layout_marginTop="1dp"
+                    android:text=" - Mes a la fecha"
+                    android:textColor="@color/slider_heading"
+                    android:textSize="11sp" />
+
+                <TextView
+                    android:id="@+id/tvDateFilter"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/timeFrame"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="1dp"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="05/06/2021 - 21/06/2021"
+                    android:textColor="@color/font_hint"
                     android:textSize="10sp"
-                    android:fontFamily="@font/vag_light"
-                    android:layout_alignParentEnd="true"/>
+                    android:visibility="visible" />
 
                 <TextView
                     android:id="@+id/amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/totalReceived"
+                    android:fontFamily="@font/vag_bold"
                     android:text="@string/amount_number"
                     android:textColor="@color/font_hint"
-                    android:textSize="20sp"
-                    android:fontFamily="@font/vag_bold"
-                    android:layout_below="@id/totalReceived"/>
+                    android:textSize="20sp" />
 
             </RelativeLayout>
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/line_style"
                 android:layout_marginTop="5dp"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:background="@color/line_style" />
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -80,77 +99,81 @@
                     android:id="@+id/netSales"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:fontFamily="@font/vag_bold"
                     android:text="@string/net_sales"
                     android:textColor="@color/total_received"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/vag_bold"
-                    android:layout_alignParentStart="true"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/totalDiscount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/vag_bold"
                     android:text="@string/total_discount"
                     android:textColor="@color/total_received"
-                    android:textSize="14sp"
-                    android:fontFamily="@font/vag_bold"
-                    android:layout_alignParentEnd="true"/>
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/netSalesAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/netSales"
+                    android:layout_centerVertical="true"
+                    android:layout_marginEnd="8dp"
+                    android:fontFamily="@font/vag_bold"
                     android:text="@string/amount"
                     android:textColor="@color/total_received"
-                    android:textSize="10sp"
-                    android:fontFamily="@font/vag_bold"
-                    android:layout_marginEnd="8dp"
-                    android:layout_below="@id/netSales"/>
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/netSalesAmountNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/netSales"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/netSalesAmount"
+                    android:fontFamily="@font/vag_light"
                     android:text="@string/net_sale_amount"
                     android:textColor="@color/font_hint"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/vag_light"
-                    android:layout_below="@+id/netSales"
-                    android:layout_toEndOf="@id/netSalesAmount"/>
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/totalDiscountNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@id/totalDiscount"
+                    android:layout_alignParentEnd="true"
+                    android:fontFamily="@font/vag_light"
                     android:text="@string/net_discount_amount"
                     android:textColor="@color/font_hint"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/vag_light"
-                    android:layout_below="@id/totalDiscount"
-                    android:layout_alignParentEnd="true"/>
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/quantity"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/quantity"
-                    android:textColor="@color/total_received"
-                    android:textSize="10sp"
-                    android:fontFamily="@font/vag_bold"
+                    android:layout_below="@id/netSalesAmount"
+                    android:layout_centerVertical="true"
                     android:layout_marginTop="3dp"
                     android:layout_marginEnd="8dp"
-                    android:layout_below="@id/netSalesAmount"/>
+                    android:fontFamily="@font/vag_bold"
+                    android:text="@string/quantity"
+                    android:textColor="@color/total_received"
+                    android:textSize="10sp" />
 
                 <TextView
                     android:id="@+id/quantityNumber"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/totalDiscountNumber"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/quantity"
+                    android:fontFamily="@font/vag_light"
                     android:text="@string/quantity_number"
                     android:textColor="@color/font_hint"
-                    android:textSize="12sp"
-                    android:fontFamily="@font/vag_light"
-                    android:layout_below="@+id/totalDiscountNumber"
-                    android:layout_toEndOf="@id/quantity"/>
+                    android:textSize="12sp" />
 
             </RelativeLayout>
 

@@ -1,65 +1,279 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/login_two_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_gradient_background">
 
+
     <ImageView
         android:id="@+id/imageView2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
+        android:src="@drawable/ic_bg_texture_grid_azul"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_bg_texture_grid_azul"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/burgerMenuLoginBtn"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_alignParentEnd="true"
         android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="22dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
         android:src="@drawable/ic_icon_burger_menu_mobile" />
 
-    <RelativeLayout
-        android:id="@+id/azulLogoLayout"
-        android:layout_above="@id/welcomeText"
+    <ImageView
+        android:id="@+id/backBtnMenu"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginStart="16sp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/ic_left_arrow"
+        android:visibility="gone" />
+
+    <ScrollView
+        android:id="@+id/qrLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:layout_alignParentTop="true">
+        android:layout_below="@+id/backBtnMenu"
+        android:visibility="gone">
 
-        <ImageView
-            android:id="@+id/imageViewIcon"
-            android:layout_width="144dp"
-            android:layout_height="107dp"
-            android:layout_centerInParent="true"
-            android:src="@drawable/ic_logo" />
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
-    </RelativeLayout>
+            <RelativeLayout
+                android:id="@+id/qrCodeIcon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="30dp"
+                android:visibility="visible">
+
+                <ImageView
+                    android:id="@+id/qrIcon"
+                    android:layout_width="72dp"
+                    android:layout_height="72dp"
+                    android:layout_centerHorizontal="true"
+                    android:src="@drawable/ic_qr_code___icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/qrIcon"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="16dp"
+                    android:fontFamily="@font/vag_bold"
+                    android:gravity="center_horizontal"
+                    android:text="Mi Código QR"
+                    android:textColor="@color/white"
+                    android:textSize="28sp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/qrViewPager"
+                android:layout_width="match_parent"
+                android:layout_height="424dp"
+                android:layout_below="@id/qrCodeIcon"
+                android:layout_marginStart="22dp"
+                android:layout_marginTop="26dp"
+                android:layout_marginEnd="21dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:paddingBottom="20dp">
+
+                    <TextView
+                        android:id="@+id/qrTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="24dp"
+                        android:layout_marginBottom="8dp"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="Prueba"
+                        android:textColor="@color/total_received"
+                        android:textSize="24sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/idContainer"
+                        android:layout_width="wrap_content"
+                        android:layout_height="16dp"
+                        android:layout_below="@+id/qrTitle"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginBottom="12dp"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/qrMerchantId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:text="MID: 24000000007"
+                            android:textColor="@color/font_hint"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/qrTId"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@+id/qrMerchantId"
+                            android:fontFamily="@font/vag_light"
+                            android:text="TID: 2400007"
+                            android:textColor="@color/font_hint"
+                            android:textSize="12sp"
+                            android:textStyle="bold" />
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/imgViewQrCode"
+                        android:layout_width="280dp"
+                        android:layout_height="280dp"
+                        android:layout_below="@id/idContainer"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="22dp"
+                        android:layout_marginEnd="22dp"
+                        android:src="@drawable/qr_code" />
+
+                    <RelativeLayout
+                        android:id="@+id/layoutDownloadShare"
+                        android:layout_width="113dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_height="24dp"
+                        android:layout_below="@+id/imgViewQrCode"
+                       >
+
+                        <ImageView
+                            android:id="@+id/imgDownloadQrCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginEnd="36dp"
+                            android:src="@drawable/qr_download_icon" />
+
+                        <ImageView
+                            android:id="@+id/imgShareQrCode"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="36dp"
+                            android:layout_toRightOf="@id/imgDownloadQrCode"
+                            android:src="@drawable/qr_share_icon" />
+
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+
+            <TextView
+                android:id="@+id/tvshowQrToClient"
+                android:layout_width="272dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/qrViewPager"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:fontFamily="@font/vag_bold"
+                android:gravity="center_horizontal"
+                android:text="Muestra este código QR a tus clientes o\nenvíalo presionando el ícono de compartir"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <LinearLayout
+                android:id="@+id/qrLocationButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvshowQrToClient"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="32dp"
+                android:background="@drawable/bd_qr_button"
+                android:orientation="horizontal"
+                android:paddingStart="16dp"
+                android:paddingTop="10dp"
+                android:paddingEnd="16dp"
+                android:paddingBottom="10dp">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_seen_qr" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="8dp"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Ver localidades"
+                    android:textColor="@color/qr_button_font"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+
+    <ImageView
+        android:id="@+id/imageViewIcon"
+        android:layout_width="107dp"
+        android:layout_height="107dp"
+        android:layout_above="@id/welcomeText"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="18.3dp"
+        android:layout_below="@+id/burgerMenuLoginBtn"
+        android:src="@drawable/azul_logo_without_r"
+        android:visibility="visible" />
+
 
     <RelativeLayout
         android:id="@+id/welcomeText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:layout_above="@id/azulLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="48dp">
+        android:layout_marginBottom="16dp"
+        android:visibility="visible">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textSize="28sp"
-        android:gravity="center"
-        android:fontFamily="@font/vag_bold"
-        android:text="@string/hello"
-        android:textColor="@color/create_font" />
+        <TextView
+            android:id="@+id/tvHola"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center"
+            android:text="¡Hola!"
+            android:textColor="@color/light_blue"
+            android:textSize="28sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvHola"
+            android:layout_marginTop="16dp"
+            android:fontFamily="@font/vag_bold"
+            android:gravity="center"
+            android:text="Venta Rápida"
+            android:textColor="@color/qr_button_font"
+            android:textSize="28sp" />
 
     </RelativeLayout>
 
@@ -72,21 +286,23 @@
         android:layout_marginLeft="16dp"
         android:layout_marginRight="16dp"
         android:layout_marginBottom="56dp"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <LinearLayout
             android:id="@+id/qrButtonBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="32dp"
-            android:gravity="center"
-            android:orientation="horizontal"
             android:baselineAligned="false"
-            android:weightSum="2">
+            android:gravity="center"
+            android:orientation="horizontal">
 
             <LinearLayout
+                android:id="@+id/layoutQrCode"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_height="152dp"
+                android:layout_marginEnd="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/bd_square_style"
                 android:gravity="center"
@@ -102,13 +318,14 @@
 
                 <TextView
                     android:id="@+id/qrText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/vag_bold"
-                    android:text="@string/blue_qr_code"
+                    android:gravity="center_horizontal"
+                    android:text="Mi Código QR"
                     android:textColor="@color/create_font"
                     android:textSize="16sp" />
 
@@ -116,9 +333,10 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layoutTarjeta"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
+                android:layout_height="152dp"
+                android:layout_marginStart="8dp"
                 android:layout_weight="1"
                 android:background="@drawable/bd_square_style"
                 android:gravity="center"
@@ -130,17 +348,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
                     android:layout_marginBottom="24dp"
-                    android:src="@drawable/ic_icon_link_de_pago" />
+                    android:src="@drawable/tarjeta_icon" />
 
                 <TextView
                     android:id="@+id/linkText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="25dp"
-                    android:layout_marginEnd="25dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/vag_bold"
-                    android:text="@string/quick_sale"
+                    android:gravity="center_horizontal"
+                    android:text="@string/Tarjeta"
                     android:textColor="@color/create_font"
                     android:textSize="16sp" />
 
@@ -160,69 +379,71 @@
             android:padding="16dp"
             android:text="@string/access_account"
             android:textColor="@color/qr_button_font"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:visibility="visible" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/qrFormButton"
-        android:layout_above="@+id/callCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/callCenter"
         android:layout_centerHorizontal="true"
+        android:layout_marginBottom="32dp"
         android:background="@drawable/bd_qr_button"
         android:orientation="horizontal"
-        android:layout_marginBottom="32dp"
         android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:paddingTop="10dp"
+        android:paddingEnd="16dp"
         android:paddingBottom="10dp">
 
         <ImageView
             android:layout_width="wrap_content"
+            android:layout_gravity="center_vertical"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_qr_code"/>
+            android:src="@drawable/ic_qr_code" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/get_blue_code"
             android:layout_marginStart="8dp"
             android:fontFamily="@font/vag_bold"
-            android:textSize="14sp"
-            android:textColor="@color/qr_button_font"/>
+            android:text="@string/get_blue_code"
+            android:textColor="@color/qr_button_font"
+            android:textSize="14sp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:id="@+id/callCenter"
         android:layout_width="64dp"
-        android:layout_height="64dp"
-        android:background="@drawable/centro_azul_background"
-        android:layout_centerHorizontal="true"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
+        android:layout_centerHorizontal="true"
         android:layout_marginBottom="30dp"
-        android:padding="10dp"
-        android:gravity="center">
+        android:background="@drawable/centro_azul_background"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="8dp">
 
         <ImageView
             android:id="@+id/icSupport"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
             android:layout_gravity="center"
-            android:src="@drawable/ic_icon_centro_azul"/>
+            android:src="@drawable/ic_icon_centro_azul" />
 
         <TextView
             android:id="@+id/supportText"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/vag_bold"
-            android:text="@string/call_center"
-            android:gravity="center"
+            android:layout_height="26dp"
             android:layout_gravity="center"
+            android:fontFamily="@font/vag_bold"
+            android:gravity="center"
+            android:text="@string/call_center"
             android:textColor="@color/create_font"
-            android:textSize="10sp"/>
+            android:textSize="10sp" />
 
     </LinearLayout>
 

@@ -1,41 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:padding="10dp"
+    android:layout_height="match_parent"
     android:background="@color/create_font"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <androidx.cardview.widget.CardView
         android:id="@+id/grid_adapter"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="152dp"
         android:layout_gravity="center"
         app:cardCornerRadius="8dp"
         app:cardElevation="1dp">
 
         <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-
-        <ImageView
-            android:id="@+id/image_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingTop="24dp"
-            android:paddingBottom="24dp"/>
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="10sp">
 
-        <TextView
-            android:id="@+id/text_view"
-            android:layout_below="@+id/image_view"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textColor="@color/bottom_sheet_font1"
-            android:fontFamily="@font/vag_bold"
-            android:paddingBottom="24dp"
-            android:textSize="16sp"/>
+            <ImageView
+                android:id="@+id/image_view"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="50dp"
+                android:layout_marginEnd="50dp" />
+
+            <TextView
+                android:id="@+id/text_view"
+                android:layout_width="136dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/image_view"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="13dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="13dp"
+                android:fontFamily="@font/vag_bold"
+                android:freezesText="true"
+                android:gravity="center_vertical|center_horizontal"
+                android:singleLine="true"
+                android:text="Solicitar productos"
+                android:textColor="@color/bottom_sheet_font1"
+                android:textSize="14sp" />
 
         </RelativeLayout>
 

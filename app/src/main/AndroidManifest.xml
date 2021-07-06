@@ -1,9 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.azul.app.android">
+    package="com.sdp.appazul">
 
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".globals.AzulApplication"
@@ -11,29 +13,87 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:networkSecurityConfig="@xml/network_security_config"
+        android:requestLegacyExternalStorage="true"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Launcher">
-        <activity android:name=".activities.transactions.SettledTransactionsQuery"></activity>
-        <activity android:name=".activities.dashboard.QrCode" />
-        <activity android:name=".activities.transactions.QrTransactions" />
-        <activity android:name=".activities.registration.UserRegisterActivity"></activity>
-        <activity android:name=".activities.dashboard.DashBoardActivity" />
-        <activity android:name=".activities.registration.PinSetActivity" />
-        <activity android:name=".activities.menuitems.WebActivity" />
-        <activity android:name=".activities.home.MainMenuActivity">
+        <activity android:name=".activities.payment.QuickLinkShareActivity"></activity>
+        <activity android:name=".activities.payment.QuickPayValidationActivity"></activity>
+        <activity android:name=".activities.payment.QuickPayConfirmActivity" />
+        <activity android:name=".activities.payment.QuickSetPaymentActivity" />
+        <activity android:name=".activities.notifications.PushNotificationSettings" />
+
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.provider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/provider_paths" />
+        </provider>
+
+        <activity android:name=".activities.payment.LinkSharingActivity" />
+        <activity android:name=".activities.payment.PaymentDataValidateActivity" />
+        <activity android:name=".activities.home.QrCodeBeforeLogin" />
+        <activity android:name=".activities.payment.PaymentConfirmaActivity" />
+        <activity android:name=".activities.payment.SetPaymentInfoActivity" />
+        <activity android:name=".activities.transactions.SettledTransactionsQuery" />
+        <activity
+            android:name=".activities.dashboard.QrCode"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.transactions.QrTransactions"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.registration.UserRegisterActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.dashboard.DashBoardActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.registration.PinSetActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.menuitems.WebActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.home.MainMenuActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.menuitems.AccessData" />
-        <activity android:name=".activities.menuitems.MyBusiness" />
-        <activity android:name=".activities.menuitems.MyInfo" />
-        <activity android:name=".activities.menuitems.MyProfile" />
-        <activity android:name=".activities.menuitems.UnitsLocation" />
-        <activity android:name=".activities.registration.PinLoginActivity" />
+        <activity
+            android:name=".activities.menuitems.AccessData"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.menuitems.MyBusiness"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.menuitems.MyInfo"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.menuitems.MyProfile"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.menuitems.UnitsLocation"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".activities.registration.PinLoginActivity"
+            android:screenOrientation="portrait" />
+
+        <service android:name=".messaging.FirebaseMessaging">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <meta-data android:name="com.google.firebase.messaging.default_notification_icon"
+
+            android:resource="@drawable/ic_logo" />
     </application>
 
 </manifest>

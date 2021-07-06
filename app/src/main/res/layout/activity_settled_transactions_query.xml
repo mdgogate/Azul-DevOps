@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white_bg"
     android:orientation="vertical"
     tools:context=".activities.transactions.SettledTransactionsQuery">
 
@@ -30,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/vag_bold"
-                android:text="@string/Transacciones_qr"
+                android:text="@string/Settled_transactions"
                 android:textAlignment="center"
                 android:textColor="@color/create_font"
                 android:textSize="16sp" />
@@ -60,15 +61,16 @@
             android:src="@drawable/ic_icon_location" />
 
         <TextView
-            android:id="@+id/tvSelectedLocation"
+            android:id="@+id/tvSelectedSettleLocation"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/locationSymboltr"
-            android:fontFamily="@font/vag_thin"
+            android:fontFamily="@font/vag_bold"
             android:text="Affiliated Auto Rental - 39036630010"
             android:textColor="@color/create_font"
-            android:textSize="12sp" />
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/SettleTranLocationSelector"
@@ -87,9 +89,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/locaFilterForTran"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="11dp"
         android:layout_marginTop="24dp"
-        android:layout_marginEnd="16dp"
+        android:layout_marginEnd="11dp"
         android:background="@color/white_bg"
         android:orientation="horizontal">
 
@@ -110,13 +112,16 @@
                 android:text="@string/from_date"
                 android:textColor="@color/blue_2"
                 android:textSize="16sp"
+                android:layout_marginStart="5dp"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/layoutSinceDatePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:background="@drawable/tv_unselect_background"
+                android:elevation="3.9dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -124,7 +129,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16px"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.13"
                     android:fontFamily="@font/vag_bold"
                     android:text="03/06/2021"
                     android:textColor="@color/blue_3"
@@ -134,9 +139,10 @@
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="0.8"
-                    android:src="@drawable/arr_down"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_weight="0.9"
+                    android:src="@drawable/date_box_arrows"
                     app:tint="@color/unlink_background" />
             </LinearLayout>
 
@@ -157,6 +163,7 @@
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/vag_bold"
                 android:text="@string/to_date"
+                android:layout_marginStart="5dp"
                 android:textColor="@color/blue_2"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -165,7 +172,9 @@
                 android:id="@+id/layoutUntilDatePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_margin="5dp"
                 android:background="@drawable/tv_unselect_background"
+                android:elevation="3.9dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -173,19 +182,20 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16px"
-                    android:layout_weight="0.2"
+                    android:layout_weight="0.13"
                     android:fontFamily="@font/vag_bold"
+                    android:text="03/06/2021"
                     android:textColor="@color/blue_3"
                     android:textSize="16sp"
-                    android:text="03/06/2021"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginEnd="5dp"
-                    android:layout_weight="0.8"
-                    android:src="@drawable/arr_down"
+                    android:layout_marginStart="1dp"
+                    android:layout_marginEnd="1dp"
+                    android:layout_weight="0.9"
+                    android:src="@drawable/date_box_arrows"
                     app:tint="@color/unlink_background" />
             </LinearLayout>
 
@@ -196,15 +206,15 @@
 
     <!--    Search Box Layput-->
 
-    `<LinearLayout
+    <LinearLayout
         android:id="@+id/layoutSearch"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutDateRangeFilter"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
+        android:layout_marginTop="10dp"
         android:layout_marginEnd="16dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginBottom="8dp"
         android:orientation="horizontal">
 
         <RelativeLayout
@@ -236,8 +246,9 @@
                 android:layout_marginStart="5dp"
                 android:layout_toEndOf="@+id/searchinActive"
                 android:background="@null"
-                android:enabled="false"
                 android:digits="0123456789.,"
+                android:enabled="false"
+                android:fontFamily="@font/vag_light"
                 android:gravity="center_vertical"
                 android:inputType="number"
                 android:textColor="@color/font_hint"
@@ -249,12 +260,10 @@
         <ImageView
             android:id="@+id/clearEnteredText"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
-            android:layout_gravity="center_horizontal|center_vertical"
-            android:layout_marginLeft="8dp"
+            android:layout_height="34dp"
+            android:layout_gravity="right|center_vertical"
+            android:layout_marginLeft="10dp"
             android:layout_weight="1.4"
-            android:fontFamily="@font/vag_bold"
-            android:gravity="center_horizontal"
             android:src="@drawable/delete_date"
             android:visibility="gone" />
 
@@ -268,7 +277,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/layoutSearch"
         android:layout_marginStart="15dp"
-        android:layout_marginEnd="13dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="20dp"
         android:visibility="gone">
 
         <TextView
@@ -314,12 +324,12 @@
             android:id="@+id/tvCardNo"
             android:layout_width="88dp"
             android:layout_height="wrap_content"
-            android:layout_marginStart="22dp"
+            android:layout_marginStart="18dp"
             android:layout_toEndOf="@+id/tvTerminalNo"
             android:fontFamily="@font/vag_bold"
             android:gravity="center_horizontal"
             android:paddingBottom="8dp"
-            android:text="@string/No.card"
+            android:text="No. Tarjeta"
             android:textColor="@color/slider_heading"
             android:textSize="13sp" />
 
@@ -331,7 +341,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/topBarLayout"
-        android:layout_marginBottom="16dp"
         android:background="@color/qr_button_font"
         android:orientation="vertical"
         android:paddingTop="8dp">

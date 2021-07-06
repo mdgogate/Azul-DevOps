@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white_bg"
+    android:orientation="vertical"
+    tools:context=".activities.payment.SetPaymentInfoActivity">
+
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue_2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/btnBackScreen"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_left_arrow" />
+
+            <TextView
+                android:id="@+id/toolbarTextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/vag_bold"
+                android:text="@string/GenerateLink"
+                android:textAlignment="center"
+                android:textColor="@color/create_font"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <RelativeLayout
+        android:id="@+id/locaFilterForTran"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/materialToolbar"
+        android:background="@color/font_hint"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/locationSymboltr"
+            android:layout_width="15dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_icon_location" />
+
+        <TextView
+            android:id="@+id/tvSelectedPaymentLocation"
+            android:layout_width="275dp"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/locationSymboltr"
+            android:fontFamily="@font/vag_bold"
+            android:text="Affiliated Auto Rental - 39036630010"
+            android:textColor="@color/create_font"
+            android:textSize="14sp"
+            android:textStyle="bold" />
+
+        <ImageView
+            android:layout_toLeftOf="@id/tvSelectedPaymentLocation"
+            android:id="@+id/paymentLocationSelector"
+            android:layout_width="24dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_icon_down_arrow_24x24" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/locaFilterForTran">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:id="@+id/layoutFinalAmtInfo"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="34dp"
+                android:layout_marginEnd="27dp"
+                android:background="@drawable/textview_show_amount_bg">
+
+
+                <TextView
+                    android:id="@+id/tvFinalAmount"
+                    android:layout_width="265dp"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:layout_centerHorizontal="true"
+                    android:fontFamily="@font/vag_bold"
+                    android:gravity="center_vertical|center_horizontal"
+                    android:hint="Cobrar"
+                    android:textColor="@color/white_bg"
+                    android:textColorHint="@color/white_bg"
+                    android:textSize="20sp"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/nextIcon"
+                    android:layout_width="10dp"
+                    android:layout_height="16dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@id/tvFinalAmount"
+                    android:src="@drawable/cobrar_arrow"
+                    android:visibility="visible" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvamountTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutFinalAmtInfo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp"
+                android:fontFamily="@font/vag_light"
+                android:gravity="center_horizontal"
+                android:text="Ingresa el monto:"
+                android:textColor="@color/time_frame"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvAmount"
+                android:layout_width="320dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tvamountTitle"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="27dp"
+                android:background="@drawable/textview_amount_box"
+                android:fontFamily="@font/vag_bold"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="RD$ 0.00"
+                android:textColor="@color/blue_3"
+                android:textSize="26sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvAmount"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="27dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="27dp">
+
+                <RelativeLayout
+                    android:id="@+id/layoutFirstRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tvFirstNo"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:fontFamily="@font/vag_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="1"
+                        android:textColor="@color/text_color_selector"
+                        android:textColorHint="#C4D0DC"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tvFourthNo"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_below="@+id/tvFirstNo"
+                        android:layout_marginTop="22dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:digits="0123456789.,"
+                        android:fontFamily="@font/vag_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="0.00"
+                        android:inputType="number"
+                        android:text="4"
+                        android:textColor="@color/text_color_selector"
+                        android:textColorHint="#C4D0DC"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tvSeventhNo"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_below="@+id/tvFourthNo"
+                        android:layout_marginTop="22dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:digits="0123456789.,"
+                        android:fontFamily="@font/vag_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="7"
+                        android:textColor="@color/text_color_selector"
+                        android:textSize="24sp"
+                        android:visibility="visible" />
+
+                    <ImageView
+                        android:id="@+id/tvDelete"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_below="@+id/tvSeventhNo"
+                        android:layout_marginTop="22dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_icon_delete_cancel"
+                        android:visibility="visible" />
+
+
+                    <RelativeLayout
+                        android:id="@+id/layoutDeletCancel"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/tvDelete"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/delete_cancel_background"
+                        android:visibility="gone">
+
+                        <ImageView
+                            android:id="@+id/deleteFromInside"
+                            android:layout_width="64dp"
+                            android:layout_height="48dp"
+                            android:layout_centerHorizontal="true"
+                            android:background="@drawable/delete_cncel_selector"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:padding="15dp"
+                            android:src="@drawable/ic_delete_arrow" />
+
+                        <ImageView
+                            android:id="@+id/cancelFromInside"
+                            android:layout_width="64dp"
+                            android:layout_height="48dp"
+                            android:layout_below="@+id/deleteFromInside"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="6dp"
+                            android:background="@drawable/delete_cncel_selector"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:padding="15dp"
+                            android:src="@drawable/calc_cancel_icon" />
+
+                        <ImageView
+                            android:id="@+id/closeDeleteLayout"
+                            android:layout_width="46dp"
+                            android:layout_height="16dp"
+                            android:layout_below="@+id/cancelFromInside"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginTop="18dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginBottom="20dp"
+                            android:layout_weight="1"
+                            android:gravity="center_horizontal|center_vertical"
+                            android:src="@drawable/ic_icon_delete_cancel"
+                            app:tint="#C4D0DC" />
+                    </RelativeLayout>
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layoutSecondRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="40dp"
+                    android:layout_toEndOf="@+id/layoutFirstRow"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tvSecondNo"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:digits="0123456789.,"
+                        android:fontFamily="@font/vag_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="0.00"
+                        android:inputType="number"
+                        android:text="2"
+                        android:textColor="@color/text_color_selector"
+                        android:textColorHint="#C4D0DC"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tvFifthNo"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_below="@+id/tvSecondNo"
+                        android:layout_marginTop="22dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:digits="0123456789.,"
+                        android:fontFamily="@font/vag_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="0.00"
+                        android:inputType="number"
+                        android:text="5"
+                        android:textColor="@color/text_color_selector"
+                        android:textColorHint="#C4D0DC"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tvEightNo"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_below="@+id/tvFifthNo"
+                        android:layout_marginTop="22dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:digits="0123456789.,"
+                        android:fontFamily="@font/vag_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="8"
+                        android:textColor="@color/text_color_selector"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tvZero"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_below="@+id/tvEightNo"
+                        android:layout_marginTop="22dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:digits="0123456789.,"
+                        android:fontFamily="@font/vag_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="0"
+                        android:textColor="@color/text_color_selector"
+                        android:textSize="24sp" />
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layoutThirdRow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="40dp"
+                    android:layout_toEndOf="@+id/layoutSecondRow"
+                    android:visibility="visible">
+
+                    <TextView
+                        android:id="@+id/tvThirdNo"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:digits="0123456789.,"
+                        android:fontFamily="@font/vag_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="0.00"
+                        android:inputType="number"
+                        android:text="3"
+                        android:textColor="@color/text_color_selector"
+                        android:textColorHint="#C4D0DC"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tvSixthNo"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_below="@+id/tvThirdNo"
+                        android:layout_marginTop="22dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:digits="0123456789.,"
+                        android:fontFamily="@font/vag_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:hint="0.00"
+                        android:inputType="number"
+                        android:text="6"
+                        android:textColor="@color/text_color_selector"
+                        android:textColorHint="#C4D0DC"
+                        android:textSize="24sp" />
+
+                    <TextView
+                        android:id="@+id/tvNine"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_below="@+id/tvSixthNo"
+                        android:layout_marginTop="22dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:digits="0123456789.,"
+                        android:fontFamily="@font/vag_light"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:text="9"
+                        android:textColor="@color/text_color_selector"
+                        android:textSize="24sp" />
+
+                    <ImageView
+                        android:id="@+id/tvAddAndEquals"
+                        android:layout_width="80dp"
+                        android:layout_height="68dp"
+                        android:layout_below="@+id/tvNine"
+                        android:layout_marginTop="22dp"
+                        android:layout_weight="1"
+                        android:background="@drawable/button_style_textview"
+                        android:gravity="center_horizontal|center_vertical"
+                        android:padding="15dp"
+                        android:src="@drawable/ic_icon_plus_equal" />
+
+                </RelativeLayout>
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

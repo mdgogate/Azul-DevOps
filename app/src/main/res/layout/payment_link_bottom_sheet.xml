@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:orientation="vertical">
+
+        <!--line style-->
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:layout_marginTop="16dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="16dp"
+            android:background="@drawable/view_rounded_bg"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Link de Pagos"
+            android:fontFamily="@font/vag_bold"
+            android:textSize="20sp"
+            android:textColor="@color/bottom_sheet_font1"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="center"/>
+
+        <!--line style-->
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@color/line_style"/>
+
+        <LinearLayout
+            android:id="@+id/miPerfilLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:paddingTop="24dp"
+            android:paddingStart="34dp"
+            android:paddingEnd="34dp"
+            android:paddingBottom="60dp">
+
+            <TextView
+                android:id="@+id/tvGenerateLink"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Generar link"
+                android:fontFamily="@font/vag_bold"
+                android:textColor="@color/font_hint"
+                android:padding="16dp"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/ic_right_arrow_blue" />
+
+            <TextView
+                android:id="@+id/tvQrTransactions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Transacciones Link de Pagos"
+                android:fontFamily="@font/vag_bold"
+                android:textColor="@color/font_hint"
+                android:padding="16dp"
+                android:textSize="16sp"
+                app:drawableEndCompat="@drawable/ic_right_arrow_blue" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+</LinearLayout>

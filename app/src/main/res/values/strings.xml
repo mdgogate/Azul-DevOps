@@ -41,6 +41,7 @@
     <string name="quick_sale">Quick Sale</string>
     <string name="access_account">Access your account</string>
     <string name="Transacciones_qr">QR transactions</string>
+    <string name="Settled_transactions">Settled transactions</string>
 
     <!-- Pin access-->
     <string name="alert_title">The digits don\'t match.</string>
@@ -132,8 +133,8 @@
     <string name="select_date_range">Select Date range</string>
     <string name="date_compare">To date must be smaller than from date</string>
     <string name="current_date_compare">Selected date must be smaller than current date</string>
-    <string name="from_date">Since</string>
-    <string name="to_date">Until</string>
+    <string name="from_date">Since:</string>
+    <string name="to_date">Until:</string>
     <string name="req_product">Request product</string>
     <string name="payment_link">Payment link</string>
     <string name="today">Today</string>
@@ -151,5 +152,13 @@
     <string name="No.approval">No. approval</string>
     <string name="No.terminal">No. terminal</string>
     <string name="No.card">No. card</string>
+    <string name="GenerateLink">Generate link</string>
+    <string name="itbis_error">ITBIS exceeds the total amount</string>
+    <string name="less_amount_error">Enter an amount greater than zero (0)</string>
+    <string name="less_tax_error">Enter an ITBIS greater than zero (0)</string>
+    <string name="Tarjeta">Card</string>
+    <string name="cancel_button_message">Are you sure you want to cancel?</string>
+    <string name="qr_message">Show this QR code to your customers or send it by pressing the share icon</string>
 
+    <string name="preferencias">Preferences</string>
 </resources>

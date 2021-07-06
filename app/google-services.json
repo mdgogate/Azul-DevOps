@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "137350019695",
+    "project_id": "azulnativeapp",
+    "storage_bucket": "azulnativeapp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:137350019695:android:4b42ffb38ca637ae462b9a",
+        "android_client_info": {
+          "package_name": "com.sdp.appazul"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "137350019695-intu39v7o2r4eaj4r1eeaas9h9ett615.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBXxEHbl4PlbxvTUe-ImDB0b9HLb4Y_sz8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "137350019695-intu39v7o2r4eaj4r1eeaas9h9ett615.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "137350019695-s8dhot3js8rmm1f27q4u37k7ng79vht3.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sdp.appazul"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

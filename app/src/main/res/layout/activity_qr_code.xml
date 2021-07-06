@@ -4,8 +4,8 @@
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:background="@color/qr_button_font">
+    android:background="@color/qr_button_font"
+    android:orientation="vertical">
 
     <com.google.android.material.appbar.MaterialToolbar
         android:id="@+id/materialToolbar"
@@ -64,9 +64,11 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/locationSymbol"
-            android:fontFamily="@font/vag_thin"
+            android:fontFamily="@font/vag_bold"
+            android:text="Prueba - 24000000007"
             android:textColor="@color/create_font"
-            android:textSize="12sp" />
+            android:textSize="12sp"
+            android:textStyle="bold" />
 
         <ImageView
             android:id="@+id/locationSelector"
@@ -82,25 +84,26 @@
         android:id="@+id/viewPagerTwo"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:overScrollMode="never"
-        android:paddingStart="16dp"
-        android:paddingEnd="16dp"
         android:layout_above="@+id/showQr"
         android:layout_below="@id/locationFilter"
-        android:clipToPadding="false"/>
+        android:clipToPadding="false"
+        android:overScrollMode="never"
+        android:paddingStart="16dp"
+        android:paddingEnd="16dp" />
 
     <TextView
         android:id="@+id/showQr"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:layout_above="@+id/circleIndicatorTwo"
-        android:layout_marginBottom="40dp"
-        android:layout_marginTop="72dp"
-        android:text="@string/show_qrcode"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
         android:fontFamily="@font/vag_bold"
-        android:textSize="14sp"
-        android:textColor="@color/no_record_found"/>
+        android:text="  Muestra este código QR a tus clientes o\nenvíalo presionando el ícono de compartir"
+        android:textColor="#2C3B89"
+        android:textSize="14sp" />
 
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/circleIndicatorTwo"
@@ -117,10 +120,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="40dp"
-        android:text="@string/swipe_left"
+        android:layout_marginBottom="35dp"
         android:fontFamily="@font/vag_bold"
-        android:textSize="10sp"
-        android:textColor="@color/slider_heading"/>
+        android:text="@string/swipe_left"
+        android:textColor="@color/slider_heading"
+        android:textSize="10sp" />
 
 </RelativeLayout>

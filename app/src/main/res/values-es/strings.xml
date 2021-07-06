@@ -137,8 +137,8 @@
     <string name="select_date_range">Selecciona Rango de fecha</string>
     <string name="date_compare">Hasta la fecha debe ser menor que desde la fecha</string>
     <string name="current_date_compare">la fecha seleccionada debe ser menor que la fecha actual</string>
-    <string name="from_date">Desde</string>
-    <string name="to_date">Hasta</string>
+    <string name="from_date">Desde:</string>
+    <string name="to_date">Hasta:</string>
     <string name="req_product">solicitar productor</string>
     <string name="payment_link">Linke de pagos</string>
     <string name="today">Hoy</string>
@@ -147,6 +147,7 @@
     <string name="Cancel">Cancelar</string>
     <string name="no_records">No existen transacciones</string>
 
+    <string name="Settled_transactions">Transacciones Liquidadas</string>
     <string name="ref_no_label">No. Ref. </string>
     <string name="amount_label">RD$ </string>
     <string name="swipe_right">Desliza hacia la derecha para ver tú Código QR </string>
@@ -155,5 +156,12 @@
     <string name="No.approval">No. Aprobación</string>
     <string name="No.terminal">No. Terminal</string>
     <string name="No.card">No. Tarjeta</string>
-
+    <string name="GenerateLink">Generar link</string>
+    <string name="less_amount_error">Digita un monto mayor a cero (0)</string>
+    <string name="itbis_error">El ITBIS digitado excede el monto total</string>
+    <string name="less_tax_error">Introducir un ITBIS mayor que cero (0)</string>
+    <string name="Tarjeta">Tarjeta</string>
+    <string name="cancel_button_message">¿Seguro que quieres cancelar?</string>
+    <string name="qr_message">Muestra este código QR a tus clientes o envíalo presionando el ícono de compartir</string>
+    <string name="preferencias">Preferencias</string>
 </resources>

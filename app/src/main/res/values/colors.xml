@@ -53,5 +53,7 @@
     <color name="total_received">#006EB8</color>
     <color name="time_frame">#9699AA</color>
     <color name="date_range_bg">#F6F9FB</color>
+    <color name="light_blue">#9ADCFF</color>
+    <color name="light_gray">#C4D0DC</color>
 
 </resources>

@@ -1,6 +1,7 @@
 *.iml
 .gradle
 /.gradle
+/local.properties
 .idea
 ./.idea
 /.idea/caches
@@ -11,10 +12,8 @@
 /.idea/assetWizardSettings.xml
 .DS_Store
 /build
-/SSC_BPDContainer/build
-/googleplayservices_lib/build
-/local.properties
+/app/build
+/captures
 .externalNativeBuild
 .cxx
-/.idea/sonarlint/issuestore/0/2
-/.idea/sonarlint/issuestore/0/3
+local.properties

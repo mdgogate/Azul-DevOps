@@ -1,0 +1,395 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/qr_button_font"
+    android:orientation="vertical"
+    tools:context=".activities.payment.PaymentDataValidateActivity">
+
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/materialToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/blue_2">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/btnBackScreen"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:layout_centerVertical="true"
+                android:src="@drawable/ic_left_arrow" />
+
+            <TextView
+                android:id="@+id/toolbarTextTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:fontFamily="@font/vag_bold"
+                android:text="@string/GenerateLink"
+                android:textAlignment="center"
+                android:textColor="@color/create_font"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
+    </com.google.android.material.appbar.MaterialToolbar>
+
+    <!--LocationFilter layout -->
+
+    <RelativeLayout
+        android:id="@+id/locaFilterForpaymentConfirm"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_below="@+id/materialToolbar"
+        android:background="@color/font_hint"
+        android:orientation="horizontal"
+        android:padding="16dp">
+
+        <ImageView
+            android:id="@+id/locationSymboltr"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginEnd="8dp"
+            android:src="@drawable/ic_icon_location" />
+
+        <TextView
+            android:id="@+id/tvSelectedLocation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toEndOf="@id/locationSymboltr"
+            android:fontFamily="@font/vag_bold"
+            android:text="Affiliated Auto Rental - 39036630010"
+            android:textColor="@color/create_font"
+            android:textSize="14sp" />
+
+        <ImageView
+            android:id="@+id/paymentConfirmLocFilter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_icon_down_arrow_24x24" />
+
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/locaFilterForpaymentConfirm"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="65dp"
+        android:background="@drawable/invoice_bg">
+
+        <RelativeLayout
+            android:id="@+id/mainLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/locaFilterForpaymentConfirm"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="65dp"
+            android:background="@drawable/invoice_bg"
+            android:paddingBottom="15dp">
+
+            <TextView
+                android:id="@+id/tvconfirmInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="24sp"
+                android:layout_marginTop="35dp"
+                android:layout_marginEnd="23dp"
+                android:fontFamily="@font/vag_light"
+                android:gravity="center_horizontal"
+                android:text=" Confirma los siguientes campos \nantes de generar el Link de Pago:"
+                android:textColor="@color/time_frame"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/tvTitlePaymentdetails"
+                android:layout_width="match_parent"
+                android:layout_height="40dp"
+                android:layout_below="@+id/tvconfirmInfo"
+                android:layout_marginTop="16dp"
+                android:background="#F8FBFC"
+                android:fontFamily="@font/vag_bold"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="Datos del pago"
+                android:textColor="@color/slider_dot_active"
+                android:textSize="18sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:id="@+id/layoutCommerce"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitlePaymentdetails"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="32dp"
+                android:layout_marginEnd="33dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Comercio:"
+                    android:textColor="@color/slider_heading"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvValidaComercio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_light"
+                    android:text="Importadora Wu SRL"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutLocations"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutCommerce"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="33dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Localidad:"
+                    android:textColor="@color/slider_heading"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvValidLocation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_light"
+                    android:text="Affiliated Auto Rental"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutTranactions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutLocations"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="33dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Tipo de transacción: "
+                    android:textColor="@color/slider_heading"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvValidTrnType"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_light"
+                    android:text="Venta"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutOrderInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutTranactions"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="33dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="No. orden/venta:"
+                    android:textColor="@color/slider_heading"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tvValidOrderNo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_light"
+                    android:text="N/A"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutITBIS"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutOrderInfo"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="33dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_weight="1.4"
+                    android:fontFamily="@font/vag_bold"
+                    android:text="Mostrar ITBIS:"
+                    android:textColor="@color/slider_heading"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/switchStatus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_weight="1.6"
+                    android:src="@drawable/switch_on_disabled"
+                    android:visibility="invisible" />
+
+                <TextView
+                    android:id="@+id/tvValidTaxAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_light"
+                    android:gravity="center_vertical"
+                    android:text="RD$ 0.00"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutTotalAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutITBIS"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="33dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="Monto total:"
+                        android:textColor="@color/slider_heading"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_light"
+                        android:text="(Incluye ITBIS)"
+                        android:textColor="@color/slider_heading"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvValidAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="15dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/vag_light"
+                    android:gravity="center_vertical"
+                    android:text="RD$ 0.00"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+
+            <com.ncorti.slidetoact.SlideToActView
+                android:id="@+id/btnConfirmPayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutTotalAmount"
+                android:layout_marginStart="16sp"
+                android:layout_marginTop="56dp"
+                android:layout_marginEnd="16sp"
+                app:animation_duration="250"
+                app:area_margin="8dp"
+                app:border_radius="8dp"
+                app:icon_margin="8dp"
+                app:inner_color="@color/white_bg"
+                app:outer_color="#0091DF"
+                app:slider_height="60dp"
+                app:slider_icon="@drawable/link_icon"
+                app:slider_locked="false"
+                app:text="Desliza para generar link"
+                app:text_color="@color/white_bg"
+                app:text_size="18sp"
+                app:text_style="bold" />
+
+            <TextView
+                android:id="@+id/cancelPayment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/btnConfirmPayment"
+                android:layout_marginStart="17dp"
+                android:layout_marginTop="20dp"
+                android:layout_marginEnd="15dp"
+                android:layout_weight="1"
+                android:fontFamily="@font/vag_light"
+                android:gravity="center_horizontal"
+                android:text="@string/Cancel"
+                android:textColor="#9699AA"
+                android:textSize="18sp" />
+
+        </RelativeLayout>
+    </ScrollView>
+</RelativeLayout>

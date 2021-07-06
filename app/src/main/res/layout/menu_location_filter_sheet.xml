@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/bottom_sheet"
+    android:layout_width="match_parent"
+    android:layout_height="320dp"
+    android:orientation="vertical"
+    android:maxHeight="320dp"
+    android:background="@color/qr_button_font"
+    tools:ignore="UnusedAttribute">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+
+        android:background="@color/qr_button_font"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/layoutView1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/qr_button_font"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="32dp"
+                android:layout_height="4dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/view_rounded_bg" />
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvLocationTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutView1"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16.5dp"
+            android:fontFamily="@font/vag_bold"
+            android:gravity="center_horizontal"
+            android:text="Selecciona la localidad del\nCódigo QR que deseas mostrar"
+            android:textColor="@color/slider_heading"
+            android:textSize="20sp"
+            android:textStyle="bold" />
+
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/tvLocationTitle"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="15.5dp"
+            android:background="@color/unlink_background" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutExpand"
+        android:layout_width="match_parent"
+        android:layout_height="165dp"
+        android:orientation="vertical"
+        android:gravity="bottom"
+        android:layout_gravity="bottom"
+        android:background="@color/white"
+        android:layout_marginBottom="32dp">
+
+        <ExpandableListView
+            android:id="@+id/elvInvestments"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:divider="@color/white"
+            android:gravity="bottom"
+            tools:listitem="@layout/list_group"
+            android:layout_gravity="bottom"
+            android:nestedScrollingEnabled="true"
+            android:groupIndicator="@null"/>
+    </RelativeLayout>
+
+</LinearLayout>

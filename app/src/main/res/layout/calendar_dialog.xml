@@ -202,7 +202,7 @@
                         android:layout_marginRight="13dp">
 
 
-                        <com.azul.app.android.classes.GothamMedium
+                        <com.sdp.appazul.classes.GothamMedium
                             android:id="@+id/title"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
