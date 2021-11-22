@@ -15,6 +15,7 @@
 
             <androidx.cardview.widget.CardView
                 android:id="@+id/qrViewPager"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -24,16 +25,16 @@
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="424dp"
-                    android:paddingBottom="25dp">
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="5dp">
 
                     <TextView
                         android:id="@+id/qrTitle"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="2dp"
                         android:fontFamily="@font/vag_bold"
                         android:text="Prueba"
                         android:textColor="@color/total_received"
@@ -45,7 +46,7 @@
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/qrTitle"
                         android:layout_centerHorizontal="true"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/qrMerchantId"
@@ -71,8 +72,8 @@
 
                     <ImageView
                         android:id="@+id/imgViewQrCode"
-                        android:layout_width="280dp"
-                        android:layout_height="279dp"
+                        android:layout_width="275dp"
+                        android:layout_height="275dp"
                         android:layout_below="@id/idContainer"
                         android:layout_centerHorizontal="true"
                         android:layout_marginStart="5dp"
@@ -82,28 +83,205 @@
 
                     <RelativeLayout
                         android:id="@+id/layoutDownloadShare"
-                        android:layout_width="113dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_height="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="invisible"
                         android:layout_below="@+id/imgViewQrCode"
-                        android:layout_marginTop="5dp">
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp">
 
-                        <ImageView
-                            android:id="@+id/imgDownloadQrCode"
+                        <RelativeLayout
+                            android:id="@+id/downloadLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="36dp"
-                            android:src="@drawable/qr_download_icon" />
+                            android:layout_marginEnd="36dp">
 
-                        <ImageView
-                            android:id="@+id/imgShareQrCode"
+
+                            <ImageView
+                                android:id="@+id/imgDownloadQrCode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center_horizontal"
+                                android:background="@drawable/qr_download_selector"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/imgDownloadQrCode"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="9.5dp"
+                                android:fontFamily="@font/vag_bold"
+                                android:text="@string/download_title"
+                                android:textColor="@color/slider_heading"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/shareLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="36dp"
-                            android:layout_toRightOf="@id/imgDownloadQrCode"
-                            android:src="@drawable/qr_share_icon" />
+                            android:layout_toRightOf="@+id/downloadLayout">
+
+
+                            <ImageView
+                                android:id="@+id/imgShareQrCode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center_horizontal"
+                                android:background="@drawable/qr_share_selector"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/imgShareQrCode"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/vag_bold"
+                                android:text="@string/share_label"
+                                android:textColor="@color/slider_heading"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+
+                    </RelativeLayout>
+                </RelativeLayout>
+
+            </androidx.cardview.widget.CardView>
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/qrViewPagerHidden"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                app:cardCornerRadius="8dp"
+                app:cardElevation="0dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingBottom="10dp">
+
+                    <TextView
+                        android:id="@+id/qrTitleHidden"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginBottom="2dp"
+                        android:gravity="center_horizontal"
+                        android:fontFamily="@font/vag_bold"
+                        android:textColor="@color/total_received"
+                        android:textSize="24sp" />
+
+                    <RelativeLayout
+                        android:id="@+id/idContainerHidden"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/qrTitleHidden"
+                        android:layout_centerHorizontal="true"
+                        android:visibility="gone">
+
+                        <TextView
+                            android:id="@+id/qrMerchantIdHidden"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/vag_light"
+                            android:textColor="@color/font_hint"
+                            android:textSize="12sp" />
+
+                        <TextView
+                            android:id="@+id/qrTIdHidden"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:layout_toEndOf="@+id/qrMerchantIdHidden"
+                            android:fontFamily="@font/vag_light"
+                            android:textColor="@color/font_hint"
+                            android:textSize="12sp" />
+
+                    </RelativeLayout>
+
+                    <ImageView
+                        android:id="@+id/imgViewQrCodeHidden"
+                        android:layout_width="265dp"
+                        android:layout_height="265dp"
+                        android:layout_below="@id/idContainerHidden"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="5dp"
+                        android:layout_marginTop="2dp"
+                        android:src="@drawable/qr_code"
+                        android:layout_marginEnd="5dp"
+                        />
+
+                    <RelativeLayout
+                        android:id="@+id/layoutDownloadShareHidden"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible"
+                        android:layout_below="@+id/imgViewQrCodeHidden"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="2dp">
+
+                        <RelativeLayout
+                            android:id="@+id/downloadLayoutHidden"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="36dp">
+
+
+                            <ImageView
+                                android:id="@+id/imgDownloadQrCodeHidden"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center_horizontal"
+                                android:background="@drawable/qr_download_selector"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/imgDownloadQrCodeHidden"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="9.5dp"
+                                android:fontFamily="@font/vag_bold"
+                                android:text="@string/download_title"
+                                android:textColor="@color/slider_heading"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/shareLayoutHidden"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toRightOf="@+id/downloadLayoutHidden">
+
+
+                            <ImageView
+                                android:id="@+id/imgShareQrCodeHidden"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center_horizontal"
+                                android:background="@drawable/qr_share_selector"/>
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/imgShareQrCodeHidden"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/vag_bold"
+                                android:text="@string/share_label"
+                                android:textColor="@color/slider_heading"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
 
 
                     </RelativeLayout>

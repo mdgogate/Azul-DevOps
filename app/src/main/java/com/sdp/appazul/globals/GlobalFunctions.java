@@ -10,6 +10,9 @@ import com.sdp.appazul.utils.KeysUtils;
 import com.sdp.appazul.utils.StorageUtils;
 
 import java.nio.charset.StandardCharsets;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class GlobalFunctions {
     private Context context;
@@ -56,7 +59,8 @@ public class GlobalFunctions {
      */
     public String getPPRString() {
         String randomPass = "";
-        String fileContent = StorageUtils.readDataFromInternalStorage(Constants.SSP_FILE, context);
+        String fileContent = StorageUtils.readDataFromInternalStorageNew(Constants.SSP_FILE, context);
+        Log.d("GlobalFunctions", "getPPRString: --- -" + fileContent);
         try {
             if (TextUtils.isEmpty(fileContent)) {
                 StorageUtils.writeDataToInternalStorage(Constants.SSP_FILE, "", context);
@@ -85,5 +89,21 @@ public class GlobalFunctions {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
         return strSSC;
+    }
+
+    public String changeDateFormat(String date, String oldFormat, String newFormat) {
+        String formattedDate = "";
+        if (!TextUtils.isEmpty(date) && !TextUtils.isEmpty(oldFormat) && !TextUtils.isEmpty(newFormat)) {
+            SimpleDateFormat dateFormat = new SimpleDateFormat(oldFormat);
+            SimpleDateFormat newformat = new SimpleDateFormat(newFormat);
+            Date date1;
+            try {
+                date1 = dateFormat.parse(date);
+                formattedDate = newformat.format(date1);
+            } catch (ParseException e) {
+                Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+            }
+        }
+        return formattedDate;
     }
 }

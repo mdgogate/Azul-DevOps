@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_bg"
+    android:orientation="vertical">
+
+  <TextView
+      android:id="@+id/textTitle"
+      android:layout_width="match_parent"
+      android:layout_height="48dp"
+      android:layout_marginLeft="24dp"
+      android:layout_marginTop="14dp"
+      android:text="Alert"
+      android:layout_marginRight="24dp"
+      android:fontFamily="@font/vag_bold"
+      android:gravity="center_vertical"
+      android:textColor="@color/black"
+      android:textSize="16sp" />
+
+  <TextView
+      android:id="@+id/textMsg"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/textTitle"
+      android:layout_marginLeft="24dp"
+      android:layout_marginTop="5dp"
+      android:fontFamily="@font/vag_bold"
+      android:gravity="center_horizontal"
+      android:text="@string/save_qrcode"
+      android:textColor="@color/aert_light_black"
+      android:textSize="15sp" />
+
+  <TextView
+      android:id="@+id/btnAlertClose"
+      android:layout_width="wrap_content"
+      android:layout_height="36dp"
+      android:layout_below="@+id/textMsg"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="15dp"
+      android:layout_marginRight="20dp"
+      android:layout_marginBottom="8dp"
+      android:fontFamily="@font/vag_bold"
+      android:gravity="center_vertical"
+      android:textAllCaps="false"
+      android:text="@string/close"
+      android:textColor="#2C3B89"
+      android:textSize="14sp" />
+
+</RelativeLayout>

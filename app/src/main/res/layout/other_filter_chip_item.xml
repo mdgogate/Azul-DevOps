@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.chip.Chip xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/chip_item"
+    style="@style/Widget.MaterialComponents.Chip.Filter"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="4dp"
+    android:layout_marginEnd="4dp"
+    android:text="Autorización completada"
+    android:textColor="@color/blue_3"
+    android:textSize="14sp"
+    app:checkedIcon="@drawable/chip_selection"
+    app:checkedIconEnabled="true"
+    android:checkable="true"
+    android:textStyle="bold"
+    app:checkedIconVisible="true"
+    app:checkedIconTint="#0057B8"
+    app:chipIconSize="14dp"
+    app:iconStartPadding="8dp"
+    app:chipBackgroundColor="@color/chip_selector"
+    app:chipCornerRadius="8dp"
+    app:chipStrokeColor="#D9E5F1"
+    app:chipStrokeWidth="1dp"
+    app:closeIconEnabled="false"
+    app:closeIconTint="#0057B8">
+
+</com.google.android.material.chip.Chip>

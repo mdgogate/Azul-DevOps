@@ -206,7 +206,7 @@ public class SecurePreferences implements SharedPreferences {
      */
     private String getSalt(Context context) {
         if (TextUtils.isEmpty(this.salt)) {
-            String encVal =  StorageUtils.readDataFromInternalStorage(Constants.SSP_FILE, context);
+            String encVal =  StorageUtils.readDataFromInternalStorageNew(Constants.SSP_FILE, context);
             return RSAHelper.rsaDecrypt(encVal);
         } else {
             return this.salt;

@@ -13,6 +13,8 @@ public class LocationFilter {
     String initLocationWithId;
     String initLocationId;
     String initLocationName;
+    String paymentCode;
+    String currency;
 
     public String getInitLocationWithId() {
         return initLocationWithId;
@@ -100,5 +102,21 @@ public class LocationFilter {
 
     public void setLocationNameAndId(String locationNameAndId) {
         this.locationNameAndId = locationNameAndId;
+    }
+
+    public String getPaymentCode() {
+        return paymentCode;
+    }
+
+    public void setPaymentCode(String paymentCode) {
+        this.paymentCode = paymentCode;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

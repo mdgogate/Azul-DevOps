@@ -14,7 +14,7 @@
             android:layout_height="match_parent">
 
             <ImageView
-                android:id="@+id/web_back_button"
+                android:id="@+id/backButton"
                 android:src="@drawable/ic_left_arrow"
                 android:layout_centerVertical="true"
                 android:layout_width="24dp"

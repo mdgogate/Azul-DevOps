@@ -2,6 +2,7 @@ package com.sdp.appazul.adapters;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import androidx.viewpager.widget.PagerAdapter;
 import com.sdp.appazul.R;
 import com.sdp.appazul.classes.Model;
 import com.sdp.appazul.globals.Constants;
+import com.sdp.appazul.globals.KeyConstants;
 import com.sdp.appazul.utils.DateUtils;
 
 import java.text.DecimalFormat;
@@ -71,84 +73,155 @@ public class MyAdapter extends PagerAdapter {
         quantityNumber = view.findViewById(R.id.quantityNumber);
 
 
-        if (models.get(position).getPeriod().equalsIgnoreCase("ThisMonthToDate")) {
-            try {
-                timeFrame.setText("Mes a la fecha");
-                Date fromDateOld = null;
-                Date toDateOld = null;
-                fromDateOld = olderFormat.parse(models.get(position).getDateFrom());
-                toDateOld = olderFormat.parse(models.get(position).getDateTo());
+        periodValidation(timeFrame, month, tvDateFilter, position);
 
-                String fromDate = format.format(fromDateOld);
-                String toDate = format.format(toDateOld);
-
-                tvDateFilter.setText(fromDate + " - " + toDate);
-                tvDateFilter.setVisibility(View.VISIBLE);
-                month.setVisibility(View.GONE);
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        } else if (models.get(position).getPeriod().equalsIgnoreCase("PastMonth")) {
-            try {
-                Date toDateOld = null;
-
-
-                toDateOld = olderFormat.parse(models.get(position).getDateTo());
-                String toDate = format.format(toDateOld);  //31/05/2021
-                month.setVisibility(View.VISIBLE);
-                String monthOfDate = toDate.substring(3, 5);
-                String yearOfDate = toDate.substring(6, 10);
-                System.out.println("toDate " + toDate);
-                System.out.println("yearOfDate " + yearOfDate);
-
-                Map<String, String> monthList = dateUtils.getSpanishMonth();
-                if (monthList != null && monthList.containsKey(monthOfDate)) {
-                    monthList.get(monthOfDate);
-
-                    System.out.println("Month Value " + monthList.get(monthOfDate));
-                }
-                tvDateFilter.setVisibility(View.GONE);
-                timeFrame.setText(" - Mes Anterior");
-                month.setText(monthList.get(monthOfDate) + " " + yearOfDate);
-
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
-        } else if (models.get(position).getPeriod().equalsIgnoreCase("PastDay")) {
-            try {
-                Date toDateOld = null;
-
-                toDateOld = olderFormat.parse(models.get(position).getDateTo());
-                String toDate = format.format(toDateOld);
-
-                tvDateFilter.setVisibility(View.GONE);
-                month.setVisibility(View.VISIBLE);
-
-                month.setText(toDate);
-                timeFrame.setText(" - Último día");
-            } catch (ParseException e) {
-                e.printStackTrace();
-            }
+        if (!TextUtils.isEmpty(models.get(position).getAmountToReceive()) && !models.get(position).getAmountToReceive().equalsIgnoreCase("-")) {
+            setAmount(position, amount);
+        } else {
+            setEmptyAmount(position, amount);
         }
 
-        double amountToReceive = Double.parseDouble(models.get(position).getAmountToReceive());
+        if (!TextUtils.isEmpty(models.get(position).getTransactionSum()) && !models.get(position).getTransactionSum().equalsIgnoreCase("-")) {
+            setSalesAmount(position, netSalesAmountNumber);
+        } else {
+            setEmptySalesAmount(netSalesAmountNumber, position);
+        }
 
-        amount.setText(Constants.CURRANCY_FORMAT + amountFormat.format(amountToReceive));
-
-
-        double totalAmount = Double.parseDouble(models.get(position).getTransactionSum());
-
-        netSalesAmountNumber.setText(Constants.CURRANCY_FORMAT + amountFormat.format(totalAmount));
-
-        double discount = Double.parseDouble(models.get(position).getDiscount());
-
-        totalDiscountNumber.setText(Constants.CURRANCY_FORMAT + amountFormat.format(discount));
-
-        quantityNumber.setText(models.get(position).getTransactionCount());
+        if (!TextUtils.isEmpty(models.get(position).getDiscount()) && !models.get(position).getDiscount().equalsIgnoreCase("-")) {
+            setDiscount(position, totalDiscountNumber);
+        } else {
+            setEmptyDiscount(position, totalDiscountNumber);
+        }
+        if (!TextUtils.isEmpty(models.get(position).getTransactionCount()) && !models.get(position).getTransactionCount().equalsIgnoreCase("-")) {
+            quantityNumber.setText(models.get(position).getTransactionCount());
+        } else {
+            quantityNumber.setText("-");
+        }
 
         container.addView(view, 0);
 
         return view;
+    }
+
+    private void setDiscount(int position, TextView totalDiscountNumber) {
+        double discount = Double.parseDouble(models.get(position).getDiscount());
+        if (models.get(position).getCurrency().equalsIgnoreCase("USD")) {
+            totalDiscountNumber.setText(Constants.CURRENCY_FORMAT_USD + amountFormat.format(discount));
+        } else {
+            totalDiscountNumber.setText(Constants.CURRENCY_FORMAT + amountFormat.format(discount));
+        }
+    }
+
+    private void setEmptyDiscount(int position, TextView totalDiscountNumber) {
+        if (models.get(position).getCurrency().equalsIgnoreCase("USD")) {
+            totalDiscountNumber.setText(Constants.CURRENCY_FORMAT_USD + "-");
+        } else {
+            totalDiscountNumber.setText(Constants.CURRENCY_FORMAT + "-");
+        }
+    }
+
+    private void setSalesAmount(int position, TextView netSalesAmountNumber) {
+        double totalAmount = Double.parseDouble(models.get(position).getTransactionSum());
+        if (models.get(position).getCurrency().equalsIgnoreCase("USD")) {
+            netSalesAmountNumber.setText(Constants.CURRENCY_FORMAT_USD + amountFormat.format(totalAmount));
+        } else {
+            netSalesAmountNumber.setText(Constants.CURRENCY_FORMAT + amountFormat.format(totalAmount));
+        }
+    }
+
+    private void setEmptySalesAmount(TextView netSalesAmountNumber, int position) {
+        if (models.get(position).getCurrency().equalsIgnoreCase("USD")) {
+            netSalesAmountNumber.setText(Constants.CURRENCY_FORMAT_USD + "-");
+        } else {
+            netSalesAmountNumber.setText(Constants.CURRENCY_FORMAT + "-");
+        }
+    }
+
+    private void setAmount(int position, TextView amount) {
+        double amountToReceive = Double.parseDouble(models.get(position).getAmountToReceive());
+        if (models.get(position).getCurrency().equalsIgnoreCase("USD")) {
+            amount.setText(Constants.CURRENCY_FORMAT_USD + amountFormat.format(amountToReceive));
+        } else {
+            amount.setText(Constants.CURRENCY_FORMAT + amountFormat.format(amountToReceive));
+        }
+    }
+
+    private void setEmptyAmount(int position, TextView amount) {
+        if (models.get(position).getCurrency().equalsIgnoreCase("USD")) {
+            amount.setText(Constants.CURRENCY_FORMAT_USD + "-");
+        } else {
+            amount.setText(Constants.CURRENCY_FORMAT + "-");
+        }
+    }
+
+    private void periodValidation(TextView timeFrame, TextView month, TextView tvDateFilter, int position) {
+        if (models.get(position).getPeriod().equalsIgnoreCase("ThisMonthToDate")) {
+            currrentMonthToDate(timeFrame, month, tvDateFilter, position);
+        } else if (models.get(position).getPeriod().equalsIgnoreCase("PastMonth")) {
+            lastMonth(timeFrame, tvDateFilter, position, month);
+        } else if (models.get(position).getPeriod().equalsIgnoreCase("PastDay")) {
+            lastDay(timeFrame, tvDateFilter, position, month);
+        } else {
+            month.setText("-");
+        }
+    }
+
+    private void lastDay(TextView timeFrame, TextView tvDateFilter, int position, TextView month) {
+        try {
+            Date toDateOld;
+
+            toDateOld = olderFormat.parse(models.get(position).getDateTo());
+            String toDate = format.format(toDateOld);
+
+            tvDateFilter.setVisibility(View.GONE);
+            month.setVisibility(View.VISIBLE);
+
+            month.setText(toDate);
+            timeFrame.setText(" - Último día");
+        } catch (ParseException e) {
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+        }
+    }
+
+    private void lastMonth(TextView timeFrame, TextView tvDateFilter, int position, TextView month) {
+        try {
+            Date toDateOld;
+
+
+            toDateOld = olderFormat.parse(models.get(position).getDateTo());
+            String toDate = format.format(toDateOld);  //31/05/2021
+            month.setVisibility(View.VISIBLE);
+            String monthOfDate = toDate.substring(3, 5);
+            String yearOfDate = toDate.substring(6, 10);
+
+            Map<String, String> monthList = dateUtils.getSpanishMonth();
+
+            tvDateFilter.setVisibility(View.GONE);
+            timeFrame.setText(" - Mes anterior");
+            month.setText(monthList.get(monthOfDate) + " " + yearOfDate);
+
+        } catch (ParseException e) {
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+        }
+    }
+
+    private void currrentMonthToDate(TextView timeFrame, TextView month, TextView tvDateFilter, int position) {
+        try {
+            timeFrame.setText("Mes a la fecha");
+            Date fromDateOld;
+            Date toDateOld;
+            fromDateOld = olderFormat.parse(models.get(position).getDateFrom());
+            toDateOld = olderFormat.parse(models.get(position).getDateTo());
+
+            String fromDate = format.format(fromDateOld);
+            String toDate = format.format(toDateOld);
+
+            tvDateFilter.setText(fromDate + " - " + toDate);
+            tvDateFilter.setVisibility(View.VISIBLE);
+            month.setVisibility(View.GONE);
+        } catch (ParseException e) {
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+        }
     }
 
     @Override

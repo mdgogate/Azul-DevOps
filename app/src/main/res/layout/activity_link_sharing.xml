@@ -6,117 +6,185 @@
     android:layout_height="match_parent"
     android:background="#0057B8"
     android:orientation="vertical"
+    android:id="@+id/activity_link_sharing"
     tools:context=".activities.payment.LinkSharingActivity">
 
-    <LinearLayout
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:id="@+id/linkLayout"
-        android:layout_centerVertical="true"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical">
-
-        <ImageView
-            android:id="@+id/linkLogo"
-            android:layout_width="64dp"
-            android:layout_marginStart="140dp"
-            android:layout_marginEnd="139dp"
-            android:layout_height="64dp"
-            android:layout_gravity="center_horizontal"
-            android:src="@drawable/link_share_logo" />
-
-        <TextView
-            android:id="@+id/tvLinkTitle"
-            android:layout_width="238dp"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linkLogo"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="53dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="52dp"
-            android:fontFamily="@font/vag_bold"
-            android:gravity="center_horizontal"
-            android:text="¡Link de pago\n generado!"
-            android:textColor="#E9F4FA"
-            android:textSize="32sp"
-            android:textStyle="bold" />
+    <ScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
 
         <RelativeLayout
-            android:id="@+id/linkInfo"
-            android:layout_width="match_parent"
+            android:id="@+id/linkLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/tvLinkTitle"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="40dp"
-            android:layout_marginEnd="15dp"
-            android:gravity="center_horizontal"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tvLink"
-                android:layout_width="294dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="15dp"
-                android:fontFamily="@font/vag_light"
-                android:gravity="center_horizontal"
-                android:text="https://pagos.azul.com.do/ba780bd0"
-                android:textColor="@color/white_bg"
-                android:textSize="16sp" />
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="98dp"
+            android:layout_marginEnd="16dp"
+            android:orientation="vertical"
+            android:paddingBottom="122dp">
 
             <ImageView
-                android:id="@+id/imgCopyLink"
-                android:layout_width="30dp"
-                android:layout_height="29dp"
-                android:layout_alignParentEnd="true"
-                android:layout_centerVertical="true"
-                android:layout_toEndOf="@+id/tvLink"
-                android:src="@drawable/link_copy" />
-        </RelativeLayout>
+                android:id="@+id/linkLogo"
+                android:layout_width="88dp"
+                android:layout_height="88dp"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:src="@drawable/ic_icon_link_de_pago_big" />
 
-
-        <LinearLayout
-            android:id="@+id/buttonsLayout"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/linkInfo"
-            android:layout_marginTop="40dp"
-            android:orientation="horizontal">
-
-            <Button
-                android:id="@+id/btnSalir"
-                android:layout_width="match_parent"
-                android:layout_height="56dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/link_button_background"
+            <TextView
+                android:id="@+id/tvLinkTitleQuickSale"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linkLogo"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="78dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="80dp"
                 android:fontFamily="@font/vag_bold"
-                android:text="Salir"
-                android:textAllCaps="false"
-                android:textColor="@color/white_bg"
-                android:textSize="16sp"
+                android:gravity="center_horizontal"
+                android:text="@string/link_share_msg"
+                android:textColor="#E9F4FA"
+                android:textSize="28sp"
                 android:textStyle="bold" />
 
-            <Button
+
+            <RelativeLayout
+                android:id="@+id/linkInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLinkTitleQuickSale"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="23dp"
+                android:layout_marginTop="32sp"
+                android:layout_marginEnd="23dp"
+                android:background="@drawable/invoice_path_background"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tvFinalAmount"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="23dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/vag_bold"
+                    android:gravity="center_horizontal"
+                    android:text="RD$ 1,849.95"
+                    android:textColor="@color/blue_3"
+                    android:textSize="32sp" />
+
+                <TextView
+                    android:id="@+id/tvLink"
+                    android:layout_width="260dp"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvFinalAmount"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="2dp"
+                    android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/vag_light"
+                    android:gravity="center_horizontal"
+                    android:text="https://pagos.azul.com.do/ba780bd0"
+                    android:textColor="@color/blue_2"
+                    android:textSize="16sp" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layoutShareCopy"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linkInfo"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="36dp">
+
+                <RelativeLayout
+                    android:id="@+id/copyLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="center_vertical">
+
+                    <ImageView
+                        android:id="@+id/btnCopyLink"
+                        android:layout_width="26dp"
+                        android:layout_height="29dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/copy_button_selector" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/btnCopyLink"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="@string/copy_label"
+                        android:textColor="@color/white_bg"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/shareingLayout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="59dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_toEndOf="@+id/copyLayout"
+                    android:gravity="bottom">
+
+                    <ImageView
+                        android:id="@+id/btnShareLink"
+                        android:layout_width="26dp"
+                        android:layout_height="26dp"
+                        android:layout_centerHorizontal="true"
+                        android:background="@drawable/copy_share_selector" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/btnShareLink"
+                        android:layout_marginTop="8dp"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="@string/share_label"
+                        android:textColor="@color/white_bg"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </RelativeLayout>
+
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnNextSale"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:layout_marginStart="8dp"
+                android:layout_below="@+id/layoutShareCopy"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="24dp"
+                android:layout_marginEnd="16dp"
                 android:layout_weight="1"
-                android:background="@drawable/link_button_background"
+                android:background="@drawable/button_disabled_background"
+                android:enabled="false"
                 android:fontFamily="@font/vag_bold"
-                android:text="Próxima venta"
+                android:text="@string/next_sale"
                 android:textAllCaps="false"
                 android:textColor="@color/white_bg"
-                android:textSize="16sp"
+                android:textSize="20sp"
                 android:textStyle="bold" />
 
-        </LinearLayout>
+            <TextView
+                android:id="@+id/btnClose"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnNextSale"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="32dp"
+                android:background="@drawable/button_border_solidless"
+                android:fontFamily="@font/vag_bold"
+                android:text="@string/close"
+                android:textColor="@color/create_font"
+                android:textSize="16sp" />
 
+        </RelativeLayout>
 
-    </LinearLayout>
+    </ScrollView>
 </RelativeLayout>

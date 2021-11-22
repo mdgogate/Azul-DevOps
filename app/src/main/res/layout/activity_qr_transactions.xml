@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:id="@+id/act_qr_transaction"
     tools:context=".activities.transactions.QrTransactions">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -19,7 +20,7 @@
 
             <ImageView
                 android:id="@+id/btnTransactionBack"
-                android:layout_width="24dp"
+                android:layout_width="30dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_left_arrow" />
@@ -63,10 +64,10 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/locationSymbol"
-            android:fontFamily="@font/vag_thin"
+            android:fontFamily="@font/vag_bold"
             android:text="Affiliated Auto Rental - 39036630010"
             android:textColor="@color/create_font"
-            android:textSize="12sp" />
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/tran_locationSelector"
@@ -96,7 +97,7 @@
                 android:layout_height="wrap_content"
                 android:background="@color/white_bg"
                 android:orientation="horizontal"
-                android:visibility="gone">
+                android:visibility="visible">
 
 
                 <LinearLayout
@@ -104,9 +105,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="19dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1"
                     android:layout_marginEnd="8dp"
+                    android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
 
@@ -115,7 +115,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/vag_bold"
                         android:text="@string/from_date"
-                        android:textColor="@color/blue_2"
+                        android:textColor="@color/blue_3"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -123,27 +123,34 @@
                         android:id="@+id/layoutSinceDatePicker"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/tv_unselect_background"
                         android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvFromActivity"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.2"
-                            android:textSize="16sp"
-                            android:layout_marginLeft="16px"
-                            android:fontFamily="@font/vag_bold"
-                            android:textColor="@color/blue_3"
-                            android:textStyle="bold" />
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.8"
+                            android:src="@drawable/pdf_calendar_icon" />
+
+                        <TextView
+                            android:id="@+id/tvFromActivity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16px"
+                            android:layout_weight="0.3"
+                            android:fontFamily="@font/vag_bold"
+                            android:text="24/05/2020"
+                            android:textColor="@color/slider_heading"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/arr_down"
-                            app:tint="@color/unlink_background"  />
+                            android:layout_weight="0.8"
+                            android:src="@drawable/calendar_down_arrow_blue" />
                     </LinearLayout>
 
 
@@ -156,7 +163,6 @@
                     android:layout_marginStart="8dp"
                     android:layout_marginTop="19dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="5dp"
                     android:layout_weight="1"
                     android:gravity="center_horizontal"
                     android:orientation="vertical">
@@ -166,7 +172,7 @@
                         android:layout_height="wrap_content"
                         android:fontFamily="@font/vag_bold"
                         android:text="@string/to_date"
-                        android:textColor="@color/blue_2"
+                        android:textColor="@color/blue_3"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -174,87 +180,41 @@
                         android:id="@+id/layoutUntilDatePicker"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="3dp"
                         android:background="@drawable/tv_unselect_background"
                         android:orientation="horizontal">
-
-                        <TextView
-                            android:id="@+id/tvToActivity"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="0.2"
-                            android:textSize="16sp"
-                            android:layout_marginLeft="16px"
-                            android:fontFamily="@font/vag_bold"
-                            android:textColor="@color/blue_3"
-                            android:textStyle="bold" />
 
                         <ImageView
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="0.8"
+                            android:src="@drawable/pdf_calendar_icon" />
+
+                        <TextView
+                            android:id="@+id/tvToActivity"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="16px"
+                            android:layout_weight="0.3"
+                            android:fontFamily="@font/vag_bold"
+                            android:text="04/06/2020"
+                            android:textColor="@color/slider_heading"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
                             android:layout_marginEnd="5dp"
-                            android:src="@drawable/arr_down"
-                            app:tint="@color/unlink_background"  />
+                            android:layout_weight="0.8"
+                            android:src="@drawable/calendar_down_arrow_blue" />
                     </LinearLayout>
 
 
                 </LinearLayout>
 
-                <ImageView
-                    android:id="@+id/imgClearRangeFilter"
-                    android:layout_width="match_parent"
-                    android:layout_height="40dp"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginTop="22dp"
-                    android:layout_marginEnd="15dp"
-                    android:layout_marginBottom="5dp"
-                    android:layout_weight="1.6"
-                    android:gravity="center_vertical|center_horizontal"
-                    android:src="@drawable/delete_date" />
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/cardDatePicker"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutDateRangeFilter"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="6dp"
-                android:background="@drawable/shadow_bg"
-                android:visibility="visible">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="20dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginEnd="18dp"
-                    android:layout_marginBottom="10dp"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:id="@+id/tvDateFilter"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentStart="true"
-                        android:layout_centerVertical="true"
-                        android:background="@android:color/transparent"
-                        android:textColor="@color/blue_3"
-                        android:textSize="24sp"
-                        android:fontFamily="@font/vag_bold" />
-
-                    <ImageView
-                        android:id="@+id/imgCalendarIcon"
-                        android:layout_width="24dp"
-                        android:layout_height="24dp"
-                        android:layout_alignParentEnd="true"
-                        android:layout_centerVertical="true"
-                        android:src="@drawable/ic_calendaricon" />
-
-                </RelativeLayout>
-            </LinearLayout>
 
         </RelativeLayout>
 
@@ -265,15 +225,14 @@
             android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="10dp"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/edittext_background"
             android:orientation="horizontal">
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="0.2"
-                android:paddingTop="10dp"
-                android:paddingBottom="10dp"
-                android:background="@drawable/edittext_background"
                 android:visibility="visible">
 
                 <ImageView
@@ -283,8 +242,8 @@
                     android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
                     android:layout_marginStart="10dp"
-                    android:src="@drawable/search_in_active"
-                    android:tag="bg"/>
+                    android:src="@drawable/transaction_search_icon_inactive"
+                    android:tag="bg" />
 
                 <EditText
                     android:id="@+id/etSearchBy"
@@ -295,26 +254,23 @@
                     android:layout_marginStart="5dp"
                     android:layout_toEndOf="@+id/searchinActive"
                     android:background="@null"
+                    android:digits="0123456789.,"
                     android:gravity="center_vertical"
                     android:inputType="number"
-                    android:digits="0123456789.,"
                     android:textColor="@color/font_hint"
                     android:textSize="12sp" />
 
 
             </RelativeLayout>
 
-            <TextView
+            <ImageView
                 android:id="@+id/clearTextView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal|center_vertical"
-                android:layout_weight="0.8"
+                android:layout_weight="1.6"
                 android:gravity="center_horizontal"
-                android:text="@string/Cancel"
-                android:textColor="@color/slider_heading"
-                android:fontFamily="@font/vag_bold"
-                android:textStyle="bold"
+                android:src="@drawable/transaction_cross_button"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -329,11 +285,11 @@
                 android:id="@+id/tvAmount"
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:background="@drawable/middle_navigation_bg"
-                android:paddingBottom="8dp"
                 android:layout_alignParentStart="true"
+                android:background="@drawable/middle_navigation_bg"
                 android:fontFamily="@font/vag_bold"
                 android:gravity="center_horizontal"
+                android:paddingBottom="8dp"
                 android:text="@string/monto"
                 android:textColor="@color/blue_3"
                 android:textSize="13sp" />
@@ -342,11 +298,11 @@
                 android:id="@+id/tvReferenceNo"
                 android:layout_width="88dp"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/tvAmount"
-                android:paddingBottom="8dp"
                 android:layout_marginStart="32dp"
+                android:layout_toEndOf="@+id/tvAmount"
                 android:fontFamily="@font/vag_bold"
                 android:gravity="center_horizontal"
+                android:paddingBottom="8dp"
                 android:text="@string/reference_no"
                 android:textColor="@color/slider_heading"
                 android:textSize="13sp" />
@@ -359,10 +315,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/headerLayout"
-        android:background="@color/create_font"
-        android:paddingTop="8dp"
         android:layout_marginBottom="16dp"
-        android:orientation="vertical">
+        android:background="@color/create_font"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
 
         <TextView
             android:id="@+id/tvNoRecordFound"
@@ -370,23 +326,23 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="63dp"
-            android:layout_marginTop="118dp"
+            android:layout_marginTop="95dp"
             android:layout_marginEnd="62dp"
-            android:layout_marginBottom="388dp"
+            android:layout_marginBottom="300dp"
             android:fontFamily="@font/vag_thin"
             android:gravity="center_horizontal"
             android:text="@string/no_records"
             android:textColor="@color/no_record_found"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"
-            android:visibility="gone" />
+            android:visibility="visible" />
 
         <ListView
             android:id="@+id/listTransactions"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:divider="@null"
-            android:visibility="visible"
+            android:visibility="gone"
             tools:listitem="@layout/transaction_list_item" />
     </RelativeLayout>
 </RelativeLayout>

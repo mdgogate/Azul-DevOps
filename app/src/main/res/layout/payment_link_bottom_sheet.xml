@@ -57,7 +57,7 @@
                 android:id="@+id/tvGenerateLink"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Generar link"
+                android:text="@string/generate_pay_link"
                 android:fontFamily="@font/vag_bold"
                 android:textColor="@color/font_hint"
                 android:padding="16dp"
@@ -65,14 +65,15 @@
                 app:drawableEndCompat="@drawable/ic_right_arrow_blue" />
 
             <TextView
-                android:id="@+id/tvQrTransactions"
+                android:id="@+id/tvPaymentTransactions"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Transacciones Link de Pagos"
                 android:fontFamily="@font/vag_bold"
-                android:textColor="@color/font_hint"
                 android:padding="16dp"
+                android:text="@string/payment_link_transactions"
+                android:textColor="@color/font_hint"
                 android:textSize="16sp"
+                app:drawableEndCompat="@drawable/ic_right_arrow_blue" />
                 app:drawableEndCompat="@drawable/ic_right_arrow_blue" />
 
 

@@ -30,9 +30,4 @@ public class GothamMedium extends TextView {
         setTypeface(tf);
     }
 
-    public static Typeface getTypeFace(Context context) {
-        Typeface tf = Typeface.createFromAsset(context.getAssets(),
-                "fonts/Gotham-Medium.ttf");
-        return tf;
-    }
 }

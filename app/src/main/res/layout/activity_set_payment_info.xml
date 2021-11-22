@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_bg"
     android:orientation="vertical"
+    android:id="@+id/act_set_payment"
     tools:context=".activities.payment.SetPaymentInfoActivity">
 
 
@@ -21,7 +22,7 @@
 
             <ImageView
                 android:id="@+id/btnBackScreen"
-                android:layout_width="24dp"
+                android:layout_width="30dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_left_arrow" />
@@ -32,7 +33,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/vag_bold"
-                android:text="@string/GenerateLink"
+                android:text="@string/generate_pay_link"
                 android:textAlignment="center"
                 android:textColor="@color/create_font"
                 android:textSize="16sp" />
@@ -66,18 +67,19 @@
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/locationSymboltr"
             android:fontFamily="@font/vag_bold"
-            android:text="Affiliated Auto Rental - 39036630010"
+            android:textAllCaps="false"
+            android:text="AFFILETED Auto Rental - 39036630010"
             android:textColor="@color/create_font"
             android:textSize="14sp"
             android:textStyle="bold" />
 
         <ImageView
-            android:layout_toLeftOf="@id/tvSelectedPaymentLocation"
             android:id="@+id/paymentLocationSelector"
             android:layout_width="24dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
+            android:layout_toLeftOf="@id/tvSelectedPaymentLocation"
             android:src="@drawable/ic_icon_down_arrow_24x24" />
 
     </RelativeLayout>
@@ -104,27 +106,28 @@
 
                 <TextView
                     android:id="@+id/tvFinalAmount"
-                    android:layout_width="265dp"
+                    android:layout_width="255dp"
                     android:layout_height="wrap_content"
                     android:layout_centerInParent="true"
                     android:layout_centerHorizontal="true"
                     android:fontFamily="@font/vag_bold"
                     android:gravity="center_vertical|center_horizontal"
-                    android:hint="Cobrar"
+                    android:hint="@string/cobrar"
+                    android:longClickable="false"
                     android:textColor="@color/white_bg"
                     android:textColorHint="@color/white_bg"
                     android:textSize="20sp"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"/>
 
                 <ImageView
                     android:id="@+id/nextIcon"
-                    android:layout_width="10dp"
+                    android:layout_width="24dp"
                     android:layout_height="16dp"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_toEndOf="@id/tvFinalAmount"
                     android:src="@drawable/cobrar_arrow"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
             </RelativeLayout>
 
             <TextView
@@ -136,7 +139,7 @@
                 android:layout_marginTop="30dp"
                 android:fontFamily="@font/vag_light"
                 android:gravity="center_horizontal"
-                android:text="Ingresa el monto:"
+                android:text="@string/enter_amount_label"
                 android:textColor="@color/time_frame"
                 android:textSize="20sp" />
 
@@ -149,6 +152,7 @@
                 android:layout_marginStart="27dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="27dp"
+                android:longClickable="false"
                 android:background="@drawable/textview_amount_box"
                 android:fontFamily="@font/vag_bold"
                 android:gravity="center_vertical|center_horizontal"
@@ -184,6 +188,7 @@
                         android:fontFamily="@font/vag_light"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="1"
+                        android:longClickable="false"
                         android:textColor="@color/text_color_selector"
                         android:textColorHint="#C4D0DC"
                         android:textSize="24sp" />
@@ -195,6 +200,7 @@
                         android:layout_below="@+id/tvFirstNo"
                         android:layout_marginTop="22dp"
                         android:layout_weight="1"
+                        android:longClickable="false"
                         android:background="@drawable/button_style_textview"
                         android:digits="0123456789.,"
                         android:fontFamily="@font/vag_light"
@@ -215,6 +221,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_style_textview"
                         android:digits="0123456789.,"
+                        android:longClickable="false"
                         android:fontFamily="@font/vag_light"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="7"
@@ -229,6 +236,7 @@
                         android:layout_below="@+id/tvSeventhNo"
                         android:layout_marginTop="22dp"
                         android:layout_weight="1"
+                        android:longClickable="false"
                         android:background="@drawable/button_style_textview"
                         android:gravity="center_horizontal|center_vertical"
                         android:padding="15dp"
@@ -253,6 +261,7 @@
                             android:background="@drawable/delete_cncel_selector"
                             android:gravity="center_horizontal|center_vertical"
                             android:padding="15dp"
+                            android:longClickable="false"
                             android:src="@drawable/ic_delete_arrow" />
 
                         <ImageView
@@ -265,6 +274,7 @@
                             android:background="@drawable/delete_cncel_selector"
                             android:gravity="center_horizontal|center_vertical"
                             android:padding="15dp"
+                            android:longClickable="false"
                             android:src="@drawable/calc_cancel_icon" />
 
                         <ImageView
@@ -279,6 +289,7 @@
                             android:layout_marginEnd="8dp"
                             android:layout_marginBottom="20dp"
                             android:layout_weight="1"
+                            android:longClickable="false"
                             android:gravity="center_horizontal|center_vertical"
                             android:src="@drawable/ic_icon_delete_cancel"
                             app:tint="#C4D0DC" />
@@ -305,6 +316,7 @@
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="0.00"
                         android:inputType="number"
+                        android:longClickable="false"
                         android:text="2"
                         android:textColor="@color/text_color_selector"
                         android:textColorHint="#C4D0DC"
@@ -319,6 +331,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_style_textview"
                         android:digits="0123456789.,"
+                        android:longClickable="false"
                         android:fontFamily="@font/vag_light"
                         android:gravity="center_horizontal|center_vertical"
                         android:hint="0.00"
@@ -340,6 +353,7 @@
                         android:fontFamily="@font/vag_light"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="8"
+                        android:longClickable="false"
                         android:textColor="@color/text_color_selector"
                         android:textSize="24sp" />
 
@@ -355,6 +369,7 @@
                         android:fontFamily="@font/vag_light"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="0"
+                        android:longClickable="false"
                         android:textColor="@color/text_color_selector"
                         android:textSize="24sp" />
 
@@ -373,6 +388,7 @@
                         android:layout_width="80dp"
                         android:layout_height="68dp"
                         android:layout_weight="1"
+                        android:longClickable="false"
                         android:background="@drawable/button_style_textview"
                         android:digits="0123456789.,"
                         android:fontFamily="@font/vag_light"
@@ -398,6 +414,7 @@
                         android:hint="0.00"
                         android:inputType="number"
                         android:text="6"
+                        android:longClickable="false"
                         android:textColor="@color/text_color_selector"
                         android:textColorHint="#C4D0DC"
                         android:textSize="24sp" />
@@ -414,6 +431,7 @@
                         android:fontFamily="@font/vag_light"
                         android:gravity="center_horizontal|center_vertical"
                         android:text="9"
+                        android:longClickable="false"
                         android:textColor="@color/text_color_selector"
                         android:textSize="24sp" />
 
@@ -427,6 +445,7 @@
                         android:background="@drawable/button_style_textview"
                         android:gravity="center_horizontal|center_vertical"
                         android:padding="15dp"
+                        android:longClickable="false"
                         android:src="@drawable/ic_icon_plus_equal" />
 
                 </RelativeLayout>

@@ -183,8 +183,9 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="4dp"
-                    android:layout_marginRight="4dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:background="@drawable/edittext_background"
                     android:layout_marginBottom="16dp"
                     android:orientation="horizontal">
 
@@ -192,10 +193,9 @@
                         android:id="@+id/layoutTextSearch"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:paddingTop="10dp"
-                        android:paddingBottom="10dp"
+                        android:paddingTop="2dp"
+                        android:paddingBottom="2dp"
                         android:layout_weight="0.2"
-                        android:background="@drawable/edittext_background"
                         android:visibility="visible">
 
                         <ImageView
@@ -205,7 +205,7 @@
                             android:layout_centerVertical="true"
                             android:layout_gravity="center_vertical"
                             android:layout_marginStart="16dp"
-                            android:src="@drawable/search_in_active"
+                            android:src="@drawable/transaction_search_icon_inactive"
                             android:tag="bg" />
 
                         <EditText
@@ -217,25 +217,24 @@
                             android:layout_marginStart="5dp"
                             android:layout_toEndOf="@+id/searchinActive"
                             android:background="@null"
+                            android:hint="@string/search_hint"
+                            android:fontFamily="@font/vag_light"
                             android:gravity="center_vertical"
                             android:inputType="numberDecimal"
                             android:textColor="@color/font_hint"
-                            android:textSize="12sp" />
+                            android:textSize="14sp" />
 
 
                     </RelativeLayout>
 
-                    <TextView
+                    <ImageView
                         android:id="@+id/clearTextView"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_horizontal|center_vertical"
-                        android:layout_weight="0.8"
+                        android:layout_weight="1.7"
+                        android:src="@drawable/transaction_cross_button"
                         android:gravity="center_horizontal"
-                        android:text="@string/Cancel"
-                        android:fontFamily="@font/vag_bold"
-                        android:textColor="@color/slider_heading"
-                        android:textStyle="bold"
                         android:visibility="gone" />
                 </LinearLayout>
 

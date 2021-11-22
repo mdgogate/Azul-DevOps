@@ -17,9 +17,9 @@ import javax.security.auth.x500.X500Principal;
 
 public class KeysUtils {
 
-    /*
-     * Create key.
-     */
+    private KeysUtils() {
+    }
+
     public static void createNewKeys(String alias, Context context) {
         try {
             KeyStore mKeyStore = KeyStore.getInstance(Constants.KEY_STORE);

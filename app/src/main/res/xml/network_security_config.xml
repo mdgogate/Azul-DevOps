@@ -3,5 +3,19 @@
     <domain-config cleartextTrafficPermitted="true">
         <domain includeSubdomains="true">45.79.42.37</domain>
     </domain-config>
+    <domain-config cleartextTrafficPermitted="true">
+        <domain includeSubdomains="true">43.227.22.202</domain>
+    </domain-config>
+    <domain-config cleartextTrafficPermitted="false">
+        <pin digest="SHA-256">DMQlzg5w2bQmDFPJAJ+oYpeFx8osuwsnyoYTibpsKTQ=</pin>
+        <pin digest="SHA-256">RRM1dGqnDFsCJXBTHky16vi1obOlCgFFn/yOhI/y+ho=</pin>
+        <pin digest="SHA-256">WoiWRyIOVNa9ihaBciRSC7XHjliYS9VwUGOIud4PB18=</pin>
+        <trust-anchors>
+            <certificates src="system" />
+            <certificates src="@raw/authority" />
+        </trust-anchors>
+        <domain includeSubdomains="true">codigoqr.azul.com.do</domain>
+    </domain-config>
 </network-security-config>
+
 

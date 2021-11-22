@@ -29,6 +29,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
+        android:visibility="invisible"
         android:contentDescription="image_resource_left_button"
         android:src="@drawable/ic_left_arrow" />
 
@@ -44,8 +45,7 @@
             android:layout_height="107dp"
             android:layout_centerInParent="true"
             android:layout_marginBottom="56dp"
-            android:src="@drawable/ic_logo" />
-
+            android:src="@drawable/ic_bg_color" />
 
     </RelativeLayout>
 
@@ -158,18 +158,41 @@
             android:visibility="invisible"
             android:textColor="@color/login_error_font"/>
 
-        <Button
+
+        <RelativeLayout
             android:id="@+id/startSession"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/button_background"
-            android:drawableEnd="@drawable/ic_right_arrow"
+            android:layout_height="60dp"
+            android:background="@drawable/button_disabled_background"
             android:fontFamily="@font/vag_bold"
-            android:padding="16dp"
-            android:text="@string/login"
-            android:textColor="@color/qr_button_font"
-            android:textSize="20sp" />
+            android:padding="16dp" >
 
+
+            <TextView
+                android:id="@+id/tvFinalAmount"
+                android:layout_width="255dp"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerHorizontal="true"
+                android:fontFamily="@font/vag_bold"
+                android:gravity="center_vertical|center_horizontal"
+                android:text="@string/login"
+                android:layout_marginStart="16dp"
+                android:textColor="@color/white_bg"
+                android:textColorHint="@color/white_bg"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:id="@+id/nextIcon"
+                android:layout_width="24dp"
+                android:layout_height="16dp"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/tvFinalAmount"
+                android:src="@drawable/cobrar_arrow"
+                android:visibility="gone" />
+        </RelativeLayout>
     </LinearLayout>
 
     <TextView

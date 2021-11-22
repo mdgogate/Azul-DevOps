@@ -1,6 +1,5 @@
 package com.sdp.appazul.api;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -9,11 +8,15 @@ import com.sdp.appazul.activities.notifications.PushNotificationSettings;
 import com.sdp.appazul.activities.dashboard.DashBoardActivity;
 import com.sdp.appazul.activities.dashboard.QrCode;
 import com.sdp.appazul.activities.home.MainMenuActivity;
-import com.sdp.appazul.activities.payment.PaymentConfirmaActivity;
+import com.sdp.appazul.activities.payment.PaymentConfirmActivity;
 import com.sdp.appazul.activities.payment.PaymentDataValidateActivity;
+import com.sdp.appazul.activities.payment.QuickPayValidationActivity;
+import com.sdp.appazul.activities.payment.SetPaymentInfoActivity;
 import com.sdp.appazul.activities.registration.PinLoginActivity;
 import com.sdp.appazul.activities.registration.UserRegisterActivity;
 import com.sdp.appazul.activities.registration.PinSetActivity;
+import com.sdp.appazul.activities.transactions.PaymentLinkDetails;
+import com.sdp.appazul.activities.transactions.PaymentLinkTransactions;
 import com.sdp.appazul.activities.transactions.QrTransactions;
 import com.sdp.appazul.activities.transactions.SettledTransactionsQuery;
 import com.sdp.appazul.globals.AppAlters;
@@ -29,7 +32,6 @@ public class ApiManager implements CallbackListener {
         this.context = context;
     }
 
-    ProgressDialog progressDialog;
 
     public boolean isConnectingToInternet() {
         ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
@@ -127,8 +129,17 @@ public class ApiManager implements CallbackListener {
 
     public void paymentMerchantResponse(String responseData) {
 
-        if (context.getClass().equals(PaymentConfirmaActivity.class)) {
-            PaymentConfirmaActivity code = (PaymentConfirmaActivity) context;
+
+        if (context.getClass().equals(PaymentConfirmActivity.class)) {
+            PaymentConfirmActivity code = (PaymentConfirmActivity) context;
+
+            code.paymentLnkMerchantResponse(responseData);
+        } else if (context.getClass().equals(SetPaymentInfoActivity.class)) {
+            SetPaymentInfoActivity code = (SetPaymentInfoActivity) context;
+
+            code.paymentLnkMerchantResponse(responseData);
+        } else if (context.getClass().equals(MainMenuActivity.class)) {
+            MainMenuActivity code = (MainMenuActivity) context;
 
             code.paymentLnkMerchantResponse(responseData);
         }
@@ -140,6 +151,10 @@ public class ApiManager implements CallbackListener {
             PaymentDataValidateActivity code = (PaymentDataValidateActivity) context;
 
             code.paymentLnkCreateResponse(responseData);
+        } else if (context.getClass().equals(QuickPayValidationActivity.class)) {
+            QuickPayValidationActivity code = (QuickPayValidationActivity) context;
+
+            code.paymentLnkCreateResponse(responseData);
         }
     }
 
@@ -147,6 +162,10 @@ public class ApiManager implements CallbackListener {
     public void pushTokenRepsonse(String responseString) {
         if (context.getClass().equals(PushNotificationSettings.class)) {
             PushNotificationSettings code = (PushNotificationSettings) context;
+
+            code.pushTokenResponse(responseString);
+        }else if (context.getClass().equals(PinSetActivity.class)) {
+            PinSetActivity code = (PinSetActivity) context;
 
             code.pushTokenResponse(responseString);
         }
@@ -169,5 +188,79 @@ public class ApiManager implements CallbackListener {
             code.transactionWidgetQrResponseDate(responseString);
         }
     }
+
+    @Override
+    public void appPermissionsResponse(String responseString) {
+        if (context.getClass().equals(MainMenuActivity.class)) {
+            MainMenuActivity code = (MainMenuActivity) context;
+            code.getappPermissionsResponse(responseString);
+        } else if (context.getClass().equals(DashBoardActivity.class)) {
+            DashBoardActivity code = (DashBoardActivity) context;
+            code.getAppPermissionsResponse(responseString);
+        }
+    }
+
+    @Override
+    public void callingDeregisterUsersApi(String responseString) {
+        if (context.getClass().equals(MainMenuActivity.class)) {
+            MainMenuActivity mainMenuActivity = (MainMenuActivity) context;
+            mainMenuActivity.getDeregisterAPIResponse(responseString);
+        } else {
+
+            PinLoginActivity loginActivity = (PinLoginActivity) context;
+            loginActivity.getDeregisterAPIResponse(responseString);
+        }
+    }
+
+    @Override
+    public void getTransactionPdfResponse(String responseString) {
+        DashBoardActivity dashBoardActivity = (DashBoardActivity) context;
+        dashBoardActivity.getTransactionPdf(responseString);
+    }
+
+    @Override
+    public void getPaymentSearchResponse(String responseString) {
+        PaymentLinkTransactions transactions = (PaymentLinkTransactions) context;
+        transactions.getPaymentSearchResponse(responseString);
+    }
+
+    @Override
+    public void getPaymentLinkInfoResponse(String responseString) {
+        PaymentLinkDetails details = (PaymentLinkDetails) context;
+        details.getPaymentLinkInfoResponse(responseString);
+    }
+
+    @Override
+    public void getNewLoginResponse(String responseString) {
+        if (context.getClass().equals(PinSetActivity.class)) {
+            PinSetActivity activity = (PinSetActivity) context;
+            activity.responseForNewLogin(responseString);
+        }
+    }
+
+    @Override
+    public void getDataForDashboard(String responseString) {
+        if (context.getClass().equals(PinSetActivity.class)) {
+            PinSetActivity activity = (PinSetActivity) context;
+            activity.responseForDashboard(responseString);
+        }
+    }
+
+    @Override
+    public void getNewTokenAtPreLogin(String responseString) {
+        if (context.getClass().equals(MainMenuActivity.class)) {
+            MainMenuActivity mainMenuActivity = (MainMenuActivity) context;
+            mainMenuActivity.getRTokenResponse(responseString);
+        }
+    }
+
+    @Override
+    public void getUserResponse(String responseString) {
+        if (context.getClass().equals(MainMenuActivity.class)) {
+            MainMenuActivity mainMenuActivity = (MainMenuActivity) context;
+            mainMenuActivity.getUserResponseData(responseString);
+        }
+    }
+
 
 }

@@ -5,10 +5,10 @@
     android:shape="rectangle">
     <solid android:color="@color/editText_bg" />
     <padding
-        android:bottom="8dp"
-        android:left="8dp"
-        android:right="8dp"
-        android:top="8dp" />
+        android:bottom="6dp"
+        android:left="6dp"
+        android:right="6dp"
+        android:top="6dp" />
     <stroke
         android:width="1dp"
         android:color="@color/unlink_background" />

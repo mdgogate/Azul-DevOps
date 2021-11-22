@@ -2,6 +2,7 @@ package com.sdp.appazul.adapters;
 
 import android.content.Context;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.TextView;
 
 import com.sdp.appazul.R;
 import com.sdp.appazul.classes.TransactionHistory;
+import com.sdp.appazul.globals.KeyConstants;
 
 import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
@@ -30,10 +32,11 @@ public class WidgetTransactionHAdapter extends BaseAdapter {
         this.historyArrayList = historyArrayList;
     }
 
-    public void updateList(Context context, List<TransactionHistory> historyArrayList){
+    public void updateList(Context context, List<TransactionHistory> historyArrayList) {
         this.context = context;
         this.historyArrayList = historyArrayList;
     }
+
     @Override
     public int getCount() {
         return historyArrayList.size();
@@ -67,7 +70,7 @@ public class WidgetTransactionHAdapter extends BaseAdapter {
         tvLocationName.setText(historyArrayList.get(pos).getLocation());
         String referenceNo = historyArrayList.get(pos).getReferenceNo().substring(1);
 
-        tvReferenceNo.setText("No. Ref. " + referenceNo);
+        tvReferenceNo.setText(referenceNo);
         double amount = Double.parseDouble(historyArrayList.get(pos).getAmount());
         tvPrice.setText("RD$ " + format.format(amount));
 
@@ -97,7 +100,7 @@ public class WidgetTransactionHAdapter extends BaseAdapter {
             Date datefor24hr = sdfFormat24.parse(inputTime);
             return sdfFormat12.format(datefor24hr);
         } catch (final ParseException e) {
-            e.printStackTrace();
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
         return null;
     }

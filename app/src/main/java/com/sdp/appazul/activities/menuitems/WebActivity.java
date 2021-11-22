@@ -1,11 +1,13 @@
 package com.sdp.appazul.activities.menuitems;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.net.http.SslError;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.WindowManager;
+import android.webkit.ConsoleMessage;
 import android.webkit.SslErrorHandler;
 import android.webkit.WebChromeClient;
 import android.webkit.WebResourceRequest;
@@ -16,70 +18,80 @@ import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.Nullable;
+
 import com.sdp.appazul.R;
+import com.sdp.appazul.activities.dashboard.DashBoardActivity;
 import com.sdp.appazul.activities.home.BasicRegistrationActivity;
 import com.sdp.appazul.activities.home.MainMenuActivity;
 import com.sdp.appazul.activities.registration.UserRegisterActivity;
+import com.sdp.appazul.globals.AzulApplication;
+import com.sdp.appazul.globals.Constants;
 
 
 public class WebActivity extends BasicRegistrationActivity {
 
-    String newUA = "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.9.0.4) Gecko/20100101 Firefox/4.0 Android";
-    WebView mWebView;
-    TextView toolbarTextTitle;
-    ImageView btnWebBack;
+    private WebView mWebView;
+    private TextView toolbarTextTitle;
+    private ImageView btnWebBack;
+    private String locationJson;
+    private Context context;
 
     @SuppressLint("SetJavaScriptEnabled")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_web);
+        context = this;
         initializeLocalViewControls();
         backButton();
 
     }
 
-    private void initializeLocalViewControls(){
+    @SuppressLint("SetJavaScriptEnabled")
+    private void initializeLocalViewControls() {
         mWebView = findViewById(R.id.myWeb1);
         toolbarTextTitle = findViewById(R.id.toolbarTextTitle);
-        btnWebBack = findViewById(R.id.web_back_button);
-
-        mWebView.getSettings().setUserAgentString(newUA);
-        mWebView.getSettings().setBuiltInZoomControls(true);
+        btnWebBack = findViewById(R.id.backButton);
+        locationJson = ((AzulApplication) context.getApplicationContext()).getLocationDataShare();
 
         String webSite = getIntent().getStringExtra("links");
         Log.i("Links", webSite);
         String bar = getIntent().getStringExtra("toolbarTitleText");
 
-        mWebView.setWebChromeClient(new WebChromeClient());
-        mWebView.setInitialScale(1);
         toolbarTextTitle.setText(bar);
 
+        mWebView.getSettings().setBuiltInZoomControls(false);
+        mWebView.getSettings().setUserAgentString(System.getProperty("http.agent"));
+        mWebView.getSettings().setJavaScriptEnabled(true);
+        mWebView.getSettings().setDomStorageEnabled(true);
+        mWebView.getSettings().setJavaScriptCanOpenWindowsAutomatically(true);
+
         mWebView.setWebViewClient(new WebViewClient() {
-
             @Override
-            public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
-                Log.i("TAG", "onReceivedSslError " + error.toString());
-                handler.proceed();
+            public void onPageFinished(WebView view, String url) {
+                Log.d("TAG", "onPageFinished: "+url);
             }
 
             @Override
-            public void onPageFinished(WebView view, final String url) {
-                Log.i("TAG", "Closed " + url);
+            public boolean shouldOverrideUrlLoading(WebView view, String url) {
+                Log.d("TAG", "shouldOverrideUrlLoading: "+url);
+                view.loadUrl(url);
+                return true;
             }
 
+            @Nullable
             @Override
-            public void onReceivedHttpError(WebView view, WebResourceRequest request, WebResourceResponse errorResponse) {
-                Log.i("onReceivedHttpError", errorResponse.toString());
-                super.onReceivedHttpError(view, request, errorResponse);
+            public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
+                return super.shouldInterceptRequest(view, request);
             }
-
         });
 
-        WebSettings webSettings = mWebView.getSettings();
-        webSettings.setUseWideViewPort(true);
-        webSettings.setJavaScriptEnabled(true);
+        WebChromeClient webChromeClient = new WebChromeClient();
+
+
+        mWebView.setWebChromeClient(webChromeClient);
+
         mWebView.loadUrl(webSite);
 
     }
@@ -89,12 +101,15 @@ public class WebActivity extends BasicRegistrationActivity {
         btnWebBack.setOnClickListener(v -> {
             if (getIntent().getStringExtra("backActivity") != null) {
                 String backActivity = getIntent().getStringExtra("backActivity");
-                Log.d("print",backActivity);
                 if (backActivity.equalsIgnoreCase("LoginOne")) {
                     Intent intent = new Intent(WebActivity.this, UserRegisterActivity.class);
                     startActivity(intent);
                 } else if (backActivity.equalsIgnoreCase("LoginTwo")) {
                     Intent intent = new Intent(WebActivity.this, MainMenuActivity.class);
+                    startActivity(intent);
+                } else if (backActivity.equalsIgnoreCase("Dashboard")) {
+                    Intent intent = new Intent(WebActivity.this, DashBoardActivity.class);
+                    ((AzulApplication) ((WebActivity) this).getApplication()).setLocationDataShare(locationJson);
                     startActivity(intent);
                 }
             }
@@ -104,7 +119,8 @@ public class WebActivity extends BasicRegistrationActivity {
 
     @Override
     public void onBackPressed() {
-        if (mWebView.canGoBack()) mWebView.goBack(); else {
+        if (mWebView.canGoBack()) mWebView.goBack();
+        else {
             super.onBackPressed();
         }
     }

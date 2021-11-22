@@ -7,14 +7,26 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
+import android.text.method.KeyListener;
 import android.util.Base64;
 import android.util.Log;
+
+import android.view.ActionMode;
+import android.view.ContextMenu;
+import android.view.Menu;
+import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -23,14 +35,16 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.sdp.appazul.R;
-import com.sdp.appazul.activities.dashboard.LocationFilterBottomSheet;
 import com.sdp.appazul.activities.home.BaseLoggedInActivity;
+import com.sdp.appazul.activities.home.MenuLocationFilter;
 import com.sdp.appazul.api.ApiManager;
 import com.sdp.appazul.api.ServiceUrls;
 import com.sdp.appazul.classes.LocationFilter;
+import com.sdp.appazul.classes.LocationFilterThirdGroup;
 import com.sdp.appazul.classes.PaymentDetails;
 import com.sdp.appazul.globals.AzulApplication;
 import com.sdp.appazul.globals.Constants;
+import com.sdp.appazul.globals.GlobalFunctions;
 import com.sdp.appazul.globals.KeyConstants;
 import com.sdp.appazul.security.RSAHelper;
 import com.sdp.appazul.utils.DeviceUtils;
@@ -40,6 +54,11 @@ import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
+import java.text.NumberFormat;
+import java.util.Locale;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 public class QuickPayConfirmActivity extends BaseLoggedInActivity {
     String locationJson;
@@ -48,12 +67,13 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
     EditText etCustomerName;
     EditText etITBISAmount;
     EditText etTotalAmount;
+    TextView tvEmailError;
     TextView cancelPayment;
     TextView tvTrnType;
-    TextView tvLocalidadName;
-    TextView searchinActive;
-    TextView searchinAmount;
-    TextView tvComercio;
+    TextView tvLocationName;
+    TextView searchInActive;
+    TextView searchInAmount;
+    TextView tvCommerceName;
     TextView tvITBISError;
     TextView tvAmountError;
     TextView tvITBISInclude;
@@ -62,58 +82,86 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
     ImageView btnBackScreen;
     RelativeLayout layoutSearchByEdittext;
     RelativeLayout layoutAmountAllComp;
-    String previousCleanString;
     String totalAmountEntered;
     double lastAmount = 0;
-    ImageView paymentConfirmLocFilter;
     ImageView openLocationBar;
-    LocationFilterBottomSheet bottomsheet;
+    MenuLocationFilter menuLocationBottomSheet;
     LocationFilter locationFilter = new LocationFilter();
     String lastLocationName;
     String lastLocationMid;
     String mID;
     String taxStatus;
-    RelativeLayout layoutITBIS;
+    String selectedCurrency;
+    String previousTaxStatus;
+    LinearLayout layoutITBIS;
+    LinearLayout layoutOrderInfo;
+    RelativeLayout layoutEmailInfo;
     Context context;
     TextView tvAmountTitle;
+    String previousLocationName;
+    String previousParentLocationName;
+    String previousLocationId;
+    ApiManager apiManager = new ApiManager(this);
+    String responseCode;
+    double bankTaxAmount;
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
+    DecimalFormat currFormat = new DecimalFormat("#,##0.00",symbols);
+    boolean buttonOn = false;
+    double modifiedAmount;
+    double modifiedTax;
+    double newAmt;
+    private static final double UNINITIALIZED = 0.0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_quick_pay_confirm);
         context = this;
-        Intent intent = getIntent();
-        locationJson = intent.getStringExtra(Constants.LOCATION_RESPONSE);
-        totalAmountEntered = intent.getStringExtra(Constants.TOTAL_AMOUNT);
-
-        locationFilter = ((AzulApplication) this.getApplication()).getLocationFilter();
+        getIntentData();
         initControls();
-
-
         amountCheck(totalAmountEntered);
-        getMerchantApiCall();
 
-        if (lastAmount != 0) {
-            double totalEnteredAmount = lastAmount / 100;
-            etTotalAmount.setText("" + currFormat.format(totalEnteredAmount));
-            searchinAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+        if (lastAmount > UNINITIALIZED) {
+            setCurrencyForAmount();
+            etTotalAmount.setText(currFormat.format(lastAmount));
+            searchInAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
             etTotalAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
         }
+        setTaxCurrencyHint();
     }
 
-    private void amountCheck(String totalAmountGiven){
-        if (totalAmountGiven != null) {
-            lastAmount = Double.parseDouble(new DecimalFormat("#").format(Double.parseDouble(totalAmountGiven)));
-        } else {
+    private void getIntentData() {
+        Intent intent = getIntent();
+        locationFilter = ((AzulApplication) this.getApplication()).getLocationFilter();
+        responseCode = intent.getStringExtra("CODE");
+        totalAmountEntered = intent.getStringExtra(Constants.TOTAL_AMOUNT);
+        locationJson = ((AzulApplication) context.getApplicationContext()).getLocationDataShare();
 
-            getPraviousEnteredAmount();
+        previousLocationName = intent.getStringExtra(Constants.LOCATION_NAME_SELECTED);
+        previousTaxStatus = intent.getStringExtra("TAX_STATUS");
+        selectedCurrency = intent.getStringExtra("CURRENCY");
+        previousParentLocationName = intent.getStringExtra(Constants.LOCATION_PARENT_NAME_SELECTED);
+        previousLocationId = intent.getStringExtra(Constants.LOCATION_ID_SELECTED);
+    }
+
+    private void amountCheck(String totalAmountGiven) {
+        try {
+            if (totalAmountGiven != null && !TextUtils.isEmpty(totalAmountGiven)) {
+                double newAmount = Double.parseDouble(totalAmountGiven);
+                double totalEnteredAmount = newAmount / 100;
+                lastAmount = totalEnteredAmount;
+            } else {
+                getPreviousEnteredAmount();
+            }
+        } catch (NumberFormatException numberFormatException) {
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(numberFormatException));
         }
     }
 
-    private void getPraviousEnteredAmount(){
+    private void getPreviousEnteredAmount() {
         PaymentDetails paymentDetails = ((AzulApplication) this.getApplication()).getDetails();
         if (paymentDetails != null) {
-            tvLocalidadName.setText(paymentDetails.getSelectedLocation());
+            tvLocationName.setText(paymentDetails.getSelectedLocation().toLowerCase());
             tvTrnType.setText(paymentDetails.getSelectedTrnType());
             if (paymentDetails.getSelectedOrderNumber() != null && paymentDetails.getSelectedOrderNumber().length() > 0) {
                 etOrderNo.setText(paymentDetails.getSelectedOrderNumber());
@@ -130,15 +178,49 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
             } else {
                 etCustomerName.setText("");
             }
+
+            validateTaxAndStatus(paymentDetails);
+            lastAmount = paymentDetails.getEnteredTotalAmount();
         }
-        lastAmount = paymentDetails.getEnteredTotalAmount();
+
     }
+
+    private void validateTaxAndStatus(PaymentDetails paymentDetails) {
+        if (paymentDetails.getSwitchFlag() == 1) {
+            buttonOn = true;
+            switchITBIS.setImageResource(R.drawable.switch_on_state);
+            String taxWithoutComma = paymentDetails.getEnteredTaxAmount().replace(",", "");
+            String taxWithoutDecimal = taxWithoutComma.replace("\\.", "");
+            modifiedTax = Double.parseDouble(taxWithoutDecimal);
+            etITBISAmount.setText(currFormat.format(modifiedTax));
+            etITBISAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+            searchInActive.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+            checkCurrency();
+        } else {
+            buttonOn = false;
+            switchITBIS.setImageResource(R.drawable.switch_off_state);
+            String emptyAmount = "0.00";
+            etITBISAmount.setText(emptyAmount);
+            etITBISAmount.setTextColor(Color.parseColor(Constants.LIGHT_BLUE));
+            searchInActive.setTextColor(Color.parseColor(Constants.LIGHT_BLUE));
+            layoutSearchByEdittext.setBackgroundResource(R.drawable.border_background);
+            if (selectedCurrency.equalsIgnoreCase("USD")) {
+                searchInActive.setText(Constants.CURRENCY_FORMAT_USD);
+            } else {
+                searchInActive.setText(Constants.CURRENCY_FORMAT);
+            }
+        }
+    }
+
     private double calculateTax(double totalAmountEntered) {
         double subTotal = (totalAmountEntered / 1.18);
-        return (subTotal / 100.0f) * 18;
+        double minusAmount = subTotal - totalAmountEntered;
+        return minusAmount * (-1);
     }
 
     private void initControls() {
+        layoutOrderInfo = findViewById(R.id.layoutOrderInfo);
+        layoutEmailInfo = findViewById(R.id.layoutemailInfo);
         etEmail = findViewById(R.id.etEmail);
         etCustomerName = findViewById(R.id.etCustomerName);
         openLocationBar = findViewById(R.id.openLocationBar);
@@ -147,17 +229,18 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
         layoutSearchByEdittext = findViewById(R.id.layoutSearchByEdittext);
         layoutAmountAllComp = findViewById(R.id.layoutAmountAllComp);
         layoutITBIS = findViewById(R.id.layoutITBIS);
-        tvLocalidadName = findViewById(R.id.tvLocalidadName);
+        tvLocationName = findViewById(R.id.tvLocalidadName);
         tvITBISError = findViewById(R.id.tvITBISError);
         tvAmountError = findViewById(R.id.tvAmountError);
         etOrderNo = findViewById(R.id.etOrderNo);
-        searchinActive = findViewById(R.id.searchinActive);
-        searchinAmount = findViewById(R.id.searchinAmount);
+        searchInActive = findViewById(R.id.searchinActive);
+        searchInAmount = findViewById(R.id.searchinAmount);
         etITBISAmount = findViewById(R.id.etITBISAmount);
         etTotalAmount = findViewById(R.id.etTotalAmount);
         tvTrnType = findViewById(R.id.tvTrnType);
+        tvEmailError = findViewById(R.id.tvEmailError);
         cancelPayment = findViewById(R.id.cancelPayment);
-        tvComercio = findViewById(R.id.tvComercio);
+        tvCommerceName = findViewById(R.id.tvComercio);
         btnConfirmPayment = findViewById(R.id.btnConfirmPayment);
         switchITBIS = findViewById(R.id.switchITBIS);
         tvITBISInclude = findViewById(R.id.tvITBISInclude);
@@ -165,14 +248,77 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
         setLocationData(locationFilter);
         btnBackScreen.setOnClickListener(btnBackScreenView -> {
             Intent intent = new Intent(QuickPayConfirmActivity.this, QuickSetPaymentActivity.class);
-            intent.putExtra(Constants.LOCATION_RESPONSE, locationJson);
+            ((AzulApplication) ((QuickPayConfirmActivity) this).getApplication()).setLocationDataShare(locationJson);
+            if (responseCode != null) {
+                intent.putExtra("CODE", responseCode);
+            }
             intent.putExtra(Constants.TOTAL_AMOUNT, totalAmountEntered);
             startActivity(intent);
+            this.overridePendingTransition(R.anim.animation_leave,
+                    R.anim.slide_nothing);
         });
         openLocationBar.setOnClickListener(paymentLocationSelectorView -> {
-            bottomsheet = new LocationFilterBottomSheet(locationJson, "QUICK_PAYMENT_CONFIRM");
-            bottomsheet.show(getSupportFragmentManager(), "bottomSheet");
+            menuLocationBottomSheet = new MenuLocationFilter(locationJson, "QUICK_PAYMENT_CONFIRM", 1);
+            menuLocationBottomSheet.show(getSupportFragmentManager(), "bottomSheet");
         });
+
+
+        ActionMode.Callback callback = new ActionMode.Callback() {
+            @Override
+            public boolean onCreateActionMode(ActionMode mode, Menu menu) {
+                return true;
+            }
+
+            @Override
+            public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
+                if (menu != null) {
+                    menu.removeItem(android.R.id.paste);
+                    menu.removeItem(android.R.id.copy);
+                    menu.removeItem(android.R.id.copy);
+                    menu.removeItem(android.R.id.selectAll);
+                }
+                return true;
+            }
+
+            @Override
+            public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
+                return false;
+            }
+
+            @Override
+            public void onDestroyActionMode(ActionMode mode) {
+                Log.d("TAG", "onDestroyActionMode: ");
+            }
+        };
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            etOrderNo.setCustomInsertionActionModeCallback(callback);
+            etCustomerName.setCustomInsertionActionModeCallback(callback);
+            etITBISAmount.setCustomInsertionActionModeCallback(callback);
+            etTotalAmount.setCustomInsertionActionModeCallback(callback);
+            etEmail.setCustomInsertionActionModeCallback(callback);
+        }
+
+        etOrderNo.setCustomSelectionActionModeCallback(callback);
+        etCustomerName.setCustomSelectionActionModeCallback(callback);
+        etITBISAmount.setCustomSelectionActionModeCallback(callback);
+        etTotalAmount.setCustomSelectionActionModeCallback(callback);
+        etEmail.setCustomSelectionActionModeCallback(callback);
+
+        editTextListeners();
+
+
+        switchListener();
+        btnConfirmPayment.setOnClickListener(btnConfirmPaymentView ->
+
+                uiValidation());
+
+        cancelPayment.setOnClickListener(cancelPaymentView ->
+
+                cancelAlert(context));
+    }
+
+    private void editTextListeners() {
 
         etITBISAmount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -186,23 +332,23 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
                 layoutAmountAllComp.setBackgroundResource(R.drawable.border_background);
                 etOrderNo.setBackgroundResource(R.drawable.border_background);
                 etCustomerName.setBackgroundResource(R.drawable.border_background);
-                etEmail.setBackgroundResource(R.drawable.border_background);
+                layoutEmailInfo.setBackgroundResource(R.drawable.border_background);
                 etITBISAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
-                searchinActive.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+                searchInActive.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+                checkCurrency();
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
                 if (etITBISAmount.getText().toString().length() <= 0) {
-                    layoutSearchByEdittext.setBackgroundResource(R.drawable.error_background_shadow);
-                    tvITBISError.setText(context.getString(R.string.less_tax_error));
-                    tvITBISError.setVisibility(View.VISIBLE);
-                } else {
-                    taxCalculations();
+                    Log.d("", "");
                 }
+
             }
         });
+
+
         etTotalAmount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -214,65 +360,184 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
                 layoutAmountAllComp.setBackgroundResource(R.drawable.active_border_background);
                 layoutSearchByEdittext.setBackgroundResource(R.drawable.border_background);
                 etTotalAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
-                searchinAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+                searchInAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+                setCurrencyForAmount();
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
 
-                if (etTotalAmount.getText().toString().length() <= 0) {
-                    layoutAmountAllComp.setBackgroundResource(R.drawable.error_background_shadow);
-                    tvAmountError.setText(context.getString(R.string.less_amount_error));
-                    tvAmountError.setVisibility(View.VISIBLE);
+                if (etTotalAmount.getText().toString().length() <= 0
+                        || etTotalAmount.getText().toString().equalsIgnoreCase("0")
+                        || etTotalAmount.getText().toString().equalsIgnoreCase("0.")) {
+                    errorFunc();
+                } else if (etTotalAmount.getText().toString().equalsIgnoreCase("0.0")
+                        || etTotalAmount.getText().toString().equalsIgnoreCase("0.00")) {
+                    errorFunc();
+                } else {
+                    tvAmountError.setVisibility(View.GONE);
+                    btnConfirmPayment.setEnabled(true);
+                    btnConfirmPayment.setBackgroundResource(R.drawable.link_button_background);
+                    if (!etITBISAmount.getText().toString().isEmpty() && !etTotalAmount.getText().toString().isEmpty()) {
+                        taxCalculations();
+                    }
                 }
+
             }
         });
 
-        etITBISAmount.setOnClickListener(view -> {
+        etEmail.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                Log.d("", "");
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                tvEmailError.setVisibility(View.GONE);
+                btnConfirmPayment.setBackgroundResource(R.drawable.link_button_background);
+                btnConfirmPayment.setEnabled(true);
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+                Log.d("", "");
+                tvEmailError.setVisibility(View.GONE);
+                btnConfirmPayment.setBackgroundResource(R.drawable.link_button_background);
+                btnConfirmPayment.setEnabled(true);
+            }
+        });
+
+        etITBISAmount.setOnFocusChangeListener((view, b) ->
+
+        {
             layoutSearchByEdittext.setBackgroundResource(R.drawable.active_border_background);
             layoutAmountAllComp.setBackgroundResource(R.drawable.border_background);
             etOrderNo.setBackgroundResource(R.drawable.border_background);
             etCustomerName.setBackgroundResource(R.drawable.border_background);
-            etEmail.setBackgroundResource(R.drawable.border_background);
-            searchinActive.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+            layoutEmailInfo.setBackgroundResource(R.drawable.border_background);
+            searchInActive.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+            if (selectedCurrency.equalsIgnoreCase("USD")) {
+                searchInActive.setText(Constants.CURRENCY_FORMAT_USD);
+            } else {
+                searchInActive.setText(Constants.CURRENCY_FORMAT);
+            }
             tvITBISError.setVisibility(View.GONE);
         });
-        etTotalAmount.setOnClickListener(view -> {
+        etTotalAmount.setOnFocusChangeListener((view, b) -> {
             layoutAmountAllComp.setBackgroundResource(R.drawable.active_border_background);
             layoutSearchByEdittext.setBackgroundResource(R.drawable.border_background);
-            searchinAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+            setCurrencyForAmount();
+            searchInAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
             etOrderNo.setBackgroundResource(R.drawable.border_background);
             etCustomerName.setBackgroundResource(R.drawable.border_background);
-            etEmail.setBackgroundResource(R.drawable.border_background);
+            layoutEmailInfo.setBackgroundResource(R.drawable.border_background);
             tvAmountError.setVisibility(View.GONE);
         });
-        etOrderNo.setOnClickListener(view -> {
+
+
+        etOrderNo.setOnFocusChangeListener((view, b) ->
+
+        {
             etOrderNo.setBackgroundResource(R.drawable.active_border_background);
             layoutAmountAllComp.setBackgroundResource(R.drawable.border_background);
             etCustomerName.setBackgroundResource(R.drawable.border_background);
-            etEmail.setBackgroundResource(R.drawable.border_background);
+            layoutEmailInfo.setBackgroundResource(R.drawable.border_background);
             layoutSearchByEdittext.setBackgroundResource(R.drawable.border_background);
         });
-        etCustomerName.setOnClickListener(view -> {
+
+        etCustomerName.setOnFocusChangeListener((view, b) ->
+
+        {
             etCustomerName.setBackgroundResource(R.drawable.active_border_background);
             etOrderNo.setBackgroundResource(R.drawable.border_background);
-            etEmail.setBackgroundResource(R.drawable.border_background);
+            layoutEmailInfo.setBackgroundResource(R.drawable.border_background);
             layoutAmountAllComp.setBackgroundResource(R.drawable.border_background);
             layoutSearchByEdittext.setBackgroundResource(R.drawable.border_background);
         });
-        etEmail.setOnClickListener(view -> {
-            etEmail.setBackgroundResource(R.drawable.active_border_background);
+
+        etEmail.setOnFocusChangeListener((view, b) ->
+
+        {
+            layoutEmailInfo.setBackgroundResource(R.drawable.active_border_background);
             etOrderNo.setBackgroundResource(R.drawable.border_background);
             etCustomerName.setBackgroundResource(R.drawable.border_background);
             layoutAmountAllComp.setBackgroundResource(R.drawable.border_background);
             layoutSearchByEdittext.setBackgroundResource(R.drawable.border_background);
+            tvEmailError.setVisibility(View.GONE);
+            btnConfirmPayment.setBackgroundResource(R.drawable.link_button_background);
+            btnConfirmPayment.setEnabled(true);
         });
+    }
+    private void setCurrencyForAmount(){
+        if (selectedCurrency.equalsIgnoreCase("USD")) {
+            searchInAmount.setText(Constants.CURRENCY_FORMAT_USD);
+        } else {
+            searchInAmount.setText(Constants.CURRENCY_FORMAT);
+        }
+    }
+
+    private void uiValidation() {
+        String taxAmount = etITBISAmount.getText().toString().replace(",", "");
+        String totalAmount = etTotalAmount.getText().toString().replace(",", "");
+        String totalAmountNew = totalAmount.replace("RD$", "");
+        double taxAmountCheck = 0;
+        double totalAmountCheck = 0;
+        if (taxAmount != null && !taxAmount.isEmpty() && totalAmountNew != null && !totalAmountNew.isEmpty()) {
+            taxAmountCheck = Double.parseDouble(taxAmount);
+            totalAmountCheck = Double.parseDouble(totalAmountNew);
+            if (!TextUtils.isEmpty(etEmail.getText().toString())) {
+                if (Boolean.TRUE.equals(GlobalFunctions.isValidEmail(etEmail.getText().toString()))) {
+                    callPaymentValidationScreen();
+                    tvEmailError.setVisibility(View.GONE);
+                    btnConfirmPayment.setBackgroundResource(R.drawable.link_button_background);
+                    btnConfirmPayment.setEnabled(true);
+                } else {
+                    tvEmailError.setVisibility(View.VISIBLE);
+                    tvEmailError.setText(context.getString(R.string.email_error_msg));
+                    btnConfirmPayment.setBackgroundResource(R.drawable.continue_btn_error_bg);
+                    btnConfirmPayment.setEnabled(false);
+                }
+            } else if (taxAmountCheck > totalAmountCheck) {
+                layoutSearchByEdittext.setBackgroundResource(R.drawable.error_background_shadow);
+                tvITBISError.setVisibility(View.VISIBLE);
+                tvITBISError.setText(getResources().getString(R.string.itbis_error));
+                btnConfirmPayment.setBackgroundResource(R.drawable.continue_btn_error_bg);
+                btnConfirmPayment.setEnabled(false);
+            } else if (TextUtils.isEmpty(etTotalAmount.getText().toString())) {
+                tvAmountError.setVisibility(View.VISIBLE);
+                tvAmountError.setText(context.getString(R.string.less_amount_error));
+            } else {
+                callPaymentValidationScreen();
+            }
+
+        } else {
+            validateData();
+        }
+
+    }
 
 
-        switchListener();
-        btnConfirmPayment.setOnClickListener(btnConfirmPaymentView -> callPaymentValidationScreen());
+    private void validateData() {
 
-        cancelPayment.setOnClickListener(cancelPaymentView -> cancelAlert(context));
+        if (!TextUtils.isEmpty(etEmail.getText().toString())) {
+            if (Boolean.TRUE.equals(GlobalFunctions.isValidEmail(etEmail.getText().toString()))) {
+                callPaymentValidationScreen();
+                tvEmailError.setVisibility(View.GONE);
+                btnConfirmPayment.setBackgroundResource(R.drawable.link_button_background);
+                btnConfirmPayment.setEnabled(true);
+            } else {
+                tvEmailError.setVisibility(View.VISIBLE);
+                tvEmailError.setText(context.getString(R.string.email_error_msg));
+                btnConfirmPayment.setBackgroundResource(R.drawable.continue_btn_error_bg);
+                btnConfirmPayment.setEnabled(false);
+            }
+        } else if (TextUtils.isEmpty(etTotalAmount.getText().toString())) {
+            tvAmountError.setVisibility(View.VISIBLE);
+            tvAmountError.setText(context.getString(R.string.less_amount_error));
+        } else {
+            callPaymentValidationScreen();
+        }
     }
 
     private void callPaymentValidationScreen() {
@@ -281,23 +546,32 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
         if (responseCode != null) {
             intent.putExtra("CODE", responseCode);
         }
-        intent.putExtra("SLECTED_LOCATION_ID", mID);
-
-        intent.putExtra("SLECTED_LOCATION", tvLocalidadName.getText().toString());
-        intent.putExtra("SLECTED_TRN_TYPE", tvTrnType.getText().toString());
+        intent.putExtra("SELECTED_LOCATION_ID", mID);
+        intent.putExtra("SELECTED_PARENT_LOCATION", tvCommerceName.getText().toString());
+        intent.putExtra("TAX_STATUS", taxStatus);
+        intent.putExtra("CURRENCY", selectedCurrency);
+        Log.d("QuickPayConfirmActivity", "callPaymentValidationScreen: " + selectedCurrency);
+        details.setCurrency(selectedCurrency);
+        intent.putExtra("SELECTED_LOCATION", tvLocationName.getText().toString());
+        intent.putExtra("SELECTED_TRN_TYPE", tvTrnType.getText().toString());
         intent.putExtra("ORDER_NO", etOrderNo.getText().toString());
-        intent.putExtra("CUST_NAME", etCustomerName.getText().toString());
+        intent.putExtra("CLIENT_NAME", etCustomerName.getText().toString());
         intent.putExtra("EMAIL", etEmail.getText().toString());
-        if (taxStatus != null && taxStatus.equalsIgnoreCase("false")) {
-            intent.putExtra("ITBIS_TAX", etITBISAmount.getText().toString());
+
+        if (taxStatus != null && taxStatus.equalsIgnoreCase(Constants.BOOLEAN_TRUE)) {
+            intent.putExtra(Constants.TAX_LABEL, etITBISAmount.getText().toString());
+            details.setEnteredTaxAmount(etITBISAmount.getText().toString());
+        } else {
+            details.setEnteredTaxAmount("0");
         }
         if (Boolean.TRUE.equals(buttonOn)) {
-            details.setEnteredTaxAmount(newAmt);
+            details.setSwitchFlag(1);
+        } else {
+            details.setSwitchFlag(0);
         }
         intent.putExtra(Constants.TOTAL_AMOUNT, etTotalAmount.getText().toString());
-        intent.putExtra(Constants.LOCATION_RESPONSE, locationJson);
-
-        if (modifiedAmount != 0) {
+        ((AzulApplication) ((QuickPayConfirmActivity) this).getApplication()).setLocationDataShare(locationJson);
+        if (modifiedAmount > UNINITIALIZED) {
             intent.putExtra("AMOUNT", modifiedAmount);
             details.setEnteredTotalAmount(modifiedAmount);
         } else {
@@ -305,7 +579,7 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
             details.setEnteredTotalAmount(lastAmount);
         }
         details.setSelectedLocationID(mID);
-        details.setSelectedLocation(tvLocalidadName.getText().toString());
+        details.setSelectedLocation(tvLocationName.getText().toString());
         details.setSelectedTrnType(tvTrnType.getText().toString());
         details.setSelectedOrderNumber(etOrderNo.getText().toString());
         details.setSelectedName(etCustomerName.getText().toString());
@@ -314,164 +588,194 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
 
         ((AzulApplication) ((QuickPayConfirmActivity) context).getApplication()).setDetails(details);
         startActivity(intent);
+        this.overridePendingTransition(R.anim.animation_enter,
+                R.anim.slide_nothing);
     }
+
+    Dialog cancelAlertDialog;
 
     public void cancelAlert(Context activity) {
         try {
 
-            Dialog dialog = new Dialog(activity);
-            dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-            dialog.setCancelable(false);
-            dialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
-            dialog.setContentView(R.layout.cancel_dialog_layout);
-            TextView textTitle = dialog.findViewById(R.id.textTitle);
-            TextView textMsg = dialog.findViewById(R.id.textMsg);
+            cancelAlertDialog = new Dialog(activity);
+            cancelAlertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            cancelAlertDialog.setCancelable(false);
+            cancelAlertDialog.getWindow().setBackgroundDrawableResource(android.R.color.transparent);
+            cancelAlertDialog.setContentView(R.layout.cancel_dialog_layout);
+            TextView textTitle = cancelAlertDialog.findViewById(R.id.textTitle);
+            TextView textMsg = cancelAlertDialog.findViewById(R.id.textMsg);
             Typeface typeface;
             typeface = Typeface.createFromAsset(activity.getAssets(), "fonts/Roboto-Medium.ttf");
             textTitle.setTypeface(typeface);
             textMsg.setTypeface(typeface);
-            TextView btnNo = dialog.findViewById(R.id.btnNo);
-            TextView btnYes = dialog.findViewById(R.id.btnYes);
+            TextView btnNo = cancelAlertDialog.findViewById(R.id.btnNo);
+            TextView btnYes = cancelAlertDialog.findViewById(R.id.btnYes);
             btnYes.setTypeface(typeface);
 
             btnYes.setOnClickListener(view -> {
 
                 Intent intent = new Intent(QuickPayConfirmActivity.this, QuickSetPaymentActivity.class);
-                intent.putExtra(Constants.LOCATION_RESPONSE, locationJson);
+                ((AzulApplication) ((QuickPayConfirmActivity) this).getApplication()).setLocationDataShare(locationJson);
+                if (responseCode != null) {
+                    intent.putExtra("CODE", responseCode);
+                }
                 startActivity(intent);
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
+                this.overridePendingTransition(R.anim.animation_leave,
+                        R.anim.slide_nothing);
+                if (cancelAlertDialog != null && cancelAlertDialog.isShowing()) {
+                    cancelAlertDialog.dismiss();
                 }
             });
             btnNo.setOnClickListener(view -> {
-                if (dialog != null && dialog.isShowing()) {
-                    dialog.dismiss();
+                if (cancelAlertDialog != null && cancelAlertDialog.isShowing()) {
+                    cancelAlertDialog.dismiss();
                 }
             });
-            dialog.show();
+            cancelAlertDialog.show();
 
         } catch (
                 Exception e) {
-            Log.e("Exception : ", Log.getStackTraceString(e));
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
     }
 
     public void taxCalculations() {
-        String taxAmount = etITBISAmount.getText().toString().replace(",", "");
-        String totalAmount = etTotalAmount.getText().toString().replace(",", "");
-        String totalAmountNew = totalAmount.replace("RD$", "");
+        if (!etITBISAmount.getText().toString().isEmpty() && !etTotalAmount.getText().toString().isEmpty()) {
+            String taxAmount = etITBISAmount.getText().toString().replace(",", "");
+            String totalAmount = etTotalAmount.getText().toString().replace(",", "");
+            String totalAmountNew = totalAmount.replace("RD$", "");
 
-        double taxAmountCheck = Double.parseDouble(taxAmount);
-        double totalAmountCheck = Double.parseDouble(totalAmountNew);
+            double taxAmountCheck = Double.parseDouble(taxAmount);
+            double totalAmountCheck = Double.parseDouble(totalAmountNew);
 
-        if (taxAmountCheck > totalAmountCheck) {
-            layoutSearchByEdittext.setBackgroundResource(R.drawable.error_background_shadow);
-            tvITBISError.setText("El ITBIS digitado excede el monto total");
-            tvITBISError.setVisibility(View.VISIBLE);
-        } else {
-            layoutSearchByEdittext.setBackgroundResource(R.drawable.active_border_background);
-            tvITBISError.setVisibility(View.GONE);
+            if (taxAmountCheck > totalAmountCheck) {
+                layoutSearchByEdittext.setBackgroundResource(R.drawable.error_background_shadow);
+                tvITBISError.setVisibility(View.VISIBLE);
+                tvITBISError.setText(getResources().getString(R.string.itbis_error));
+                btnConfirmPayment.setBackgroundResource(R.drawable.continue_btn_error_bg);
+                btnConfirmPayment.setEnabled(false);
+            } else {
+                btnConfirmPayment.setEnabled(true);
+                btnConfirmPayment.setBackgroundResource(R.drawable.link_button_background);
+                layoutSearchByEdittext.setBackgroundResource(R.drawable.active_border_background);
+                tvITBISError.setVisibility(View.GONE);
+            }
         }
     }
 
     public void setLocationData(LocationFilter locationFilter) {
+
         if (locationFilter != null) {
             lastLocationName = locationFilter.getLocationNameAndId();
             lastLocationMid = locationFilter.getmId();
             mID = lastLocationMid;
-            tvLocalidadName.setText(locationFilter.getLocationName());
+            tvLocationName.setText(locationFilter.getLocationName().toLowerCase());
             if (locationFilter.getParentName() != null) {
-                tvComercio.setText(locationFilter.getParentName());
+                tvCommerceName.setText(locationFilter.getParentName().toLowerCase());
             }
             taxStatus = locationFilter.getTaxExempt();
+            Log.d("QuickPayConfirmActivity", "setLocationData: 111  " + selectedCurrency);
+            selectedCurrency = locationFilter.getCurrency();
+        } else {
+            if (!TextUtils.isEmpty(previousLocationName) && !TextUtils.isEmpty(previousParentLocationName)) {
+                tvLocationName.setText(previousLocationName.toLowerCase());
+                tvCommerceName.setText(previousParentLocationName.toLowerCase());
+            }
         }
 
         if (locationFilter != null &&
                 !TextUtils.isEmpty(locationFilter.getTaxExempt()) &&
-                locationFilter.getTaxExempt().equalsIgnoreCase("false")) {
+                locationFilter.getTaxExempt().equalsIgnoreCase(Constants.BOOLEAN_TRUE)) {
             layoutITBIS.setVisibility(View.VISIBLE);
             tvITBISInclude.setVisibility(View.VISIBLE);
 
             taxStatus = locationFilter.getTaxExempt();
-
+            selectedCurrency = locationFilter.getCurrency();
             dynamicMargin(0);
         } else {
-            layoutITBIS.setVisibility(View.GONE);
-            tvITBISInclude.setVisibility(View.GONE);
-            dynamicMargin(1);
+            if (!TextUtils.isEmpty(previousTaxStatus) &&
+                    previousTaxStatus.equalsIgnoreCase(Constants.BOOLEAN_TRUE)) {
+                layoutITBIS.setVisibility(View.VISIBLE);
+                tvITBISInclude.setVisibility(View.VISIBLE);
+                dynamicMargin(0);
+                taxStatus = previousTaxStatus;
+            } else {
+                layoutITBIS.setVisibility(View.GONE);
+                tvITBISInclude.setVisibility(View.GONE);
+                dynamicMargin(1);
+            }
+
 
         }
     }
 
     public void dynamicMargin(int flag) {
+        LinearLayout.LayoutParams layoutParams = (LinearLayout.LayoutParams) tvAmountTitle.getLayoutParams();
         if (flag == 0) {
-            LinearLayout.LayoutParams layoutparams = (LinearLayout.LayoutParams) tvAmountTitle.getLayoutParams();
 
-            layoutparams.setMargins(0, 0, 0, 0);
-            tvAmountTitle.setLayoutParams(layoutparams);
+            layoutParams.setMargins(0, 0, 0, 0);
         } else {
-            LinearLayout.LayoutParams layoutparams = (LinearLayout.LayoutParams) tvAmountTitle.getLayoutParams();
 
-            layoutparams.setMargins(0, 28, 0, 0);
-            tvAmountTitle.setLayoutParams(layoutparams);
+            layoutParams.setMargins(0, 28, 0, 0);
         }
+        tvAmountTitle.setLayoutParams(layoutParams);
     }
 
-    boolean buttonOn = false;
-    double modifiedAmount;
-    double newAmt;
 
     private void switchListener() {
         switchITBIS.setOnClickListener(switchITBISView -> {
 
+            if (!TextUtils.isEmpty(etTotalAmount.getText().toString())) {
+                String amountGiven = etTotalAmount.getText().toString();
+                String amountWithoutComma = amountGiven.replace(",", "");
+                String amountWithoutDecimal = amountWithoutComma.replace("\\.", "");
+                modifiedAmount = Double.parseDouble(amountWithoutDecimal);
 
-            String amountGiven = etTotalAmount.getText().toString();
-
-            String amountwithoutComma = amountGiven.replaceAll(",", "");
-            String amountWithoutDecimal = amountwithoutComma.replaceAll("\\.", "");
-            modifiedAmount = Double.parseDouble(amountWithoutDecimal);
-
-            if (!buttonOn) {
-                buttonOn = true;
-
-                switchITBIS.setImageResource(R.drawable.switch_on_state);
-
-                etITBISAmount.setEnabled(true);
-                itbisAmount = calculateTax(modifiedAmount);
-                newAmt = itbisAmount / 100;
-                etITBISAmount.setText("" + currFormat.format(newAmt));
-                etITBISAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
-                searchinActive.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+                if (!buttonOn) {
+                    buttonOn = true;
+                    switchITBIS.setImageResource(R.drawable.switch_on_state);
+                    bankTaxAmount = calculateTax(modifiedAmount);
+                    etITBISAmount.setText(currFormat.format(bankTaxAmount));
+                    etITBISAmount.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+                    searchInActive.setTextColor(ContextCompat.getColor(QuickPayConfirmActivity.this, R.color.font_hint));
+                    checkCurrency();
+                } else {
+                    buttonOn = false;
+                    switchITBIS.setImageResource(R.drawable.switch_off_state);
+                    String emptyAmount = "0.00";
+                    etITBISAmount.setText(emptyAmount);
+                    etITBISAmount.setTextColor(Color.parseColor(Constants.LIGHT_BLUE));
+                    searchInActive.setTextColor(Color.parseColor(Constants.LIGHT_BLUE));
+                    layoutSearchByEdittext.setBackgroundResource(R.drawable.border_background);
+                    checkCurrency();
+                }
             } else {
-                buttonOn = false;
-                switchITBIS.setImageResource(R.drawable.switch_off_state);
-                etITBISAmount.setText("0.00");
-                etITBISAmount.setEnabled(false);
-                etITBISAmount.setTextColor(Color.parseColor("#C4D0DC"));
-                searchinActive.setTextColor(Color.parseColor("#C4D0DC"));
-                layoutSearchByEdittext.setBackgroundResource(R.drawable.border_background);
+                tvAmountError.setVisibility(View.VISIBLE);
+                tvAmountError.setText(context.getString(R.string.less_amount_error));
             }
         });
 
     }
 
-
-    double itbisAmount;
-    DecimalFormat currFormat = new DecimalFormat("#,##0.00");
-
-    String prefix = "RD$ ";
-
-
-    public void setContent(String parentObjectDataName, String name, String content, String merchantId, int dimissFlag, String tax) {
-        tvLocalidadName.setText(name);
-        tvComercio.setText(parentObjectDataName);
-        mID = merchantId;
-        taxStatus = tax;
-        Log.d("Data",""+content);
-        if (dimissFlag == 1) {
-            bottomsheet.dismiss();
+    public void checkCurrency() {
+        if (selectedCurrency.equalsIgnoreCase("USD")) {
+            searchInActive.setText(Constants.CURRENCY_FORMAT_USD);
+        } else {
+            searchInActive.setText(Constants.CURRENCY_FORMAT);
         }
-        if (!TextUtils.isEmpty(tax) && tax.equalsIgnoreCase("false")) {
+    }
+
+    public void setContent(String parentObjectDataName, String name, String content, String
+            merchantId, int dismissFlag, LocationFilterThirdGroup locationFilterThirdGroup, String code) {
+        tvLocationName.setText(name.toLowerCase());
+        tvCommerceName.setText(parentObjectDataName.toLowerCase());
+        mID = merchantId;
+        taxStatus = locationFilterThirdGroup.getTaxExempt();
+        selectedCurrency = locationFilterThirdGroup.getCurrency();
+        if (dismissFlag == 1) {
+            menuLocationBottomSheet.dismiss();
+        }
+        if (!TextUtils.isEmpty(locationFilterThirdGroup.getTaxExempt()) && locationFilterThirdGroup.getTaxExempt().equalsIgnoreCase(Constants.BOOLEAN_TRUE)) {
             layoutITBIS.setVisibility(View.VISIBLE);
             tvITBISInclude.setVisibility(View.VISIBLE);
             dynamicMargin(0);
@@ -480,50 +784,67 @@ public class QuickPayConfirmActivity extends BaseLoggedInActivity {
             tvITBISInclude.setVisibility(View.GONE);
             dynamicMargin(1);
         }
+        responseCode = code;
+        setTaxCurrencyHint();
     }
 
-    ApiManager apiManager = new ApiManager(this);
-    String responseCode;
-
-    private void getMerchantApiCall() {
-        JSONObject json = new JSONObject();
-        try {
-            String tcpKey = ((AzulApplication) QuickPayConfirmActivity.this.getApplication()).getTcpKey();
-            json.put("tcp", RSAHelper.ecryptRSA(QuickPayConfirmActivity.this, tcpKey));
-            JSONObject payload = new JSONObject();
-            payload.put("device", DeviceUtils.getDeviceId(QuickPayConfirmActivity.this));
-
-            json.put("payload", RSAHelper.encryptAES(payload.toString(), Base64.decode(tcpKey, 0)));
-        } catch (Exception e) {
-            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
         }
-        apiManager.callAPI(ServiceUrls.GET_MERCHANTS_FOR_PAYMENT_LINK, json);
+
+        if (!etTotalAmount.getText().toString().trim().equalsIgnoreCase("") && !etTotalAmount.getText().toString().trim().contains(",")) {
+            etTotalAmount.setText(getUpdatedCurrency(etTotalAmount.getText().toString()));
+            etTotalAmount.setCursorVisible(false);
+        }
+        if (!etITBISAmount.getText().toString().trim().equalsIgnoreCase("") && !etITBISAmount.getText().toString().trim().contains(",")) {
+            etITBISAmount.setText(getUpdatedCurrency(etITBISAmount.getText().toString()));
+            etITBISAmount.setCursorVisible(false);
+            taxCalculations();
+        }
+        return super.dispatchTouchEvent(ev);
     }
 
-    public void paymentLnkMerchantResponse(String responseData) {
-        JSONObject jsonObject = null;
-        try {
-            jsonObject = new JSONObject(responseData);
-            Log.d("DATA", "Link Merchant Data ==>  " + jsonObject.toString());
-            parseLinkData(jsonObject);
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
 
+    public String getUpdatedCurrency(String amount) {
+
+        double aDouble;
+        try {
+            aDouble = Double.parseDouble(amount.replace(",", "").replace("-", ""));
+        } catch (NumberFormatException e) {
+            aDouble = 0.00;
+        }
+        Locale locale = new Locale("en", "US");
+        String pattern = "#,##0.00";
+
+        DecimalFormat decimalFormat = (DecimalFormat) NumberFormat.getNumberInstance(locale);
+        decimalFormat.applyPattern(pattern);
+        String aString = "0.00";
+        if (aDouble <= UNINITIALIZED) {
+            return aString;
+        } else {
+            aString = decimalFormat.format(aDouble);
+        }
+        return aString;
     }
 
-    private void parseLinkData(JSONObject responseData) {
+    private void errorFunc() {
+        layoutAmountAllComp.setBackgroundResource(R.drawable.error_background_shadow);
+        tvAmountError.setText(context.getString(R.string.less_amount_error));
+        btnConfirmPayment.setBackgroundResource(R.drawable.continue_btn_error_bg);
+        btnConfirmPayment.setEnabled(false);
+        tvAmountError.setVisibility(View.VISIBLE);
+    }
 
-        try {
-            JSONObject jsonTransactionOb = responseData.getJSONObject("data");
-            JSONArray jsonArray = jsonTransactionOb.getJSONArray("CallCenters");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject linkObject = jsonArray.getJSONObject(i);
-                responseCode = linkObject.getString("Code");
-            }
-        } catch (JSONException e) {
-            e.printStackTrace();
+    public void setTaxCurrencyHint() {
+        if (selectedCurrency.equalsIgnoreCase("USD")) {
+            searchInActive.setText(Constants.CURRENCY_FORMAT_USD);
+            searchInAmount.setText(Constants.CURRENCY_FORMAT_USD);
+        } else {
+            searchInActive.setText(Constants.CURRENCY_FORMAT);
+            searchInAmount.setText(Constants.CURRENCY_FORMAT);
         }
-
     }
 }

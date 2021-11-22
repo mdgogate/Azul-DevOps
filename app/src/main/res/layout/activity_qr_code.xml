@@ -19,7 +19,7 @@
 
             <ImageView
                 android:id="@+id/btnTransactionBack"
-                android:layout_width="24dp"
+                android:layout_width="30dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_left_arrow" />
@@ -67,7 +67,7 @@
             android:fontFamily="@font/vag_bold"
             android:text="Prueba - 24000000007"
             android:textColor="@color/create_font"
-            android:textSize="12sp"
+            android:textSize="14sp"
             android:textStyle="bold" />
 
         <ImageView
@@ -101,7 +101,8 @@
         android:layout_marginTop="25dp"
         android:layout_marginBottom="25dp"
         android:fontFamily="@font/vag_bold"
-        android:text="  Muestra este código QR a tus clientes o\nenvíalo presionando el ícono de compartir"
+        android:gravity="center_horizontal"
+        android:text="@string/qr_message"
         android:textColor="#2C3B89"
         android:textSize="14sp" />
 
@@ -120,10 +121,18 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="35dp"
-        android:fontFamily="@font/vag_bold"
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/montserrat_semi_bold"
+        android:gravity="center_horizontal"
         android:text="@string/swipe_left"
         android:textColor="@color/slider_heading"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
+
+    <include
+        android:id="@+id/downloadableLayout"
+        layout="@layout/layout_merge_codigo_download"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 </RelativeLayout>

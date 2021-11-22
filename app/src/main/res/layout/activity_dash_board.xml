@@ -2,26 +2,26 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/idParentLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:id="@+id/idParentLayout"
     android:background="@color/white"
+    android:orientation="vertical"
     tools:context=".activities.dashboard.DashBoardActivity">
 
     <RelativeLayout
         android:id="@+id/dashBoardTopBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/blue_2"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:background="@color/blue_2">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
-            android:layout_marginTop="24dp"
             android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
             android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp">
 
@@ -29,16 +29,16 @@
                 android:id="@+id/cardView"
                 android:layout_width="56dp"
                 android:layout_height="56dp"
-                android:layout_marginEnd="16dp"
                 android:layout_centerVertical="true"
+                android:layout_marginEnd="16dp"
                 app:cardCornerRadius="100dp">
 
                 <ImageView
                     android:id="@+id/imageView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
                     android:background="@drawable/bg_gradient_background"
+                    android:scaleType="centerCrop"
                     android:src="@drawable/ic_bg_texture_grid_azul" />
 
             </androidx.cardview.widget.CardView>
@@ -50,49 +50,68 @@
                 android:layout_toEndOf="@+id/cardView"
                 android:fontFamily="@font/vag_bold"
                 android:textColor="@color/create_font"
-                android:textSize="20sp"/>
+                android:textSize="20sp" />
 
             <TextView
                 android:id="@+id/user_prof"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/cardView"
                 android:layout_below="@+id/user_name"
+                android:layout_toEndOf="@+id/cardView"
                 android:fontFamily="@font/vag_bold"
                 android:textColor="@color/create_font"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <TextView
-                android:id="@+id/date"
+                android:id="@+id/currentDayDate"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_toEndOf="@+id/cardView"
                 android:layout_below="@+id/user_prof"
-                android:text="20 de Marzo, 2021"
+                android:layout_toEndOf="@+id/cardView"
                 android:fontFamily="@font/vag_light"
+                android:text="21 de junio del 2021"
                 android:textColor="@color/create_font"
-                android:textSize="12sp"/>
+                android:textSize="12sp" />
 
-            <ImageView
-                android:id="@+id/dashBoardBurgerMenu"
-                android:layout_width="wrap_content"
+
+            <RelativeLayout
+                android:id="@+id/btnLogoutMenu"
+                android:layout_width="55dp"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_icon_burger_menu_mobile"
-                android:layout_marginTop="5dp"
-                android:layout_alignParentEnd="true"/>
+                android:layout_alignParentEnd="true"
+                android:layout_marginTop="5dp">
 
+                <ImageView
+                    android:id="@+id/dashBoardBurgerMenuHidden"
+                    android:layout_width="45dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:layout_marginTop="5dp"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_icon_burger_menu_mobile"
+                    android:visibility="invisible" />
+
+                <ImageView
+                    android:layout_alignParentEnd="true"
+                    android:id="@+id/dashBoardBurgerMenu"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp"
+                    android:src="@drawable/ic_icon_burger_menu_mobile" />
+
+            </RelativeLayout>
         </RelativeLayout>
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/locationFilter"
-        android:layout_below="@+id/dashBoardTopBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/dashBoardTopBar"
         android:background="@color/font_hint"
-        android:padding="16dp"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="16dp">
 
         <ImageView
             android:id="@+id/locationSymbol"
@@ -107,13 +126,13 @@
             android:id="@+id/locationTxt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toEndOf="@id/locationSymbol"
             android:layout_centerVertical="true"
-            android:text="Prueba - 24000000007"
+            android:layout_toEndOf="@id/locationSymbol"
             android:fontFamily="@font/vag_bold"
+            android:text="Prueba - 24000000007"
+            android:textAllCaps="false"
             android:textColor="@color/create_font"
-            android:textSize="14sp"
-            />
+            android:textSize="14sp" />
 
         <ImageView
             android:id="@+id/locationFilterBurgerMenuBtn"
@@ -121,43 +140,47 @@
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_centerVertical="true"
-            android:src="@drawable/ic_icon_down_arrow_24x24"/>
+            android:src="@drawable/ic_icon_down_arrow_24x24" />
 
     </RelativeLayout>
 
     <LinearLayout
-        android:id="@+id/widget_container"
+        android:id="@+id/widgetContainer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/locationFilter"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:visibility="visible">
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
             android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
+            android:layout_marginTop="8dp"
+            android:visibility="gone"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp">
 
             <TextView
                 android:id="@+id/textHeader"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/slider_heading"
-                android:fontFamily="@font/vag_bold"
-                android:textColor="@color/slider_heading"
                 android:layout_alignParentStart="true"
-                android:textSize="20sp"/>
+                android:fontFamily="@font/vag_bold"
+                android:text="@string/slider_heading"
+                android:visibility="gone"
+                android:textColor="@color/slider_heading"
+                android:textSize="20sp" />
 
             <com.google.android.material.tabs.TabLayout
                 android:id="@+id/circleIndicator"
                 android:layout_width="wrap_content"
+                android:visibility="gone"
                 android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
                 android:layout_alignBottom="@+id/textHeader"
+                android:layout_alignParentEnd="true"
                 app:tabBackground="@drawable/tab_selector"
-                app:tabIndicatorHeight="0dp"/>
+                app:tabIndicatorHeight="0dp" />
 
         </RelativeLayout>
 
@@ -166,32 +189,34 @@
             android:id="@+id/viewPager"
             android:layout_width="match_parent"
             android:layout_height="144dp"
-            android:layout_marginBottom="8dp"
-            android:overScrollMode="never"
-            android:paddingStart="25dp"
-            android:paddingEnd="25dp"
             android:layout_marginStart="8dp"
             android:layout_marginEnd="8dp"
-            android:clipToPadding="false"/>
+            android:layout_marginBottom="8dp"
+            android:clipToPadding="false"
+            android:overScrollMode="never"
+            android:paddingStart="25dp"
+            android:visibility="gone"
+            android:paddingEnd="25dp" />
 
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/create_font"
         android:layout_above="@id/bottomNavigation"
-        android:layout_below="@+id/widget_container"
+        android:layout_below="@+id/widgetContainer"
+        android:background="@color/create_font"
         android:orientation="vertical">
+
         <GridView
-            android:layout_marginStart="11dp"
-            android:layout_marginEnd="10dp"
             android:id="@+id/accessMenu"
-            android:layout_marginTop="6dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:listitem="@layout/activity_grid_view_adpater"
-            android:numColumns="2"/>
+            android:layout_marginStart="11dp"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="10dp"
+            android:numColumns="1"
+            tools:listitem="@layout/activity_grid_view_adpater" />
     </LinearLayout>
 
     <FrameLayout
@@ -199,20 +224,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/bottomNavigation"
+        android:layout_marginBottom="8dp"
         android:clickable="true"
-        android:focusable="true"
-        android:layout_marginBottom="8dp"/>
+        android:focusable="true" />
 
     <com.google.android.material.bottomnavigation.BottomNavigationView
         android:id="@+id/bottomNavigation"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:theme="@style/Widget.BottomNavigationView"
-        app:menu="@menu/bottom_navigation_layout"
         android:background="?android:attr/windowBackground"
         android:soundEffectsEnabled="true"
+        android:theme="@style/Widget.BottomNavigationView"
+        app:itemBackground="@drawable/bottom_back"
         app:itemIconTint="@drawable/bottom_navigation_selector"
         app:itemTextColor="@color/bottom_navigation_bar_text"
-        app:itemBackground="@drawable/bottom_back"/>
+        app:menu="@menu/bottom_navigation_layout" />
 </RelativeLayout>

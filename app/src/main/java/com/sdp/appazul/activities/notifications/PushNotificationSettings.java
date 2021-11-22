@@ -1,24 +1,23 @@
 package com.sdp.appazul.activities.notifications;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.app.NotificationManagerCompat;
 
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.sdp.appazul.R;
 import com.sdp.appazul.activities.dashboard.DashBoardActivity;
 import com.sdp.appazul.api.ApiManager;
 import com.sdp.appazul.api.ServiceUrls;
 import com.sdp.appazul.globals.AzulApplication;
+import com.sdp.appazul.globals.Constants;
 import com.sdp.appazul.globals.KeyConstants;
 import com.sdp.appazul.security.RSAHelper;
 import com.sdp.appazul.utils.DeviceUtils;
@@ -32,53 +31,50 @@ public class PushNotificationSettings extends AppCompatActivity {
     private boolean buttonOn = false;
     String pushToken;
     ApiManager apiManager = new ApiManager(this);
+    String status;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_push_notification_settings);
         Intent locationIntent = getIntent();
-        locationJson = locationIntent.getStringExtra("LOCATION_RESPONSE");
-        getPushToken();
+        locationJson = locationIntent.getStringExtra(Constants.LOCATION_RESPONSE);
         initControls();
         notificationUpdate();
     }
 
     private void getPushToken() {
-        FirebaseMessaging.getInstance().getToken()
-                .addOnCompleteListener(new OnCompleteListener<String>() {
-                    @Override
-                    public void onComplete(@NonNull Task<String> task) {
-                        if (!task.isSuccessful()) {
-                            Log.w("TAG", "Fetching FCM registration token failed", task.getException());
-                            return;
-                        }
-                        pushToken = task.getResult();
-                        Log.d("TAG", "FCM TOKEN :::  " + pushToken);
-                    }
-                });
+
+        FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
+            if (!task.isSuccessful()) {
+                return;
+            }
+            pushToken = task.getResult();
+            Log.d("TAG", "onResume:11 " + pushToken);
+            callApiPushToken(pushToken);
+        });
     }
 
     private void initControls() {
         notificationSwitch = findViewById(R.id.notificationSwitch);
         backButton = findViewById(R.id.backButton);
 
-
         notificationSwitch.setOnClickListener(notificationSwitchView -> {
 
-            if (!buttonOn) {
+            if (Boolean.FALSE.equals(buttonOn)) {
                 buttonOn = true;
-                openAppSettings();
             } else {
-                buttonOn = true;
-                openAppSettings();
+                buttonOn = false;
             }
+            openAppSettings();
             notificationSwitch.setImageResource(R.drawable.switch_on_state);
         });
         backButton.setOnClickListener(v -> {
             Intent intent = new Intent(PushNotificationSettings.this, DashBoardActivity.class);
             intent.putExtra("LOCATION_RESPONSE", locationJson);
             startActivity(intent);
+            this.overridePendingTransition(R.anim.animation_leave,
+                    R.anim.slide_nothing);
         });
 
     }
@@ -93,7 +89,7 @@ public class PushNotificationSettings extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         getPushToken();
-        callApiPushToken();
+
         notificationUpdate();
     }
 
@@ -106,9 +102,8 @@ public class PushNotificationSettings extends AppCompatActivity {
         }
     }
 
-    String status;
 
-    public void callApiPushToken() {
+    public void callApiPushToken(String tokenData) {
         JSONObject json = new JSONObject();
         try {
             boolean notificationStatus = NotificationManagerCompat.from(this).areNotificationsEnabled();
@@ -118,15 +113,16 @@ public class PushNotificationSettings extends AppCompatActivity {
                 status = "false";
             }
             String tcpKey = ((AzulApplication) this.getApplication()).getTcpKey();
+            String vcr = ((AzulApplication) this.getApplication()).getVcr();
             json.put("tcp", RSAHelper.ecryptRSA(PushNotificationSettings.this, tcpKey));
             JSONObject payload = new JSONObject();
             payload.put("device", DeviceUtils.getDeviceId(this));
-            JSONObject pagosrequest = new JSONObject();
-            pagosrequest.put("token", pushToken);
-            pagosrequest.put("notify", status);
+            payload.put("token", tokenData);
+            payload.put("notify", status);
 
-            payload.put("obtenerrequest", pagosrequest);
-            json.put("payload", RSAHelper.encryptAES(payload.toString(), Base64.decode(tcpKey, 0)));
+            json.put("payload", RSAHelper.encryptAES(payload.toString(), Base64.decode(tcpKey, 0), Base64.decode(vcr, 0)));
+
+            Log.d("PinSetActivity", "callApiPushToken: "+payload.toString());
 
         } catch (Exception e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
@@ -136,6 +132,5 @@ public class PushNotificationSettings extends AppCompatActivity {
 
     public void pushTokenResponse(String responseString) {
         Log.d("Data", "" + responseString);
-
     }
 }

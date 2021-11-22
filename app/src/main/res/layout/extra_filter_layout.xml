@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="10dp">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white_bg"
+        android:orientation="vertical">
+
+        <View
+            android:layout_width="32dp"
+            android:layout_height="4dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/view_rounded_bg" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="15dp"
+            android:fontFamily="@font/vag_bold"
+            android:gravity="center_horizontal"
+            android:text="Otros filtros de búsqueda"
+            android:textColor="#0057B8"
+            android:textSize="20sp" />
+
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="1dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="15.5dp"
+            android:layout_marginEnd="16dp"
+            android:background="#D9E5F1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:gravity="center_horizontal"
+            android:text="Tipo de transacción"
+            android:textColor="#9699AA"
+            android:textSize="14sp" />
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/chipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginStart="24dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginBottom="16dp"
+            android:fontFamily="@font/montserrat_semi_bold"
+            android:gravity="center_horizontal"
+            android:text="Estatus"
+            android:textColor="#9699AA"
+            android:textSize="14sp" />
+
+
+        <com.google.android.material.chip.ChipGroup
+            android:id="@+id/statusChipGroup"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="24dp"
+            android:layout_marginEnd="24dp" />
+
+
+        <RelativeLayout
+            android:id="@+id/btnAddExtraFilters"
+            android:layout_width="match_parent"
+            android:layout_height="56dp"
+            android:visibility="invisible"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="16dp"
+            android:background="@drawable/button_background">
+
+            <ImageView
+                android:id="@+id/imgSaveFiler"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/filterButton"
+                android:src="@drawable/ic_icon___white_filter_button" />
+
+            <TextView
+                android:id="@+id/filterButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/vag_bold"
+                android:gravity="center_horizontal|center_vertical"
+                android:text="@string/filter_button_title"
+                android:textColor="@color/white_bg"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/qrFormButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/callCenter"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="32dp"
+            android:background="@drawable/delete_chip_bg"
+            android:orientation="horizontal"
+            android:paddingStart="16dp"
+            android:visibility="gone"
+            android:layout_gravity="center_horizontal"
+            android:paddingTop="10dp"
+            android:layout_marginTop="16dp"
+            android:paddingEnd="16dp"
+            android:paddingBottom="10dp">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_icon___dump_clear_selection" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                android:fontFamily="@font/vag_bold"
+                android:text="@string/filter_button_clear"
+                android:textColor="@color/slider_heading"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

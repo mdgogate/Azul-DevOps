@@ -39,14 +39,20 @@
 
     </com.google.android.material.appbar.MaterialToolbar>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
 
         <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:orientation="vertical">
+
+            <ExpandableListView
+                android:id="@+id/expandableListViewSample"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:divider="@android:color/darker_gray"
+                android:dividerHeight="0.5dp"
+                android:indicatorLeft="?android:attr/expandableListPreferredItemIndicatorLeft"
+                android:groupIndicator="@null"/>
 
             <RelativeLayout
                 android:id="@+id/unit1"
@@ -54,7 +60,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/location_units_background"
                 android:onClick="firstBusinessClicked"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:visibility="gone">
 
                 <TextView
                     android:id="@+id/levelTwoName"
@@ -383,7 +390,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/location_units_background"
                 android:onClick="secondBusinessClicked"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -531,7 +539,8 @@
                 android:layout_height="wrap_content"
                 android:background="@color/location_units_background"
                 android:onClick="thirdBusinessClicked"
-                android:padding="16dp">
+                android:padding="16dp"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -674,7 +683,5 @@
             ----------------------------------------------------------------------------
 
         </LinearLayout>
-
-    </ScrollView>
 
 </LinearLayout>

@@ -14,6 +14,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 import java.util.Objects;
 
 public class DateUtils {
@@ -147,8 +148,7 @@ public class DateUtils {
             try {
                 return df.parse(inputStringDate);
             } catch (ParseException e) {
-
-                Log.e("Exception : ", Log.getStackTraceString(e));
+                Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
             }
         }
         return null;
@@ -187,7 +187,7 @@ public class DateUtils {
         return monthList;
     }
 
-    public HashMap<String, String> getSpanishMonth() {
+    public Map<String, String> getSpanishMonth() {
         HashMap<String, String> monthList = new HashMap<>();//Creating HashMap
 
         monthList.put("01", "Enero");
@@ -245,7 +245,7 @@ public class DateUtils {
             }
             return returnValue;
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
         return false;
     }

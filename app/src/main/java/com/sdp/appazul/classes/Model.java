@@ -8,15 +8,21 @@ public class Model {
     private String discount;
     private String dateFrom;
     private String dateTo;
+    private String currency;
 
-    public Model(String period, String transactionSum, String transactionCount, String amountToReceive, String discount, String dateFrom, String dateTo) {
-        this.period = period;
-        this.transactionSum = transactionSum;
-        this.transactionCount = transactionCount;
-        this.amountToReceive = amountToReceive;
-        this.discount = discount;
-        this.dateFrom = dateFrom;
-        this.dateTo = dateTo;
+    public Model() {
+    }
+
+
+    public Model(Model model) {
+        this.period = model.getPeriod();
+        this.transactionSum = model.getTransactionSum();
+        this.transactionCount = model.getTransactionCount();
+        this.amountToReceive = model.getAmountToReceive();
+        this.discount = model.getDiscount();
+        this.dateFrom = model.getDateFrom();
+        this.dateTo = model.getDateTo();
+        this.currency = model.getCurrency();
     }
 
     public String getPeriod() {
@@ -75,5 +81,11 @@ public class Model {
         this.dateTo = dateTo;
     }
 
+    public String getCurrency() {
+        return currency;
+    }
 
+    public void setCurrency(String currency) {
+        this.currency = currency;
+    }
 }

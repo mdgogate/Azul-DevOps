@@ -18,19 +18,19 @@ import com.sdp.appazul.R;
 
 import org.jetbrains.annotations.NotNull;
 
+import java.security.SecureRandom;
 import java.util.Random;
 
 public class FirebaseMessaging extends FirebaseMessagingService {
 
     private static final String CHANNEL_ID = "AzulNotifications";
-    Random random = new Random();
-    private final int notificatioId = random.nextInt(50);
+    SecureRandom random = new SecureRandom();
+    private final int notificationId = random.nextInt(50);
 
     @Override
     public void onMessageReceived(@NonNull @NotNull RemoteMessage remoteMessage) {
         Log.d("NOTIFICATION", "Firebase Notification call");
         if (remoteMessage.getData().size() > 0) {
-
             showNotification(remoteMessage);
         }
     }
@@ -39,7 +39,6 @@ public class FirebaseMessaging extends FirebaseMessagingService {
     public void onNewToken(@NonNull @NotNull String s) {
         super.onNewToken(s);
         Log.d("NOTIFICATION", "Firebase Notification Token :: " + s);
-
     }
 
     public void showNotification(RemoteMessage remoteMessage) {
@@ -70,6 +69,6 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
         builder.setAutoCancel(true);
         NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
-        notificationManager.notify(notificatioId, builder.build());
+        notificationManager.notify(notificationId, builder.build());
     }
 }

@@ -9,14 +9,14 @@
             android:id="@+id/tvRealAmount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_marginTop="8dp"
+            android:fontFamily="@font/vag_bold"
             android:paddingStart="16dp"
             android:paddingEnd="16dp"
             android:text="191 67703161935"
             android:textColor="@color/blue_2"
-            android:layout_alignParentTop="true"
-            android:fontFamily="@font/vag_bold"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
         <TextView
             android:id="@+id/tvItem"

@@ -45,7 +45,7 @@
             android:layout_width="144dp"
             android:layout_height="107dp"
             android:layout_centerInParent="true"
-            android:src="@drawable/ic_logo" />
+            android:src="@drawable/azul_logo_without_r" />
 
     </RelativeLayout>
 
@@ -89,7 +89,7 @@
                 android:id="@+id/edit_text_one"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@drawable/bd_pin"
+                android:background="@drawable/password_layout"
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:cursorVisible="false"
@@ -101,10 +101,10 @@
 
             <View
                 android:id="@+id/view_one"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="8dp"
                 android:layout_alignEnd="@id/edit_text_one"
                 android:background="@drawable/pin_cursor"
                 android:visibility="gone"/>
@@ -113,7 +113,7 @@
                 android:id="@+id/edit_text_two"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@drawable/bd_pin"
+                android:background="@drawable/password_layout"
                 android:layout_toEndOf="@+id/edit_text_one"
                 android:focusableInTouchMode="false"
                 android:cursorVisible="false"
@@ -126,10 +126,10 @@
 
             <View
                 android:id="@+id/view_two"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="8dp"
                 android:layout_alignEnd="@id/edit_text_two"
                 android:background="@drawable/pin_cursor"
                 android:visibility="invisible"
@@ -140,7 +140,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginEnd="40dp"
-                android:background="@drawable/bd_pin"
+                android:background="@drawable/password_layout"
                 android:focusableInTouchMode="false"
                 android:cursorVisible="false"
                 android:gravity="center"
@@ -152,10 +152,10 @@
 
             <View
                 android:id="@+id/view_three"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="8dp"
                 android:layout_alignEnd="@id/edit_text_three"
                 android:background="@drawable/pin_cursor"
                 android:visibility="invisible"
@@ -166,7 +166,7 @@
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:cursorVisible="false"
-                android:background="@drawable/bd_pin"
+                android:background="@drawable/password_layout"
                 android:focusableInTouchMode="false"
                 android:layout_toEndOf="@id/edit_text_three"
                 android:gravity="center"
@@ -177,10 +177,10 @@
 
             <View
                 android:id="@+id/view_four"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="8dp"
                 android:layout_alignEnd="@id/edit_text_four"
                 android:background="@drawable/pin_cursor"
                 android:visibility="invisible"/>
@@ -211,7 +211,7 @@
                 android:id="@+id/edit_text_one1"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@drawable/bd_pin"
+                android:background="@drawable/password_layout"
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -223,10 +223,10 @@
 
             <View
                 android:id="@+id/view_one1"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="8dp"
                 android:layout_alignEnd="@id/edit_text_one1"
                 android:background="@drawable/pin_cursor"
                 android:visibility="invisible"/>
@@ -235,7 +235,7 @@
                 android:id="@+id/edit_text_two1"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@drawable/bd_pin"
+                android:background="@drawable/password_layout"
                 android:focusableInTouchMode="false"
                 android:layout_toEndOf="@+id/edit_text_one1"
                 android:cursorVisible="false"
@@ -248,10 +248,10 @@
 
             <View
                 android:id="@+id/view_two1"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="8dp"
                 android:layout_alignEnd="@id/edit_text_two1"
                 android:background="@drawable/pin_cursor"
                 android:visibility="invisible"
@@ -263,7 +263,7 @@
                 android:layout_height="32dp"
                 android:layout_marginEnd="40dp"
                 android:cursorVisible="false"
-                android:background="@drawable/bd_pin"
+                android:background="@drawable/password_layout"
                 android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:imeOptions="actionNext"
@@ -274,10 +274,10 @@
 
             <View
                 android:id="@+id/view_three1"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="8dp"
                 android:layout_alignEnd="@id/edit_text_three1"
                 android:background="@drawable/pin_cursor"
                 android:visibility="invisible"
@@ -287,7 +287,7 @@
                 android:id="@+id/edit_text_four1"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@drawable/bd_pin"
+                android:background="@drawable/password_layout"
                 android:layout_toEndOf="@id/edit_text_three1"
                 android:focusableInTouchMode="false"
                 android:gravity="center"
@@ -299,10 +299,10 @@
 
             <View
                 android:id="@+id/view_four1"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_marginEnd="8dp"
                 android:layout_alignEnd="@id/edit_text_four1"
                 android:background="@drawable/pin_cursor"
                 android:visibility="invisible"/>
@@ -335,7 +335,7 @@
                 android:layout_marginBottom="4dp"
                 android:layout_weight="0.998"
                 android:paddingTop="2dp">
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_1"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -359,7 +359,7 @@
                 android:layout_marginBottom="4dp"
                 android:layout_weight="0.998"
                 android:paddingTop="2dp">
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -379,8 +379,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingTop="2dp">
-                <Button
-                    android:id="@+id/secondLoginButton"
+                <androidx.appcompat.widget.AppCompatButton
+                    android:id="@+id/button_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="?attr/selectableItemBackgroundBorderless"
@@ -410,7 +410,7 @@
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1"
                 android:paddingTop="2dp">
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -432,7 +432,7 @@
                 android:layout_marginBottom="4dp"
                 android:layout_weight="0.998"
                 android:paddingTop="2dp">
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -452,7 +452,7 @@
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1"
                 android:paddingTop="2dp">
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -481,7 +481,7 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1">
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -502,7 +502,7 @@
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1">
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -520,7 +520,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="1">
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -558,7 +558,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1">
-                <Button
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_0"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"

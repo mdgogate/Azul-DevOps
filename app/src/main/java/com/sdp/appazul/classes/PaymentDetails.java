@@ -8,8 +8,11 @@ public class PaymentDetails {
     String selectedOrderNumber;
     String selectedName;
     String selectedEmail;
-    double enteredTaxAmount;
+    String enteredTaxAmount;
     double enteredTotalAmount;
+    String currency;
+
+    int switchFlag;
 
 
     public String getSelectedName() {
@@ -60,11 +63,11 @@ public class PaymentDetails {
         this.selectedOrderNumber = selectedOrderNumber;
     }
 
-    public double getEnteredTaxAmount() {
+    public String getEnteredTaxAmount() {
         return enteredTaxAmount;
     }
 
-    public void setEnteredTaxAmount(double enteredTaxAmount) {
+    public void setEnteredTaxAmount(String enteredTaxAmount) {
         this.enteredTaxAmount = enteredTaxAmount;
     }
 
@@ -74,5 +77,21 @@ public class PaymentDetails {
 
     public void setEnteredTotalAmount(double enteredTotalAmount) {
         this.enteredTotalAmount = enteredTotalAmount;
+    }
+
+    public int getSwitchFlag() {
+        return switchFlag;
+    }
+
+    public void setSwitchFlag(int switchFlag) {
+        this.switchFlag = switchFlag;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

@@ -6,8 +6,8 @@
     android:layout_height="match_parent"
     android:background="@drawable/blue_background"
     android:orientation="vertical"
+    android:id="@+id/act_quick_set_payment"
     tools:context=".activities.payment.QuickSetPaymentActivity">
-
 
     <ImageView
         android:id="@+id/burgerMenuLoginBtn"
@@ -17,11 +17,12 @@
         android:layout_alignParentEnd="true"
         android:layout_marginTop="22dp"
         android:layout_marginEnd="16dp"
-        android:src="@drawable/ic_icon_burger_menu_mobile" />
+        android:src="@drawable/ic_icon_burger_menu_mobile"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/btnBackScreen"
-        android:layout_width="24dp"
+        android:layout_width="30dp"
         android:layout_height="24dp"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
@@ -62,7 +63,7 @@
                     android:layout_marginTop="21dp"
                     android:fontFamily="@font/vag_bold"
                     android:gravity="center_horizontal"
-                    android:text="Generar Link de Pagos"
+                    android:text="@string/generate_pay_link"
                     android:textColor="@color/unlink_background"
                     android:textSize="20sp"
                     android:textStyle="bold" />
@@ -85,26 +86,29 @@
                     android:layout_marginStart="27dp"
                     android:layout_marginTop="28dp"
                     android:layout_marginEnd="27dp"
-                    android:background="@drawable/blue_background_textview">
+                    android:background="@drawable/blue_background_textview"
+                    android:longClickable="false">
 
 
                     <TextView
                         android:id="@+id/tvFinalAmount"
-                        android:layout_width="265dp"
+                        android:layout_width="255dp"
                         android:layout_height="wrap_content"
                         android:layout_centerInParent="true"
                         android:layout_centerHorizontal="true"
+                        android:layout_marginStart="16dp"
                         android:fontFamily="@font/vag_bold"
                         android:gravity="center_vertical|center_horizontal"
-                        android:hint="Cobrar"
+                        android:hint="@string/cobrar"
+                        android:longClickable="false"
                         android:textColor="@color/white_bg"
                         android:textColorHint="@color/white_bg"
-                        android:textSize="20sp"
+                        android:textSize="22sp"
                         android:textStyle="bold" />
 
                     <ImageView
                         android:id="@+id/nextIcon"
-                        android:layout_width="10dp"
+                        android:layout_width="24dp"
                         android:layout_height="16dp"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
@@ -138,19 +142,22 @@
                     android:background="@drawable/border_bavkground_solidless"
                     android:fontFamily="@font/vag_bold"
                     android:gravity="center_vertical|center_horizontal"
+                    android:longClickable="false"
+                    android:maxLines="1"
                     android:text="RD$ 0.00"
                     android:textColor="@color/white_bg"
                     android:textSize="26sp"
                     android:textStyle="bold" />
 
                 <RelativeLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="330dp"
+                    android:layout_width="320dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/tvAmount"
                     android:layout_centerHorizontal="true"
                     android:layout_marginStart="27dp"
                     android:layout_marginTop="24dp"
-                    android:layout_marginEnd="27dp">
+                    android:layout_marginEnd="27dp"
+                    android:gravity="center_horizontal|center_vertical">
 
                     <RelativeLayout
                         android:id="@+id/layoutFirstRow"
@@ -169,6 +176,7 @@
                             android:focusable="true"
                             android:fontFamily="@font/vag_light"
                             android:gravity="center_horizontal|center_vertical"
+                            android:longClickable="false"
                             android:text="1"
                             android:textColor="@color/white_bg"
                             android:textColorHint="@color/white_bg"
@@ -187,6 +195,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:hint="0.00"
                             android:inputType="number"
+                            android:longClickable="false"
                             android:text="4"
                             android:textColor="@color/white_bg"
                             android:textColorHint="@color/white_bg"
@@ -203,6 +212,7 @@
                             android:digits="0123456789.,"
                             android:fontFamily="@font/vag_light"
                             android:gravity="center_horizontal|center_vertical"
+                            android:longClickable="false"
                             android:text="7"
                             android:textColor="@color/white_bg"
                             android:textSize="24sp"
@@ -217,6 +227,7 @@
                             android:layout_weight="1"
                             android:background="@drawable/quickpayment_sale_selector"
                             android:gravity="center_horizontal|center_vertical"
+                            android:longClickable="false"
                             android:padding="15dp"
                             android:src="@drawable/ic_icon_delete_cancel"
                             android:visibility="visible" />
@@ -225,9 +236,9 @@
                         <RelativeLayout
                             android:id="@+id/layoutDeletCancel"
                             android:layout_width="80dp"
-                            android:layout_height="wrap_content"
+                            android:layout_height="168dp"
                             android:layout_below="@id/tvDelete"
-                            android:layout_marginTop="8dp"
+                            android:layout_marginTop="10dp"
                             android:background="@drawable/delete_cancel_blue_back"
                             android:visibility="gone">
 
@@ -238,6 +249,7 @@
                                 android:layout_centerHorizontal="true"
                                 android:background="@drawable/delete_cancel_blue_selector"
                                 android:gravity="center_horizontal|center_vertical"
+                                android:longClickable="false"
                                 android:padding="15dp"
                                 android:src="@drawable/ic_delete_arrow" />
 
@@ -247,27 +259,26 @@
                                 android:layout_height="48dp"
                                 android:layout_below="@+id/deleteFromInside"
                                 android:layout_centerHorizontal="true"
-                                android:layout_marginTop="6dp"
+                                android:layout_marginTop="7dp"
                                 android:background="@drawable/delete_cancel_blue_selector"
                                 android:gravity="center_horizontal|center_vertical"
+                                android:longClickable="false"
                                 android:padding="15dp"
-                                android:src="@drawable/calc_cancel_icon" />
+                                android:src="@drawable/ic_cancel_dark"
+                                app:tint="#AE1212" />
 
                             <ImageView
                                 android:id="@+id/closeDeleteLayout"
                                 android:layout_width="46dp"
-                                android:layout_height="16dp"
+                                android:layout_height="68dp"
                                 android:layout_below="@+id/cancelFromInside"
                                 android:layout_centerHorizontal="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginStart="8dp"
-                                android:layout_marginTop="18dp"
-                                android:layout_marginEnd="8dp"
-                                android:layout_marginBottom="20dp"
-                                android:layout_weight="1"
+                                android:layout_marginTop="6dp"
                                 android:gravity="center_horizontal|center_vertical"
+                                android:longClickable="false"
                                 android:src="@drawable/ic_icon_delete_cancel"
                                 app:tint="#C4D0DC" />
+
                         </RelativeLayout>
                     </RelativeLayout>
 
@@ -276,7 +287,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_marginStart="40dp"
+                        android:layout_marginStart="35dp"
                         android:layout_toEndOf="@+id/layoutFirstRow"
                         android:visibility="visible">
 
@@ -291,6 +302,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:hint="0.00"
                             android:inputType="number"
+                            android:longClickable="false"
                             android:text="2"
                             android:textColor="@color/white_bg"
                             android:textColorHint="#C4D0DC"
@@ -309,6 +321,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:hint="0.00"
                             android:inputType="number"
+                            android:longClickable="false"
                             android:text="5"
                             android:textColor="@color/white_bg"
                             android:textColorHint="#C4D0DC"
@@ -325,6 +338,7 @@
                             android:digits="0123456789.,"
                             android:fontFamily="@font/vag_light"
                             android:gravity="center_horizontal|center_vertical"
+                            android:longClickable="false"
                             android:text="8"
                             android:textColor="@color/white_bg"
                             android:textSize="24sp" />
@@ -340,6 +354,7 @@
                             android:digits="0123456789.,"
                             android:fontFamily="@font/vag_light"
                             android:gravity="center_horizontal|center_vertical"
+                            android:longClickable="false"
                             android:text="0"
                             android:textColor="@color/white_bg"
                             android:textSize="24sp" />
@@ -350,7 +365,7 @@
                         android:id="@+id/layoutThirdRow"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="40dp"
+                        android:layout_marginStart="35dp"
                         android:layout_toEndOf="@+id/layoutSecondRow"
                         android:visibility="visible">
 
@@ -365,6 +380,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:hint="0.00"
                             android:inputType="number"
+                            android:longClickable="false"
                             android:text="3"
                             android:textColor="@color/white_bg"
                             android:textColorHint="#C4D0DC"
@@ -383,6 +399,7 @@
                             android:gravity="center_horizontal|center_vertical"
                             android:hint="0.00"
                             android:inputType="number"
+                            android:longClickable="false"
                             android:text="6"
                             android:textColor="@color/white_bg"
                             android:textColorHint="#C4D0DC"
@@ -399,6 +416,7 @@
                             android:digits="0123456789.,"
                             android:fontFamily="@font/vag_light"
                             android:gravity="center_horizontal|center_vertical"
+                            android:longClickable="false"
                             android:text="9"
                             android:textColor="@color/white_bg"
                             android:textSize="24sp" />
@@ -412,8 +430,9 @@
                             android:layout_weight="1"
                             android:background="@drawable/quickpayment_sale_selector"
                             android:gravity="center_horizontal|center_vertical"
+                            android:longClickable="false"
                             android:padding="15dp"
-                            android:src="@drawable/ic_icon_plus_equal" />
+                            android:src="@drawable/ic_icons_plus___and_equal__white" />
 
                     </RelativeLayout>
 

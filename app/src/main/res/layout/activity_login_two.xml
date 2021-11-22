@@ -86,7 +86,7 @@
             <androidx.cardview.widget.CardView
                 android:id="@+id/qrViewPager"
                 android:layout_width="match_parent"
-                android:layout_height="424dp"
+                android:layout_height="wrap_content"
                 android:layout_below="@id/qrCodeIcon"
                 android:layout_marginStart="22dp"
                 android:layout_marginTop="26dp"
@@ -104,8 +104,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginTop="24dp"
-                        android:layout_marginBottom="8dp"
+                        android:layout_marginTop="18dp"
+                        android:layout_marginBottom="5dp"
                         android:fontFamily="@font/vag_bold"
                         android:text="Prueba"
                         android:textColor="@color/total_received"
@@ -117,8 +117,7 @@
                         android:layout_height="16dp"
                         android:layout_below="@+id/qrTitle"
                         android:layout_centerHorizontal="true"
-                        android:layout_marginBottom="12dp"
-                        android:visibility="visible">
+                        android:visibility="gone">
 
                         <TextView
                             android:id="@+id/qrMerchantId"
@@ -151,33 +150,72 @@
                         android:layout_below="@id/idContainer"
                         android:layout_centerHorizontal="true"
                         android:layout_marginStart="22dp"
-                        android:layout_marginEnd="22dp"
-                        android:src="@drawable/qr_code" />
+                        android:layout_marginEnd="22dp" />
+
 
                     <RelativeLayout
                         android:id="@+id/layoutDownloadShare"
-                        android:layout_width="113dp"
-                        android:layout_centerHorizontal="true"
-                        android:layout_height="24dp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_below="@+id/imgViewQrCode"
-                       >
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="5dp">
 
-                        <ImageView
-                            android:id="@+id/imgDownloadQrCode"
+                        <RelativeLayout
+                            android:id="@+id/downloadLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginEnd="36dp"
-                            android:src="@drawable/qr_download_icon" />
+                            android:layout_marginEnd="36dp">
 
-                        <ImageView
-                            android:id="@+id/imgShareQrCode"
+
+                            <ImageView
+                                android:id="@+id/imgDownloadQrCode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center_horizontal"
+                                android:background="@drawable/qr_download_selector" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/imgDownloadQrCode"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="9.5dp"
+                                android:fontFamily="@font/vag_bold"
+                                android:text="@string/download_title"
+                                android:textColor="@color/slider_heading"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
+
+                        <RelativeLayout
+                            android:id="@+id/shareLayout"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginStart="36dp"
-                            android:layout_toRightOf="@id/imgDownloadQrCode"
-                            android:src="@drawable/qr_share_icon" />
+                            android:layout_toRightOf="@+id/downloadLayout">
+
+
+                            <ImageView
+                                android:id="@+id/imgShareQrCode"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_centerHorizontal="true"
+                                android:gravity="center_horizontal"
+                                android:background="@drawable/qr_share_selector" />
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/imgShareQrCode"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="10dp"
+                                android:fontFamily="@font/vag_bold"
+                                android:text="@string/share_label"
+                                android:textColor="@color/slider_heading"
+                                android:textSize="12sp"
+                                android:textStyle="bold" />
+                        </RelativeLayout>
 
 
                     </RelativeLayout>
@@ -195,7 +233,7 @@
                 android:layout_marginTop="16dp"
                 android:fontFamily="@font/vag_bold"
                 android:gravity="center_horizontal"
-                android:text="Muestra este código QR a tus clientes o\nenvíalo presionando el ícono de compartir"
+                android:text="Muestra este Código QR a tus clientes o\nenvíalo presionando el ícono de compartir"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
@@ -271,7 +309,7 @@
             android:layout_marginTop="16dp"
             android:fontFamily="@font/vag_bold"
             android:gravity="center"
-            android:text="Venta Rápida"
+            android:text="@string/quick_sale"
             android:textColor="@color/qr_button_font"
             android:textSize="28sp" />
 
@@ -369,7 +407,7 @@
 
         </LinearLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/secondLoginButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -446,5 +484,13 @@
             android:textSize="10sp" />
 
     </LinearLayout>
+
+
+    <include
+        android:id="@+id/downloadableLayout"
+        layout="@layout/layout_merge_codigo_download"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
 </RelativeLayout>

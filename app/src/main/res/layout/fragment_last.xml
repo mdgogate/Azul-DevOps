@@ -13,12 +13,13 @@
         android:layout_marginStart="2dp"
         android:layout_marginEnd="2dp"
         android:weightSum="4"
-        android:background="@drawable/ic_bottom_message_style">
+        android:background="@drawable/generate_stmt_layout">
 
         <RelativeLayout
             android:id="@+id/lastDayBtn"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="2dp"
             android:layout_weight="1"
             android:padding="16dp">
 
@@ -44,6 +45,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
+            android:layout_marginTop="2dp"
             android:padding="16dp">
 
             <TextView
@@ -65,6 +67,7 @@
 
         <RelativeLayout
             android:id="@+id/previousMonthBtn"
+            android:layout_marginTop="2dp"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
@@ -94,7 +97,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:layout_marginTop="6dp"
+            android:layout_marginTop="2dp"
             android:padding="16dp">
 
             <TextView
@@ -102,9 +105,9 @@
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
                 android:text="@string/advanced"
-                android:textAlignment="center"
                 android:fontFamily="@font/vag_bold"
                 android:textSize="12sp"
+                android:gravity="center_horizontal"
                 android:textColor="@color/white" />
 
         </RelativeLayout>

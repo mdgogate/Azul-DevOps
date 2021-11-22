@@ -1,19 +1,22 @@
 package com.sdp.appazul.activities.dashboard;
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
-import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
-import android.os.Environment;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Editable;
 import android.text.TextUtils;
 import android.text.TextWatcher;
@@ -21,9 +24,11 @@ import android.text.format.DateFormat;
 import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -32,20 +37,22 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.cardview.widget.CardView;
 import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
-import androidx.core.content.FileProvider;
 import androidx.viewpager.widget.PagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
-import com.sdp.appazul.BuildConfig;
+import com.google.android.material.snackbar.Snackbar;
 import com.sdp.appazul.R;
 import com.sdp.appazul.activities.home.BaseLoggedInActivity;
+import com.sdp.appazul.activities.home.HomeLocationFilter;
 import com.sdp.appazul.adapters.WidgetTransactionHAdapter;
 import com.sdp.appazul.api.ApiManager;
 import com.sdp.appazul.api.ServiceUrls;
 import com.sdp.appazul.classes.TransactionHistory;
+import com.sdp.appazul.globals.AppAlters;
 import com.sdp.appazul.globals.Constants;
 import com.sdp.appazul.globals.KeyConstants;
 import com.sdp.appazul.security.RSAHelper;
@@ -55,18 +62,24 @@ import com.caverock.androidsvg.SVG;
 import com.caverock.androidsvg.SVGParseException;
 import com.google.android.material.tabs.TabLayout;
 import com.sdp.appazul.globals.AzulApplication;
+import com.sdp.appazul.utils.DownloadHandlerObject;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.File;
-import java.io.FileOutputStream;
+import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import static java.util.Calendar.DAY_OF_MONTH;
 import static java.util.Calendar.MONTH;
@@ -81,18 +94,17 @@ public class QrCode extends BaseLoggedInActivity {
     TextView swipeLeft;
     GregorianCalendar gregorianCalendar;
     RelativeLayout layoutTextSearch;
-    TextView clearTextView;
-    ImageView searchinActive;
+    ImageView clearTextView;
+    ImageView searchInActive;
     EditText etSearchBy;
     WidgetTransactionHAdapter historyAdapter;
     List<TransactionHistory> list;
     List<TransactionHistory> transactionFilteredList;
     ListView listTransactions;
-    ArrayList<TransactionHistory> filterarrayList = new ArrayList<>();
+    ArrayList<TransactionHistory> filteredArrayList = new ArrayList<>();
     List<String> monthList = new ArrayList<>();
     GregorianCalendar month;
     DateUtils utils = new DateUtils();
-    GregorianCalendar selectedFinalDate;
     CardView cardDatePicker;
     LinearLayout layoutDateRangeFilter;
     TextView tvFromActivity;
@@ -101,70 +113,159 @@ public class QrCode extends BaseLoggedInActivity {
     TextView tvAmount;
     TextView tvReferenceNo;
     ImageView imgClearRangeFilter;
-    Boolean tvAmountClick = false;
-    Boolean tvRefernceClick = false;
+    Boolean tvAmountClick = true;
+    Boolean tvReferenceClick = false;
     TextView tvNoRecordFound;
     ImageView btnTransactionBack;
     ApiManager apiManager = new ApiManager(QrCode.this);
     ImageView imgViewQrCode;
+    ImageView imgViewQrCodeHidden;
     TextView qrTitle;
+    TextView qrTitleHidden;
     TextView qrMerchantId;
+    TextView qrMerchantIdHidden;
     TextView qrTId;
+    TextView qrTIdHidden;
     List<TransactionHistory> temp;
-    RelativeLayout layoutAmountandRefFilter;
+    RelativeLayout layoutAmountAndRefFilter;
     ImageView locationSelector;
+    RelativeLayout locationFilter;
     String locationJson;
     TextView selectedLocationName;
     SharedPreferences sharedPreferences;
     ImageView imgDownloadQrCode;
+    ImageView imgDownloadQrCodeHidden;
     ImageView imgShareQrCode;
+    ImageView imgShareQrCodeHidden;
     CardView qrViewPager;
+    CardView qrViewPagerHidden;
+    int pagerPosition;
+    RelativeLayout layoutDownloadShare;
+    ImageView replaceDownloadableImage;
+    DownloadHandlerObject downloadHandlerObject = new DownloadHandlerObject(this);
+    RelativeLayout downloadableLayout;
+    ProgressDialog progressDialog;
+    int shareFlag = 0;
+    int qrChange = 0;
+    boolean submenuVisibility;
+    HomeLocationFilter homeLocationBottomSheet;
+    Context context;
+    RelativeLayout downloadLayoutHidden;
+    RelativeLayout shareLayoutHidden;
+    RelativeLayout bottom_sheet;
+    static int SNACK_LENGTH = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_qr_code);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        context = this;
         initControls();
-        pageListner();
-        verifystoragepermissions(this);
-
+        pageListener();
+        verifyStoragePermissions(this);
     }
 
     private void initControls() {
+        bottom_sheet = findViewById(R.id.bottom_sheet);
         selectedLocationName = findViewById(R.id.selectedLocationName);
         viewPagerTwo = findViewById(R.id.viewPagerTwo);
         showQr = findViewById(R.id.showQr);
         toolbarTextTitleTwo = findViewById(R.id.toolbarTextTitleTwo);
         swipeLeft = findViewById(R.id.swipeLeft);
         btnTransactionBack = findViewById(R.id.btnTransactionBack);
-        sharedPreferences = ((AzulApplication) this.getApplication()).getPrefs();
-        String lastLocationNamewithId = sharedPreferences.getString(Constants.SELECTED_LOCATION_QRCODE, "");
-        String lastLocationName = sharedPreferences.getString(Constants.SELECTED_LOCATION_NAME_QRCODE, "");
-        String lastLocationMid = sharedPreferences.getString(Constants.SELECTED_LOCATION_MID_QRCODE, "");
-        if (lastLocationNamewithId != null) {
-            selectedLocationName.setText(lastLocationNamewithId);
-        }
-        mID = lastLocationMid;
-        locName = lastLocationName;
-        callGetQrApi("24000000007");
+        replaceDownloadableImage = findViewById(R.id.replaceDownloadableImage);
+        downloadableLayout = findViewById(R.id.downloadableLayout);
 
-        Intent intent = getIntent();
-        locationJson = intent.getStringExtra(Constants.LOCATION_RESPONSE);
+
+        locationJson = ((AzulApplication) context.getApplicationContext()).getLocationDataShare();
         burgerMenu();
+        checkLocation();
 
         btnTransactionBack.setOnClickListener(view -> {
             finish();
 
             Intent intent1 = new Intent(QrCode.this, DashBoardActivity.class);
-            intent1.putExtra(Constants.LOCATION_RESPONSE, locationJson);
+            ((AzulApplication) ((QrCode) this).getApplication()).setLocationDataShare(locationJson);
+
             startActivityForResult(intent1, 1);
+            this.overridePendingTransition(R.anim.animation_leave,
+                    R.anim.slide_nothing);
         });
 
     }
 
+    Map<String, String> defaultLocations = new HashMap<>();
 
-    private void pageListner() {
+    private void checkLocation() {
+        sharedPreferences = ((AzulApplication) this.getApplication()).getPrefs();
+        String lastLocationNameWithId = sharedPreferences.getString(Constants.SELECTED_LOCATION_QRCODE, "");
+        String lastLocationName = sharedPreferences.getString(Constants.SELECTED_LOCATION_NAME_QRCODE, "");
+        String lastLocationMid = sharedPreferences.getString(Constants.SELECTED_LOCATION_MID_QRCODE, "");
+        mID = lastLocationMid;
+        locName = lastLocationName;
+        if (lastLocationNameWithId != null && !TextUtils.isEmpty(lastLocationNameWithId)) {
+            selectedLocationName.setText(lastLocationNameWithId);
+
+            callGetQrApi(lastLocationMid);
+        } else {
+            getDefaultLocationForQr(locationJson);
+
+            defaultLocations = ((AzulApplication) this.getApplication()).getDefaultLocationQr();
+
+            if (defaultLocations != null) {
+
+                defaultLocationName = defaultLocations.get("CHILD_LOC_NAME");
+                defaultLocationId = defaultLocations.get("CHILD_LOC_ID");
+                mID = defaultLocationId;
+                locName = defaultLocationName;
+                selectedLocationName.setText(defaultLocationName + " - " + defaultLocationId);
+                callGetQrApi(defaultLocationId);
+            }
+        }
+
+
+    }
+
+    String defaultLocationName;
+    String defaultLocationId;
+    Map<String, String> defaultLocation;
+
+    private void getDefaultLocationForQr(String locationResponse) {
+
+        try {
+            JSONObject jsonResponse = new JSONObject(locationResponse);
+            JSONArray parentLevelLocations = jsonResponse.getJSONArray("AssignedUnits");
+            for (int i = 0; i < parentLevelLocations.length(); i++) {
+                JSONObject parentData = parentLevelLocations.getJSONObject(i);
+                String parentLocationName = parentData.getString("Name");
+
+                JSONArray assignedLocationsObject = parentData.getJSONArray(Constants.ASSIGNED_LOCATION_QR);
+
+                for (int j = 0; j < assignedLocationsObject.length(); j++) {
+                    JSONObject secondPositionLocation = assignedLocationsObject.getJSONObject(0);
+                    String secondPositionLocationId = secondPositionLocation.getString(Constants.MERCHANT_ID);
+                    String secondPositionLocationName = secondPositionLocation.getString("Name");
+                    defaultLocation = new HashMap<>();
+                    defaultLocation.put("PARENT_LOC_NAME", parentLocationName);
+                    defaultLocation.put("CHILD_LOC_ID", secondPositionLocationId);
+                    defaultLocation.put("CHILD_LOC_NAME", secondPositionLocationName);
+                    ((AzulApplication) (this).getApplication()).setDefaultLocationQr(defaultLocation);
+                    sharedPreferences.edit().putInt(Constants.SELECTED_PARENT_QRCODE, 0).apply();
+                    sharedPreferences.edit().putInt(Constants.SELECTED_CHILD_QRCODE, (Integer) 0).apply();
+                    sharedPreferences.edit().putString(Constants.SELECTED_LOCATION_QRCODE, secondPositionLocationName + " - " + secondPositionLocationId).apply();
+                    sharedPreferences.edit().putString(Constants.SELECTED_LOCATION_MID_QRCODE, secondPositionLocationId).apply();
+
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+    }
+
+
+    private void pageListener() {
         viewPagerTwo.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -174,10 +275,13 @@ public class QrCode extends BaseLoggedInActivity {
             @Override
             public void onPageSelected(int position) {
                 if (position == 0) {
+                    pagerPosition = position;
                     showQr.setVisibility(View.VISIBLE);
                     toolbarTextTitleTwo.setText(R.string.qr_code);
                     swipeLeft.setText(R.string.swipe_left);
+
                 } else {
+                    pagerPosition = position;
                     showQr.setVisibility(View.GONE);
                     toolbarTextTitleTwo.setText(R.string.sales_of_day);
                     swipeLeft.setText(R.string.swipe_right);
@@ -186,7 +290,7 @@ public class QrCode extends BaseLoggedInActivity {
 
             @Override
             public void onPageScrollStateChanged(int state) {
-                Log.d("TAG", "scroll");
+                Log.d("", "");
             }
         });
     }
@@ -197,14 +301,16 @@ public class QrCode extends BaseLoggedInActivity {
         Context context;
         String imgData;
         String mID;
-        String selectedlocName;
+        String selectedLoName;
         SVG svg = null;
+        SVG svgForMarket = null;
+
 
         public ViewPagerAdapterTwo(QrCode qrCode, String responseData, String merchID, String locName) {
             context = qrCode;
             imgData = responseData;
             mID = merchID;
-            selectedlocName = locName;
+            selectedLoName = locName;
         }
 
         @Override
@@ -222,11 +328,11 @@ public class QrCode extends BaseLoggedInActivity {
         public Object instantiateItem(@NotNull ViewGroup container, int position) {
             layoutInflater = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
             View qrView = layoutInflater.inflate(R.layout.qrcode_widget_layout, container, false);
-            View qrtranView = layoutInflater.inflate(R.layout.transaction_qrcode_widget_layout, container, false);
-            View[] viewArr = {qrView, qrtranView};
+            View getQrView = layoutInflater.inflate(R.layout.transaction_qrcode_widget_layout, container, false);
+            View[] viewArr = {qrView, getQrView};
             container.addView(viewArr[position]);
             qrSetView(qrView);
-            secondView(qrtranView);
+            secondView(getQrView);
             return viewArr[position];
         }
 
@@ -237,89 +343,122 @@ public class QrCode extends BaseLoggedInActivity {
         }
 
         private void qrSetView(View qrView) {
+            downloadLayoutHidden = qrView.findViewById(R.id.downloadLayoutHidden);
+            shareLayoutHidden = qrView.findViewById(R.id.shareLayoutHidden);
             imgViewQrCode = qrView.findViewById(R.id.imgViewQrCode);
+            imgViewQrCode = qrView.findViewById(R.id.imgViewQrCode);
+            imgViewQrCodeHidden = qrView.findViewById(R.id.imgViewQrCodeHidden);
             imgDownloadQrCode = qrView.findViewById(R.id.imgDownloadQrCode);
+            imgDownloadQrCodeHidden = qrView.findViewById(R.id.imgDownloadQrCodeHidden);
             qrViewPager = qrView.findViewById(R.id.qrViewPager);
+            qrViewPagerHidden = qrView.findViewById(R.id.qrViewPagerHidden);
             imgShareQrCode = qrView.findViewById(R.id.imgShareQrCode);
+            imgShareQrCodeHidden = qrView.findViewById(R.id.imgShareQrCodeHidden);
             qrTitle = qrView.findViewById(R.id.qrTitle);
+            qrTitleHidden = qrView.findViewById(R.id.qrTitleHidden);
             qrMerchantId = qrView.findViewById(R.id.qrMerchantId);
+            qrMerchantIdHidden = qrView.findViewById(R.id.qrMerchantIdHidden);
             qrTId = qrView.findViewById(R.id.qrTId);
-            qrMerchantId.setText("MID: " + mID);
-
-            if (!TextUtils.isEmpty(selectedlocName)) {
-                qrTitle.setText(selectedlocName);
+            qrTIdHidden = qrView.findViewById(R.id.qrTIdHidden);
+            layoutDownloadShare = qrView.findViewById(R.id.layoutDownloadShare);
+            String merchantToDisplay = getResources().getString(R.string.merchant_id_title) + mID;
+            String transToDisplay = "TID: " + mID;
+            String merchantNameToDisplay = selectedLoName;
+            if (!TextUtils.isEmpty(merchantToDisplay)) {
+                qrMerchantId.setText(merchantToDisplay);
+                qrMerchantIdHidden.setText(merchantToDisplay);
+                qrTIdHidden.setText(transToDisplay);
+                qrTId.setText(transToDisplay);
+            } else {
+                qrMerchantIdHidden.setText("-");
+            }
+            if (!TextUtils.isEmpty(merchantNameToDisplay)) {
+                qrTitle.setText(merchantNameToDisplay);
+                qrTitleHidden.setText(merchantNameToDisplay);
+            } else {
+                qrTitle.setText("-");
+                qrTitleHidden.setText("-");
             }
             try {
-                if (!TextUtils.isEmpty(imgData)) {
+                if (imgData != null && !TextUtils.isEmpty(imgData)) {
                     svg = SVG.getFromString(imgData);
-                    PictureDrawable pd = new PictureDrawable(svg.renderToPicture());
-                    imgViewQrCode.setImageDrawable(pd);
-                }
+                    svgForMarket = SVG.getFromString(imgData);
 
+                    PictureDrawable pd = new PictureDrawable(svg.renderToPicture());
+                    PictureDrawable pdForMarket = new PictureDrawable(svgForMarket.renderToPicture());
+                    imgViewQrCode.setImageDrawable(pd);
+                    imgViewQrCodeHidden.setImageDrawable(pd);
+                    replaceDownloadableImage.setImageDrawable(pdForMarket);
+                } else {
+                    Toast.makeText(getApplicationContext(), "No se recibieron los datos del código QR", Toast.LENGTH_SHORT).show();
+                }
             } catch (
                     SVGParseException e) {
                 e.printStackTrace();
             }
-
-            buttonListeners(qrView);
-
+            buttonListeners();
         }
 
-        private void buttonListeners(View qrView) {
+        private void buttonListeners() {
 
-            imgDownloadQrCode.setOnClickListener(imgDownloadQrCodeView -> {
+            copyButtonListener();
 
-                imgDownloadQrCode.setVisibility(View.GONE);
-                imgShareQrCode.setVisibility(View.GONE);
+            shareLayoutHidden.setOnClickListener(imgShareQrCodeHiddenView -> {
+                if (imgData != null && !TextUtils.isEmpty(imgData)) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // do your stuff
+                            runOnUiThread(new Runnable() {
+                                public void run() {
 
-                Bitmap bitmap = getScreenShotFromView(qrView);
-                if (bitmap != null) {
-                    saveMediaToStorage(bitmap, "result", 0);
-                    imgDownloadQrCode.setVisibility(View.VISIBLE);
-                    imgShareQrCode.setVisibility(View.VISIBLE);
-                }
-            });
-
-            imgShareQrCode.setOnClickListener(imgShareQrCodeView -> {
-
-                imgDownloadQrCode.setVisibility(View.GONE);
-                imgShareQrCode.setVisibility(View.GONE);
-
-                Bitmap bitmap = getScreenShotFromView(qrView);
-                if (bitmap != null) {
-                    File file = saveMediaToStorage(bitmap, "result", 1);
-                    imgDownloadQrCode.setVisibility(View.VISIBLE);
-                    imgShareQrCode.setVisibility(View.VISIBLE);
-                    Uri uri = FileProvider.getUriForFile(QrCode.this,
-                            BuildConfig.APPLICATION_ID + ".provider", file);
-
-
-                    Intent shareIntent = new Intent();
-                    shareIntent.setData(uri);
-                    shareIntent.setAction(Intent.ACTION_SEND);
-                    shareIntent.putExtra(Intent.EXTRA_TEXT, "Paga seleccionando este Código QR AZUL desde tu App Popular o App tPago");
-                    shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-                    shareIntent.setType("image/*");
-                    shareIntent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    shareIntent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-                    List<ResolveInfo> resInfoList = this.context.getPackageManager().queryIntentActivities(shareIntent, PackageManager.MATCH_DEFAULT_ONLY);
-                    for (ResolveInfo resolveInfo : resInfoList) {
-                        String packageName = resolveInfo.activityInfo.packageName;
-                        this.context.grantUriPermission(packageName, uri, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-                    }
-
-                    startActivity(Intent.createChooser(shareIntent, "share via"));
-
+                                    try {
+                                        saveImage(getBitmapFromView(downloadableLayout), 1);
+                                    } catch (IOException e) {
+                                        Log.e("Codi go Download", "codi go DownloadShare: " + e.getLocalizedMessage());
+                                    }
+                                }
+                            });
+                        }
+                    }).start();
+                } else {
+                    Toast.makeText(getApplicationContext(), "El código QR no está disponible para descargar o compartir.", Toast.LENGTH_SHORT).show();
                 }
             });
         }
 
+        private void copyButtonListener() {
+            downloadLayoutHidden.setOnClickListener(imgDownloadQrCodeHiddenView -> {
+                if (imgData != null && !TextUtils.isEmpty(imgData)) {
+                    new Thread(new Runnable() {
+                        @Override
+                        public void run() {
+                            // do your stuff
+                            runOnUiThread(new Runnable() {
+                                public void run() {
+                                    try {
+                                        saveImage(getBitmapFromView(downloadableLayout), 0);
+                                    } catch (IOException e) {
+                                        Log.e("Codi go Download", "codi go DownloadShare: " + e.getLocalizedMessage());
+                                    }
+                                }
+                            });
+                        }
+                    }).start();
+                } else {
+                    Toast.makeText(getApplicationContext(), "El código QR no está disponible para descargar o compartir.", Toast.LENGTH_SHORT).show();
+                }
 
+            });
+        }
+
+
+        @SuppressLint("ClickableViewAccessibility")
         private void secondView(View view) {
             etSearchBy = view.findViewById(R.id.etSearchBy);
             layoutTextSearch = view.findViewById(R.id.layoutTextSearch);
             clearTextView = view.findViewById(R.id.clearTextView);
-            searchinActive = view.findViewById(R.id.searchinActive);
+            searchInActive = view.findViewById(R.id.searchinActive);
             listTransactions = view.findViewById(R.id.listTransactions);
             cardDatePicker = view.findViewById(R.id.cardDatePicker);
             layoutDateRangeFilter = view.findViewById(R.id.layoutDateRangeFilter);
@@ -327,13 +466,17 @@ public class QrCode extends BaseLoggedInActivity {
             tvToActivity = view.findViewById(R.id.tvToActivity);
             imgClearRangeFilter = view.findViewById(R.id.imgClearRangeFilter);
             tvDateFilter = view.findViewById(R.id.tvDateFilter);
-            layoutAmountandRefFilter = view.findViewById(R.id.layoutAmountandRefFilter);
+            layoutAmountAndRefFilter = view.findViewById(R.id.layoutAmountandRefFilter);
             tvAmount = view.findViewById(R.id.tvAmount);
             tvReferenceNo = view.findViewById(R.id.tvReferenceNo);
             tvNoRecordFound = view.findViewById(R.id.tvNoRecordFound);
             getTransactionListData();
-            etSearchBy.setOnClickListener(etSearchByview ->
-                    hidShow());
+
+            etSearchBy.setOnTouchListener((view1, motionEvent) -> {
+                if (MotionEvent.ACTION_UP == motionEvent.getAction())
+                    hidShow();
+                return false;
+            });
 
             etSearchBy.addTextChangedListener(new TextWatcher() {
                 @Override
@@ -356,36 +499,46 @@ public class QrCode extends BaseLoggedInActivity {
                 }
             });
             clearTextView.setOnClickListener(clearTextView -> {
-                searchinActive.setTag("bg");
-                searchinActive.setImageResource(R.drawable.search_in_active);
+                searchInActive.setTag("bg");
+                searchInActive.setImageResource(R.drawable.transaction_search_icon_inactive);
                 etSearchBy.setText("");
                 if (clearTextView.getVisibility() == View.VISIBLE) {
                     clearTextView.setVisibility(View.GONE);
                 }
-                if (layoutAmountandRefFilter.getVisibility() == View.VISIBLE) {
-                    layoutAmountandRefFilter.setVisibility(View.GONE);
+                etSearchBy.setHint(getResources().getString(R.string.search_hint));
+                if (layoutAmountAndRefFilter.getVisibility() == View.VISIBLE) {
+                    layoutAmountAndRefFilter.setVisibility(View.GONE);
+                }
+
+                if (getCurrentFocus() != null) {
+                    InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                    imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
                 }
             });
 
 
-            tvReferenceNo.setOnClickListener(tvReferenceNoview -> {
+            tvReferenceNo.setOnClickListener(tvReferenceNoView -> {
 
                 tvReferenceNo.setBackgroundResource(R.drawable.middle_navigation_bg);
                 tvAmount.setBackgroundResource(0);
                 tvAmount.setTextColor(ContextCompat.getColor(context, R.color.slider_heading));
                 tvReferenceNo.setTextColor(ContextCompat.getColor(context, R.color.blue_3));
                 tvAmountClick = false;
-                tvRefernceClick = true;
+                tvReferenceClick = true;
                 etSearchBy.setText("");
+
+                etSearchBy.setHint(getResources().getString(R.string.reference_no_hint));
+
             });
 
-            tvAmount.setOnClickListener(tvReferenceNoview -> {
+            tvAmount.setOnClickListener(tvReferenceNoView -> {
                 tvAmount.setBackgroundResource(R.drawable.middle_navigation_bg);
                 tvReferenceNo.setBackgroundResource(0);
                 tvReferenceNo.setTextColor(ContextCompat.getColor(context, R.color.slider_heading));
                 tvAmount.setTextColor(ContextCompat.getColor(context, R.color.blue_3));
+                etSearchBy.setHint(getResources().getString(R.string.amount_hint));
                 tvAmountClick = true;
-                tvRefernceClick = false;
+                tvReferenceClick = false;
                 etSearchBy.setText("");
             });
         }
@@ -394,7 +547,7 @@ public class QrCode extends BaseLoggedInActivity {
             gregorianCalendar = (GregorianCalendar) getInstance();
             monthList = utils.getmonthList();
             month = (GregorianCalendar) gregorianCalendar.clone();
-            String spanishmonthname = monthList
+            String spanishMonthName = monthList
                     .get(Integer.parseInt((String) DateFormat.format(Constants.MM, month)) - 1);
             String date = "" + gregorianCalendar.get(DAY_OF_MONTH);
             String initialDate = "" + gregorianCalendar.get(DAY_OF_MONTH);
@@ -403,23 +556,24 @@ public class QrCode extends BaseLoggedInActivity {
                     initialMonth + "/"
                     + initialDate;
 
-            callQRTransaction(currDate, currDate);
-            tvDateFilter.setText(date + " de " + spanishmonthname);
+            callQRTransaction(mID, currDate, currDate);
+            String dateToDisplay = date + " de " + spanishMonthName;
+            tvDateFilter.setText(dateToDisplay);
         }
 
-        private void callQRTransaction(String fromDateString, String toDateString) {
+        private void callQRTransaction(String locationId, String fromDateString, String toDateString) {
             JSONObject json = new JSONObject();
             try {
+
                 String tcpKey = ((AzulApplication) QrCode.this.getApplication()).getTcpKey();
+                String vcr = ((AzulApplication) QrCode.this.getApplication()).getVcr();
                 json.put("tcp", RSAHelper.ecryptRSA(QrCode.this, tcpKey));
                 JSONObject payload = new JSONObject();
                 payload.put("device", DeviceUtils.getDeviceId(QrCode.this));
-                JSONObject pagosrequest = new JSONObject();
-                pagosrequest.put("dateFrom", fromDateString);
-                pagosrequest.put("dateTo", toDateString);
-
-                payload.put("obtenerrequest", pagosrequest);
-                json.put("payload", RSAHelper.encryptAES(payload.toString(), Base64.decode(tcpKey, 0)));
+                payload.put("dateFrom", fromDateString);
+                payload.put("dateTo", toDateString);
+                payload.put("merchantIdList", locationId);
+                json.put("payload", RSAHelper.encryptAES(payload.toString(), Base64.decode(tcpKey, 0), Base64.decode(vcr, 0)));
             } catch (Exception e) {
                 Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
             }
@@ -427,49 +581,91 @@ public class QrCode extends BaseLoggedInActivity {
         }
 
         private void hidShow() {
-            String backgroundImageName = String.valueOf(searchinActive.getTag());
+            String backgroundImageName = String.valueOf(searchInActive.getTag());
 
             if (backgroundImageName.equalsIgnoreCase("bg")) {
-                searchinActive.setTag(R.drawable.ic_search_active);
-                searchinActive.setImageResource(R.drawable.ic_search_active);
+                searchInActive.setTag(R.drawable.transaction_search_icon_active);
+                searchInActive.setImageResource(R.drawable.transaction_search_icon_active);
             }
 
             if (clearTextView.getVisibility() == View.GONE) {
                 clearTextView.setVisibility(View.VISIBLE);
             }
-
-            if (layoutAmountandRefFilter.getVisibility() == View.GONE) {
-                layoutAmountandRefFilter.setVisibility(View.VISIBLE);
+            if (Boolean.TRUE.equals(tvAmountClick)) {
+                etSearchBy.setHint(getResources().getString(R.string.amount_hint));
+            } else {
+                etSearchBy.setHint(getResources().getString(R.string.reference_no_hint));
+            }
+            if (layoutAmountAndRefFilter.getVisibility() == View.GONE) {
+                layoutAmountAndRefFilter.setVisibility(View.VISIBLE);
             }
         }
 
     }
 
+    SimpleDateFormat olderFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+    private Comparator<TransactionHistory> byDate = new Comparator<TransactionHistory>() {
+        SimpleDateFormat sdf = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss a");
+
+        public int compare(TransactionHistory ord1, TransactionHistory ord2) {
+
+            Date inputDateT11Older = null;
+            Date inputDateT2Older = null;
+
+
+            String inputDateT1 = ord1.getTrDate().substring(0, 10);
+            String inputTimeT1 = ord1.getTime().substring(0, 8);
+
+            String inputDateT2 = ord2.getTrDate().substring(0, 10);
+            String inputTimeT2 = ord2.getTime().substring(0, 8);
+
+
+            String settle1 = inputDateT1 + "T" + inputTimeT1;
+            String settle2 = inputDateT2 + "T" + inputTimeT2;
+            Log.d("TAG", settle1 + "  == compare  == " + settle2);
+
+            try {
+                inputDateT11Older = olderFormat.parse(settle1);
+                inputDateT2Older = olderFormat.parse(settle2);
+
+                Log.d("TAG", inputDateT11Older.getTime() + "  == getTime  == " + inputDateT2Older.getTime());
+            } catch (ParseException e) {
+                Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+            }
+
+            if (inputDateT11Older != null && inputDateT2Older != null) {
+                return (inputDateT11Older.getTime() > inputDateT2Older.getTime() ? -1 : 1);
+            }
+
+            return 0;
+        }
+    };
     List<TransactionHistory> loList;
 
     void filterList(CharSequence text, boolean type) {
-        if (!filterarrayList.isEmpty()) {
-            serachInList(filterarrayList, text, type);
-        } else if (loList != null && loList.size() > 0) {
-            serachInList(loList, text, type);
+        if (!filteredArrayList.isEmpty()) {
+            searchInList(filteredArrayList, text, type);
+        } else if (loList != null && !loList.isEmpty()) {
+            searchInList(loList, text, type);
         } else {
-            serachInList(list, text, type);
+            searchInList(list, text, type);
         }
     }
 
     void filterListByAmt(CharSequence text, boolean type) {
-        if (!filterarrayList.isEmpty()) {
-            serachInList(filterarrayList, text, type);
-        } else if (loList != null && loList.size() > 0) {
-            serachInList(loList, text, type);
+        if (!filteredArrayList.isEmpty()) {
+            searchInList(filteredArrayList, text, type);
+        } else if (loList != null && !loList.isEmpty()) {
+            searchInList(loList, text, type);
         } else {
-            serachInList(list, text, type);
+            searchInList(list, text, type);
         }
     }
 
-    public void serachInList(List<TransactionHistory> mainlist, CharSequence text, Boolean type) {
+    public void searchInList(List<TransactionHistory> transactionMainList, CharSequence text, Boolean type) {
         temp = new ArrayList<>();
-        for (TransactionHistory tr : mainlist) {
+        for (TransactionHistory tr : transactionMainList) {
             if (Boolean.TRUE.equals(type)) {
                 if (tr.getAmount().trim().contains(text)) {
                     temp.add(tr);
@@ -480,11 +676,19 @@ public class QrCode extends BaseLoggedInActivity {
                 }
             }
         }
+
         if (!temp.isEmpty()) {
 
             listTransactions.setVisibility(View.VISIBLE);
             tvNoRecordFound.setVisibility(View.GONE);
-            historyAdapter.updateList(temp);
+            Collections.sort(temp, byDate);
+
+            if (historyAdapter != null) {
+                historyAdapter.updateList(temp);
+            } else {
+                historyAdapter = new WidgetTransactionHAdapter(QrCode.this, temp);
+                historyAdapter.notifyDataSetChanged();
+            }
         } else {
             listTransactions.setVisibility(View.GONE);
             tvNoRecordFound.setVisibility(View.VISIBLE);
@@ -507,21 +711,39 @@ public class QrCode extends BaseLoggedInActivity {
         list = new ArrayList<>();
         transactionFilteredList = new ArrayList<>();
         try {
-            JSONObject jsonTransactionOb = jsonObject.getJSONObject("qrtransactions");
+            JSONObject jsonTransactionOb = jsonObject.getJSONObject(Constants.QR_TRANSACTION_JSON_LBL);
             JSONArray jsonArray = jsonTransactionOb.getJSONArray("Transactions");
-            for (int i = 0; i < jsonArray.length(); i++) {
-                JSONObject jsonTrObject = jsonArray.getJSONObject(i);
-                String amount = jsonTrObject.getString("Amount");
-                String authCode = jsonTrObject.getString("AuthorizationCode");
-                String referenceNo = jsonTrObject.getString("TransactionNumber");
-                String trTime = jsonTrObject.getString("TransactionTime");
-                String merchantId = jsonTrObject.getString("MerchantId");
-                String location = jsonTrObject.getString("MerchantName");
-                list.add(new TransactionHistory(authCode, referenceNo, location, trTime, amount, merchantId, tvDateFilter.getText().toString()));
+            if (jsonArray.toString().equalsIgnoreCase("[]")) {
+                listTransactions.setVisibility(View.GONE);
+                tvNoRecordFound.setVisibility(View.VISIBLE);
+            } else {
+                transactionParsing(jsonArray);
             }
         } catch (Exception e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
+    }
+
+    private void transactionParsing(JSONArray jsonArray) {
+        try {
+            for (int i = 0; i < jsonArray.length(); i++) {
+                JSONObject jsonTrObject = jsonArray.getJSONObject(i);
+                String amount = jsonTrObject.getString("Amount");
+                String referenceNo = jsonTrObject.getString("TransactionNumber");
+                String trTime = jsonTrObject.getString("TransactionTime");
+                String trDate = jsonTrObject.getString("TransactionDate");
+                String merchantId = jsonTrObject.getString("MerchantId");
+                String location = jsonTrObject.getString("MerchantName");
+                list.add(new TransactionHistory(referenceNo, location, trDate, trTime, amount, merchantId, tvDateFilter.getText().toString()));
+            }
+
+            settingAdapter(mID, list, loList);
+        } catch (Exception e) {
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+        }
+    }
+
+    private void settingAdapter(String mID, List<TransactionHistory> list, List<TransactionHistory> loList) {
 
         if (!TextUtils.isEmpty(mID)) {
             for (int i = 0; i < list.size(); i++) {
@@ -529,7 +751,10 @@ public class QrCode extends BaseLoggedInActivity {
                     loList.add(list.get(i));
                 }
             }
-            if (loList.size() > 0) {
+
+            if (!loList.isEmpty()) {
+
+                Collections.sort(loList, byDate);
                 historyAdapter = new WidgetTransactionHAdapter(QrCode.this, loList);
                 listTransactions.setAdapter(historyAdapter);
                 listTransactions.setVisibility(View.VISIBLE);
@@ -540,152 +765,218 @@ public class QrCode extends BaseLoggedInActivity {
             }
         } else {
 
+            Collections.sort(list, byDate);
             historyAdapter = new WidgetTransactionHAdapter(QrCode.this, list);
             listTransactions.setAdapter(historyAdapter);
         }
     }
 
-    boolean submenuVisibility;
-    LocationFilterBottomSheet bottomsheet;
 
     private void burgerMenu() {
         locationSelector = findViewById(R.id.locationSelector);
+        locationFilter = findViewById(R.id.locationFilter);
 
         locationSelector.setOnClickListener(btnBurgerMenuView -> {
             locationSelector.setRotation(submenuVisibility ? 180 : 0);
-            bottomsheet = new LocationFilterBottomSheet(locationJson, "QrCode");
-            bottomsheet.show(getSupportFragmentManager(), "bottomSheet");
+            homeLocationBottomSheet = new HomeLocationFilter(locationJson, "QrCode", 0);
+            homeLocationBottomSheet.show(getSupportFragmentManager(), "bottomSheet");
+        });
+        locationFilter.setOnClickListener(locationFilterView -> {
+            locationSelector.setRotation(submenuVisibility ? 180 : 0);
+            homeLocationBottomSheet = new HomeLocationFilter(locationJson, "QrCode", 0);
+            homeLocationBottomSheet.show(getSupportFragmentManager(), "bottomSheet");
         });
     }
 
     String mID = "";
     String locName = "";
 
-    public void setContent(String content, String locNameselected, String lastChildMidQr, int dismissFlag) {
+    public void setContent(String content, String locationNameSelected, String lastChildMidQr, int dismissFlag) {
         mID = lastChildMidQr;
-        locName = locNameselected;
+        locName = locationNameSelected;
 
         if (dismissFlag == 1) {
             callGetQrApi(lastChildMidQr);
             selectedLocationName.setText(content);
-            bottomsheet.dismiss();
+            homeLocationBottomSheet.dismiss();
         }
+
 
         filterDataByMid(lastChildMidQr);
     }
 
     public void filterDataByMid(String lastChildMidQr) {
-        if (!TextUtils.isEmpty(lastChildMidQr)) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).getMerchantId().equalsIgnoreCase(lastChildMidQr)) {
-                    loList.add(list.get(i));
-                }
-            }
-            if (!loList.isEmpty()) {
-                listTransactions.setVisibility(View.VISIBLE);
-                tvNoRecordFound.setVisibility(View.GONE);
-                if (historyAdapter != null) {
-                    historyAdapter.updateList(loList);
-                    historyAdapter.notifyDataSetChanged();
-                } else {
-                    historyAdapter = new WidgetTransactionHAdapter(QrCode.this, loList);
-                    historyAdapter.notifyDataSetChanged();
-                }
-                listTransactions.setAdapter(historyAdapter);
-
-
-            } else {
-                listTransactions.setVisibility(View.GONE);
-                tvNoRecordFound.setVisibility(View.VISIBLE);
-            }
-
+        if (loList != null && !loList.isEmpty()) {
+            loList.clear();
         }
+        if (list != null && !list.isEmpty()) {
+            checkMid(list, lastChildMidQr);
+        }
+        if (loList != null && !loList.isEmpty()) {
+            setTransactionAdapter();
+        }
+
+
+    }
+
+    private void checkMid(List<TransactionHistory> list, String lastChildMidQr) {
+        for (int i = 0; i < list.size(); i++) {
+            if (!TextUtils.isEmpty(lastChildMidQr) && list.get(i).getMerchantId().equalsIgnoreCase(lastChildMidQr)) {
+                loList.add(list.get(i));
+            }
+        }
+    }
+
+    private void setTransactionAdapter() {
+        listTransactions.setVisibility(View.VISIBLE);
+        tvNoRecordFound.setVisibility(View.GONE);
+        Collections.sort(loList, byDate);
+        if (historyAdapter != null) {
+            historyAdapter.updateList(loList);
+        } else {
+            historyAdapter = new WidgetTransactionHAdapter(QrCode.this, loList);
+        }
+        historyAdapter.notifyDataSetChanged();
+        listTransactions.setAdapter(historyAdapter);
     }
 
     private void callGetQrApi(String lastLocationMid) {
         JSONObject json = new JSONObject();
         try {
             String tcpKey = ((AzulApplication) this.getApplication()).getTcpKey();
+            String vcr = ((AzulApplication) this.getApplication()).getVcr();
             json.put("tcp", RSAHelper.ecryptRSA(QrCode.this, tcpKey));
             JSONObject payload = new JSONObject();
             payload.put("device", DeviceUtils.getDeviceId(this));
-            JSONObject pagosrequest = new JSONObject();
-            pagosrequest.put("merchantId", lastLocationMid);
+            payload.put("merchantId", lastLocationMid);
 
-            payload.put("obtenerrequest", pagosrequest);
-            json.put("payload", RSAHelper.encryptAES(payload.toString(), Base64.decode(tcpKey, 0)));
+            json.put("payload", RSAHelper.encryptAES(payload.toString(), Base64.decode(tcpKey, 0), Base64.decode(vcr, 0)));
         } catch (Exception e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
         apiManager.callAPI(ServiceUrls.GET_QR, json);
+        Log.d("TAG", "callGetQrApi: " + qrChange);
+
     }
 
     public void getResponseForQr(String responseData) {
         try {
-            viewPagerTwo.setAdapter(new ViewPagerAdapterTwo(this, responseData, mID, locName));
-            circleIndicatorTwo = findViewById(R.id.circleIndicatorTwo);
-            circleIndicatorTwo.setupWithViewPager(viewPagerTwo, true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-    private Bitmap getScreenShotFromView(View v) {
-        Bitmap screenshot = null;
-        try {
-            screenshot = Bitmap.createBitmap(v.getWidth(), v.getHeight(), Bitmap.Config.ARGB_8888);
-            Canvas canvas = new Canvas(screenshot);
-            v.draw(canvas);
-        } catch (Exception e) {
-            Log.d("", "");
-        }
-        // return the bitmap
-        return screenshot;
-    }
-
-    private File saveMediaToStorage(Bitmap bitmap, String filename, int share) {
-        Date date = new Date();
-
-        CharSequence format = android.text.format.DateFormat.format("yyyy-MM-dd_hh:mm:ss", date);
-        String dirpath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES) + File.separator + "";
-
-        String path = dirpath + "/" + filename + "-" + format + ".jpeg";
-
-        File imagePath = new File(path);
-        FileOutputStream fos;
-        try {
-            fos = new FileOutputStream(imagePath);
-            bitmap.compress(Bitmap.CompressFormat.PNG, 100, fos);
-            fos.flush();
-            fos.close();
-            if (share == 0) {
-                Toast toast = Toast.makeText(getApplicationContext(), "Código QR guardado", Toast.LENGTH_LONG);
-                View view = toast.getView();
-                TextView view1 = (TextView) view.findViewById(android.R.id.message);
-                view1.setTextColor(Color.WHITE);
-                view.setBackgroundResource(R.drawable.toast_msg_background);
-                toast.show();
+            if (responseData != null && !responseData.equalsIgnoreCase("")) {
+                viewPagerTwo.setAdapter(new ViewPagerAdapterTwo(this, responseData, mID, locName));
+                circleIndicatorTwo = findViewById(R.id.circleIndicatorTwo);
+                circleIndicatorTwo.setupWithViewPager(viewPagerTwo, true);
+                if (pagerPosition == 0) {
+                    viewPagerTwo.setCurrentItem(0);
+                } else {
+                    viewPagerTwo.setCurrentItem(1);
+                }
+            } else {
+                viewPagerTwo.setAdapter(new ViewPagerAdapterTwo(this, responseData, mID, locName));
+                circleIndicatorTwo = findViewById(R.id.circleIndicatorTwo);
+                circleIndicatorTwo.setupWithViewPager(viewPagerTwo, true);
+                if (pagerPosition == 0) {
+                    viewPagerTwo.setCurrentItem(0);
+                } else {
+                    viewPagerTwo.setCurrentItem(1);
+                }
+                Toast.makeText(getApplicationContext(), "No se recibieron los datos del código QR", Toast.LENGTH_SHORT).show();
             }
-            Log.e("ImageSave", "Saveimage");
+
         } catch (Exception e) {
-            Log.e("GREC", e.getMessage(), e);
-        }
-        return imagePath;
-    }
-
-    public static void verifystoragepermissions(Activity activity) {
-
-        int permissions = ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
-
-        // If storage permission is not given then request for External Storage Permission
-        if (permissions != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(activity, permissionstorage, REQUEST_EXTERNAL_STORAGE);
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
     }
 
+    @Override
+    public boolean dispatchTouchEvent(MotionEvent ev) {
+        if (getCurrentFocus() != null) {
+            InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.hideSoftInputFromWindow(getCurrentFocus().getWindowToken(), 0);
+        }
+        return super.dispatchTouchEvent(ev);
+    }
 
-    private static final int REQUEST_EXTERNAL_STORAGE = 1;
-    private static String[] permissionstorage = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.READ_EXTERNAL_STORAGE};
+    /**
+     * convert the view into the bitmap so we can download bitmap
+     * Creates the bitmap form the specific view to function.
+     *
+     * @param view - get the view to generate the bitmap
+     * @see android.graphics.drawable.BitmapDrawable
+     */
+    private static Bitmap getBitmapFromView(View view) {
+        view.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED), View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+        view.layout(0, 0, view.getMeasuredWidth(), view.getMeasuredHeight());
+        Bitmap returnedBitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+        Canvas canvas = new Canvas(returnedBitmap);
+        Drawable bgDrawable = view.getBackground();
+        if (bgDrawable != null) bgDrawable.draw(canvas);
+        else canvas.drawColor(Color.WHITE);
+        view.draw(canvas);
+        return returnedBitmap;
+    }
 
 
+    /**
+     * Checks if the app has permission to write to device storage
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param activity - Get the current context to check for permissions.
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+        String[] permissionArray = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE};
+        // Check if we have write permission
+        int permission = ContextCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE);
+        if (permission != PackageManager.PERMISSION_GRANTED) {
+            // We don't have permission so prompt the user
+            ActivityCompat.requestPermissions(activity, permissionArray, 1);
+        }
+    }
+
+    /**
+     * Checks if the app has permission to write to device storage
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * @param finalBitmap - gets the current bitmap from the generated layout.
+     * @throws IOException - Throws the IOException in case file not found or permission issue
+     * @see IOException
+     */
+
+    private void saveImage(Bitmap finalBitmap, int downloadAndShare) throws IOException {
+        handler.sendEmptyMessage(1);
+
+        if (downloadAndShare == 0) {
+            downloadHandlerObject.saveImage(finalBitmap, String.valueOf(System.currentTimeMillis()), 0);
+            shareFlag = 0;
+        } else {
+            downloadHandlerObject.saveImage(finalBitmap, String.valueOf(System.currentTimeMillis()), 1);
+            shareFlag = 1;
+        }
+        handler.sendEmptyMessage(2);
+    }
+
+    Handler handler = new Handler(new Handler.Callback() {
+        @Override
+        public boolean handleMessage(@NonNull Message message) {
+
+
+            if (message.what == 1) {
+                progressDialog = ProgressDialog.show(QrCode.this, null,
+                        getResources().getString(R.string.loading_lbl), false, false);
+                progressDialog.setCancelable(false);
+
+            } else if (message.what == 2) {
+                if ((progressDialog != null) && progressDialog.isShowing()) {
+                    progressDialog.dismiss();
+
+                    if (shareFlag == 0) {
+                        Snackbar snackbar = Snackbar.make(bottom_sheet, context.getResources().getString(R.string.save_qrcode), SNACK_LENGTH)
+                                .setBackgroundTint(Color.parseColor("#0091DF"));
+                        snackbar.show();
+                    }
+                }
+
+            }
+            return false;
+        }
+    });
 }

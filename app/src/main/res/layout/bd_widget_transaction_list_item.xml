@@ -31,9 +31,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/vag_bold"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="Affiliated Auto Rental"
                     android:textColor="@color/slider_heading"
-                    android:textSize="14sp" />
+                    android:textSize="12sp" />
 
                 <TextView
                     android:id="@+id/tvTime"
@@ -42,9 +43,11 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="16dp"
+                    android:fontFamily="@font/vag_bold"
                     android:gravity="center_vertical"
-                    android:textColor="@color/slider_heading"
-                    android:textSize="10sp" />
+                    android:text="27 de mayo - 8:59 p.m."
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
 
 
             </RelativeLayout>
@@ -55,18 +58,39 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layoutLocation_ref_no"
                 android:layout_marginStart="16dp"
+                android:layout_marginTop="3dp"
                 android:layout_marginBottom="12dp">
 
-                <TextView
-                    android:id="@+id/tvReferenceNo"
+                <RelativeLayout
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
+                    android:gravity="center_vertical"
                     android:layout_centerVertical="true"
-                    android:fontFamily="@font/vag_light"
-                    android:textColor="@color/button_generar_estado"
-                    android:textSize="10sp"
-                    android:textStyle="normal" />
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tvReferenceNoTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentStart="true"
+                        android:layout_centerVertical="true"
+                        android:fontFamily="@font/vag_bold"
+                        android:text="No. Ref. "
+                        android:textColor="@color/font_hint"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+
+                    <TextView
+                        android:id="@+id/tvReferenceNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_toEndOf="@+id/tvReferenceNoTitle"
+                        android:fontFamily="@font/vag_light"
+                        android:text=" 2021040610491749"
+                        android:textColor="@color/font_hint"
+                        android:textSize="12sp"
+                        android:textStyle="normal" />
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvPrice"
@@ -77,7 +101,8 @@
                     android:layout_marginEnd="16dp"
                     android:fontFamily="@font/vag_bold"
                     android:gravity="center_vertical"
-                    android:textColor="@color/button_generar_estado"
+                    android:text="RD$ 1,293.64"
+                    android:textColor="@color/blue_3"
                     android:textSize="16sp" />
 
             </RelativeLayout>

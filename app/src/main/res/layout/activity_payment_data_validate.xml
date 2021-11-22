@@ -20,7 +20,7 @@
 
             <ImageView
                 android:id="@+id/btnBackScreen"
-                android:layout_width="24dp"
+                android:layout_width="30dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_left_arrow" />
@@ -31,7 +31,7 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:fontFamily="@font/vag_bold"
-                android:text="@string/GenerateLink"
+                android:text="@string/generate_pay_link"
                 android:textAlignment="center"
                 android:textColor="@color/create_font"
                 android:textSize="16sp" />
@@ -43,9 +43,10 @@
     <!--LocationFilter layout -->
 
     <RelativeLayout
-        android:id="@+id/locaFilterForpaymentConfirm"
+        android:id="@+id/locationFilterSelector"
         android:layout_width="match_parent"
         android:layout_height="56dp"
+        android:visibility="gone"
         android:layout_below="@+id/materialToolbar"
         android:background="@color/font_hint"
         android:orientation="horizontal"
@@ -66,6 +67,7 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_toEndOf="@id/locationSymboltr"
+            android:textAllCaps="false"
             android:fontFamily="@font/vag_bold"
             android:text="Affiliated Auto Rental - 39036630010"
             android:textColor="@color/create_font"
@@ -84,7 +86,7 @@
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/locaFilterForpaymentConfirm"
+        android:layout_below="@+id/locationFilterSelector"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="65dp"
@@ -94,9 +96,7 @@
             android:id="@+id/mainLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/locaFilterForpaymentConfirm"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
+            android:layout_below="@+id/locationFilterSelector"
             android:layout_marginBottom="65dp"
             android:background="@drawable/invoice_bg"
             android:paddingBottom="15dp">
@@ -110,7 +110,8 @@
                 android:layout_marginEnd="23dp"
                 android:fontFamily="@font/vag_light"
                 android:gravity="center_horizontal"
-                android:text=" Confirma los siguientes campos \nantes de generar el Link de Pago:"
+                android:lineSpacingExtra="2dp"
+                android:text="@string/link_validation_title"
                 android:textColor="@color/time_frame"
                 android:textSize="20sp" />
 
@@ -135,15 +136,15 @@
                 android:layout_below="@+id/tvTitlePaymentdetails"
                 android:layout_marginStart="33dp"
                 android:layout_marginTop="32dp"
-                android:layout_marginEnd="33dp"
+                android:layout_marginEnd="15dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="Comercio:"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/Comercio"
                     android:textColor="@color/slider_heading"
                     android:textStyle="bold" />
 
@@ -151,9 +152,10 @@
                     android:id="@+id/tvValidaComercio"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_light"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="Importadora Wu SRL"
                     android:textColor="@color/font_hint"
                     android:textSize="12sp" />
@@ -166,15 +168,15 @@
                 android:layout_below="@+id/layoutCommerce"
                 android:layout_marginStart="33dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="33dp"
+                android:layout_marginEnd="15dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="Localidad:"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/localidad"
                     android:textColor="@color/slider_heading"
                     android:textStyle="bold" />
 
@@ -182,9 +184,10 @@
                     android:id="@+id/tvValidLocation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_light"
+                    android:layout_gravity="center_vertical"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="Affiliated Auto Rental"
                     android:textColor="@color/font_hint"
                     android:textSize="12sp" />
@@ -197,15 +200,15 @@
                 android:layout_below="@+id/layoutLocations"
                 android:layout_marginStart="33dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="33dp"
+                android:layout_marginEnd="15dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="Tipo de transacción: "
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/transaction_type"
                     android:textColor="@color/slider_heading"
                     android:textStyle="bold" />
 
@@ -213,9 +216,10 @@
                     android:id="@+id/tvValidTrnType"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_light"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="Venta"
                     android:textColor="@color/font_hint"
                     android:textSize="12sp" />
@@ -228,15 +232,15 @@
                 android:layout_below="@+id/layoutTranactions"
                 android:layout_marginStart="33dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="33dp"
+                android:layout_marginEnd="15dp"
                 android:orientation="horizontal">
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="No. orden/venta:"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/order_no"
                     android:textColor="@color/slider_heading"
                     android:textStyle="bold" />
 
@@ -244,22 +248,79 @@
                     android:id="@+id/tvValidOrderNo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_light"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="N/A"
                     android:textColor="@color/font_hint"
                     android:textSize="12sp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/layoutTotalAmount"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutOrderInfo"
+                android:layout_marginStart="33dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="15dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="@string/total_amount"
+                        android:textColor="@color/slider_heading"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvTaxInclude"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:text="@string/include_itbis"
+                        android:textColor="@color/slider_heading"
+                        android:textSize="10sp"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+
+                <TextView
+                    android:id="@+id/tvValidAmount"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:gravity="center_vertical"
+                    android:text="RD$ 0.00"
+                    android:textColor="@color/font_hint"
+                    android:textSize="12sp" />
+
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutITBIS"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutOrderInfo"
+                android:layout_below="@+id/layoutTotalAmount"
                 android:layout_marginStart="33dp"
                 android:layout_marginTop="24dp"
-                android:layout_marginEnd="33dp"
+                android:layout_marginEnd="15dp"
                 android:orientation="horizontal">
 
                 <TextView
@@ -267,8 +328,8 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_weight="1.4"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="Mostrar ITBIS:"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/itbis_tax"
                     android:textColor="@color/slider_heading"
                     android:textStyle="bold" />
 
@@ -286,9 +347,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_light"
+                    android:fontFamily="@font/montserrat_medium"
                     android:gravity="center_vertical"
                     android:text="RD$ 0.00"
                     android:textColor="@color/font_hint"
@@ -296,71 +357,15 @@
 
 
             </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutTotalAmount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutITBIS"
-                android:layout_marginStart="33dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="33dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/vag_bold"
-                        android:text="Monto total:"
-                        android:textColor="@color/slider_heading"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:fontFamily="@font/vag_light"
-                        android:text="(Incluye ITBIS)"
-                        android:textColor="@color/slider_heading"
-                        android:textSize="10sp"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
-
-
-                <TextView
-                    android:id="@+id/tvValidAmount"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginStart="15dp"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/vag_light"
-                    android:gravity="center_vertical"
-                    android:text="RD$ 0.00"
-                    android:textColor="@color/font_hint"
-                    android:textSize="12sp" />
-
-
-            </LinearLayout>
-
 
             <com.ncorti.slidetoact.SlideToActView
                 android:id="@+id/btnConfirmPayment"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutTotalAmount"
-                android:layout_marginStart="16sp"
-                android:layout_marginTop="56dp"
-                android:layout_marginEnd="16sp"
+                android:layout_below="@+id/layoutITBIS"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="45dp"
+                android:layout_marginEnd="10dp"
                 app:animation_duration="250"
                 app:area_margin="8dp"
                 app:border_radius="8dp"

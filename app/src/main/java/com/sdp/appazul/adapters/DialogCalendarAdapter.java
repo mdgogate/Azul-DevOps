@@ -3,6 +3,7 @@ package com.sdp.appazul.adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import androidx.core.content.res.ResourcesCompat;
 
 import com.sdp.appazul.R;
 import com.sdp.appazul.globals.GlobalFunctions;
+import com.sdp.appazul.globals.KeyConstants;
 import com.sdp.appazul.utils.DateUtils;
 
 import java.text.DateFormat;
@@ -128,7 +130,7 @@ public class DialogCalendarAdapter extends BaseAdapter {
             initString = stringFormatter.format(newDate);
             finalString = stringFormatter.format(finalDate);
         } catch (ParseException e) {
-            e.printStackTrace();
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
         dayView.setText(gridvalue);
         date = dayString.get(position);

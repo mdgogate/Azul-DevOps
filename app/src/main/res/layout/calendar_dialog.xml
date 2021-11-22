@@ -276,7 +276,7 @@
 
         </RelativeLayout>
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnshowFilter"
             android:layout_width="match_parent"
             android:layout_height="56dp"
@@ -292,7 +292,7 @@
             android:textStyle="bold"
             android:visibility="visible" />
 
-        <Button
+        <androidx.appcompat.widget.AppCompatButton
             android:id="@+id/btnConfirm"
             android:layout_width="match_parent"
             android:layout_height="56dp"

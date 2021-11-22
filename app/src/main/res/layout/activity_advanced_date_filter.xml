@@ -4,63 +4,67 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="8dp"
+    android:id="@+id/activity_advanced_date_filter"
     android:layout_marginBottom="10dp">
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/qr_button_font"
+        android:background="@color/white_bg"
         android:orientation="vertical">
 
         <View
             android:layout_width="32dp"
             android:layout_height="4dp"
             android:layout_gravity="center"
-            android:layout_marginTop="16dp"
-            android:background="@color/line_style" />
+            android:layout_marginTop="15dp"
+            android:background="@drawable/view_rounded_bg" />
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
-            android:layout_marginTop="24dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="16dp"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="7dp"
             android:orientation="horizontal">
 
 
             <TextView
-                android:id="@+id/user_name"
+                android:id="@+id/dateFilterTitle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
                 android:fontFamily="@font/vag_bold"
                 android:text="@string/select_date_range"
-                android:textColor="@color/blue_3"
-                android:textSize="24sp" />
+                android:textColor="@color/blue_2"
+                android:textSize="20sp" />
 
         </RelativeLayout>
 
 
         <View
+            android:id="@+id/titleViewBottom"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:background="@color/line_style" />
 
         <LinearLayout
+            android:id="@+id/dateFilterLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@color/qr_button_font"
-            android:orientation="horizontal">
+            android:background="@color/white_bg"
+            android:orientation="horizontal"
+            android:visibility="visible">
 
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="19dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal"
@@ -70,9 +74,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/vag_bold"
                     android:text="@string/from_date"
-                    android:textColor="@color/blue_2"
+                    android:textColor="@color/blue_3"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -83,14 +88,21 @@
                     android:background="@drawable/tv_unselect_background"
                     android:orientation="horizontal">
 
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.8"
+                        android:src="@drawable/pdf_calendar_icon" />
+
                     <TextView
                         android:id="@+id/editText1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.2"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="0.3"
                         android:fontFamily="@font/vag_bold"
-                        android:textColor="@color/blue_3"
+                        android:text="24/05/2020"
+                        android:textColor="@color/slider_heading"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -99,8 +111,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.8"
-                        android:src="@drawable/arr_down"
-                        app:tint="@color/unlink_background" />
+                        android:src="@drawable/pdf_calendar_arrow_down" />
                 </LinearLayout>
 
 
@@ -110,8 +121,8 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="19dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="5dp"
                 android:layout_weight="1"
@@ -122,9 +133,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="2dp"
+                    android:layout_marginBottom="4dp"
                     android:fontFamily="@font/vag_bold"
                     android:text="@string/to_date"
-                    android:textColor="@color/blue_2"
+                    android:textColor="@color/blue_3"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
@@ -135,14 +147,22 @@
                     android:background="@drawable/tv_unselect_background"
                     android:orientation="horizontal">
 
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="0.8"
+                        android:src="@drawable/pdf_calendar_icon" />
+
                     <TextView
                         android:id="@+id/editText2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="0.2"
+                        android:layout_marginStart="5dp"
+                        android:layout_weight="0.3"
                         android:fontFamily="@font/vag_bold"
-                        android:textColor="@color/blue_3"
+                        android:text="24/05/2020"
+                        android:textColor="@color/slider_heading"
                         android:textSize="16sp"
                         android:textStyle="bold" />
 
@@ -151,8 +171,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="0.8"
-                        android:src="@drawable/arr_down"
-                        app:tint="@color/unlink_background" />
+                        android:src="@drawable/pdf_calendar_arrow_down" />
                 </LinearLayout>
 
 
@@ -181,7 +200,8 @@
                     android:id="@+id/rel_header"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp">
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="20sp">
 
                     <RelativeLayout
                         android:id="@+id/header"
@@ -198,8 +218,9 @@
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
                             android:layout_toLeftOf="@+id/left"
+                            android:fontFamily="@font/semi_bold"
                             android:text="Month Year"
-                            android:textColor="@color/black"
+                            android:textColor="@color/blue_2"
                             android:textSize="18sp"
                             android:textStyle="bold" />
 
@@ -224,15 +245,32 @@
                             android:scaleType="fitCenter" />
                     </RelativeLayout>
 
+                    <View
+                        android:id="@+id/view_days_top"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/header"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="2dp"
+                        android:background="@color/login_button_font" />
+
                     <LinearLayout
                         android:id="@+id/rel_days"
                         android:layout_width="match_parent"
                         android:layout_height="30dp"
-                        android:layout_below="@+id/header"
-                        android:layout_marginTop="4dp"
+                        android:layout_below="@+id/view_days_top"
+                        android:layout_centerVertical="true"
                         android:gravity="bottom"
                         android:orientation="horizontal"
                         android:padding="5dp"></LinearLayout>
+
+                    <View
+                        android:id="@+id/view_days_bottom"
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_below="@+id/rel_days"
+                        android:layout_marginTop="2dp"
+                        android:background="@color/login_button_font" />
                 </RelativeLayout>
 
                 <GridView
@@ -247,12 +285,13 @@
             </RelativeLayout>
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/btnGenerateStatement"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="56dp"
                 android:layout_below="@+id/calendar_layout"
-                android:layout_marginTop="18dp"
-                android:background="@drawable/btn_date_background"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/button_background"
                 android:fontFamily="@font/vag_bold"
                 android:text="@string/generate_status"
                 android:textAlignment="center"

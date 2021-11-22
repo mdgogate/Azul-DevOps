@@ -1,4 +1,4 @@
-package com.sdp.appazul;
+package com.sdp.appazul.android;
 
 import org.junit.Test;
 

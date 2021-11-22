@@ -2,6 +2,7 @@ package com.sdp.appazul.activities.menuitems;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.ImageView;
@@ -35,7 +36,9 @@ public class UnitsLocation extends BasicRegistrationActivity {
     ScrollView subMenu;
     ImageView arrowUp;
     public void firstBusinessClicked(View view) {
-
+        if (view!=null){
+            Log.d("Data","");
+        }
         subMenu = findViewById(R.id.subMenu);
         arrowUp = findViewById(R.id.downArrow1);
         submenuVisibility = !submenuVisibility;
@@ -47,7 +50,9 @@ public class UnitsLocation extends BasicRegistrationActivity {
 
     boolean visible2;
     public void secondBusinessClicked(View view) {
-
+        if (view!=null){
+            Log.d("Data","");
+        }
         subMenu = findViewById(R.id.subMenu1);
         arrowUp = findViewById(R.id.downArrow2);
         visible2 = !visible2;
@@ -58,6 +63,9 @@ public class UnitsLocation extends BasicRegistrationActivity {
 
     boolean visible3;
     public void thirdBusinessClicked(View view) {
+        if (view!=null){
+            Log.d("Data","");
+        }
         subMenu = findViewById(R.id.subMenu2);
         arrowUp = findViewById(R.id.downArrow3);
         visible3 = !visible3;

@@ -20,4 +20,22 @@ public interface CallbackListener {
     void transactionWidgetResponse(String responseString);
 
     void transactionWidgetQrResponse(String responseString);
+
+    void callingDeregisterUsersApi(String responseString);
+
+    void appPermissionsResponse(String responseString);
+
+    void getTransactionPdfResponse(String responseString);
+
+    void getPaymentSearchResponse(String responseString);
+
+    void getPaymentLinkInfoResponse(String responseString);
+
+    void getNewLoginResponse(String responseString);
+
+    void getDataForDashboard(String responseString);
+
+    void getNewTokenAtPreLogin(String responseString);
+
+    void getUserResponse(String responseString);
 }

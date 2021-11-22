@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@drawable/qr_code_mk_layout"
+    android:id="@+id/completeCodigoLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:layout_marginTop="160dp"
+        android:id="@+id/replaceDownloadableImage"
+        android:layout_centerInParent="true"
+        android:src="@drawable/qr_code"
+        android:paddingTop="340dp"
+        android:layout_width="1060dp"
+        android:layout_height="1060dp"/>
+
+</RelativeLayout>

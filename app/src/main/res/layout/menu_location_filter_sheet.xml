@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/bottom_sheet"
     android:layout_width="match_parent"
-    android:layout_height="320dp"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:maxHeight="320dp"
     android:background="@color/qr_button_font"
@@ -12,7 +12,6 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-
         android:background="@color/qr_button_font"
         android:layout_height="wrap_content">
 
@@ -43,13 +42,14 @@
             android:layout_marginBottom="16.5dp"
             android:fontFamily="@font/vag_bold"
             android:gravity="center_horizontal"
-            android:text="Selecciona la localidad del\nCódigo QR que deseas mostrar"
+            android:text="@string/generate_qr_location_title"
             android:textColor="@color/slider_heading"
             android:textSize="20sp"
             android:textStyle="bold" />
 
 
         <View
+            android:id="@+id/viewBeloTitle"
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_below="@+id/tvLocationTitle"
@@ -62,7 +62,7 @@
     <RelativeLayout
         android:id="@+id/layoutExpand"
         android:layout_width="match_parent"
-        android:layout_height="165dp"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:gravity="bottom"
         android:layout_gravity="bottom"

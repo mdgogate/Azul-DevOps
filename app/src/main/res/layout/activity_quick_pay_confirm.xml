@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@drawable/blue_background"
     android:orientation="vertical"
-    tools:context=".activities.payment.PaymentConfirmaActivity">
+    tools:context=".activities.payment.QuickPayConfirmActivity">
 
     <RelativeLayout
         android:id="@+id/toolbar_ic"
@@ -22,7 +22,8 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="22dp"
             android:layout_marginEnd="16dp"
-            android:src="@drawable/blue_burger_menu" />
+            android:src="@drawable/blue_burger_menu"
+            android:visibility="invisible" />
 
         <ImageView
             android:id="@+id/btnBackScreen"
@@ -59,7 +60,7 @@
             android:layout_marginTop="20sp"
             android:fontFamily="@font/vag_bold"
             android:gravity="center_horizontal"
-            android:text="Generar Link de Pagos"
+            android:text="@string/generate_pay_link"
             android:textColor="#0057B8"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -89,7 +90,7 @@
                 android:layout_marginEnd="23dp"
                 android:fontFamily="@font/vag_light"
                 android:gravity="center_horizontal"
-                android:text=" Confirma los siguientes campos \nantes de generar el Link de Pago:"
+                android:text="@string/link_validation_title"
                 android:textColor="@color/time_frame"
                 android:textSize="20sp" />
 
@@ -110,9 +111,9 @@
             <LinearLayout
                 android:id="@+id/layoutCommerce"
                 android:layout_width="311dp"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvTitlePaymentdetails"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="9dp"
                 android:layout_marginEnd="32dp"
@@ -122,8 +123,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="Comercio:"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/Comercio"
                     android:textColor="@color/slider_heading"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -134,18 +135,18 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_light"
-                    android:text="Importadora Wu SRL"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:textAllCaps="false"
                     android:textColor="@color/font_hint"
                     android:textSize="12sp" />
             </LinearLayout>
 
-            <RelativeLayout
+            <LinearLayout
                 android:id="@+id/layoutLocations"
                 android:layout_width="311dp"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layoutCommerce"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
@@ -153,45 +154,54 @@
 
                 <TextView
                     android:id="@+id/tvLocationTitle"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="Localidad:"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/localidad"
                     android:textColor="@color/slider_heading"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tvLocalidadName"
-                    android:layout_width="122dp"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="100dp"
-                    android:layout_toRightOf="@id/tvLocationTitle"
-                    android:fontFamily="@font/vag_light"
-                    android:layout_centerVertical="true"
-                    android:gravity="center_vertical"
-                    android:text="Affiliated Auto Rental"
-                    android:textColor="@color/font_hint"
-                    android:textSize="12sp" />
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/openLocationBar"
-                    android:layout_width="18dp"
-                    android:layout_height="16dp"
-                    android:layout_marginStart="5dp"
-                    android:layout_toRightOf="@id/tvLocalidadName"
-                    android:layout_alignParentEnd="true"
-                    android:src="@drawable/location_edit" />
+                    <TextView
+                        android:id="@+id/tvLocalidadName"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="7dp"
+                        android:layout_toRightOf="@id/tvLocationTitle"
+                        android:layout_weight="0.2"
+                        android:fontFamily="@font/montserrat_medium"
+                        android:gravity="center_vertical"
+                        android:maxLines="1"
+                        android:textAllCaps="false"
+                        android:textColor="@color/font_hint"
+                        android:textSize="12sp" />
 
-            </RelativeLayout>
+                    <ImageView
+                        android:id="@+id/openLocationBar"
+                        android:layout_width="match_parent"
+                        android:layout_height="16dp"
+                        android:layout_marginStart="5dp"
+                        android:layout_toRightOf="@id/tvLocalidadName"
+                        android:layout_weight="0.8"
+                        android:src="@drawable/location_edit" />
+                </LinearLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutTranactions"
                 android:layout_width="311dp"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layoutLocations"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="32dp"
@@ -201,8 +211,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="Tipo de transacción: "
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/transaction_type"
                     android:textColor="@color/slider_heading"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -213,7 +223,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="7dp"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_light"
+                    android:fontFamily="@font/montserrat_medium"
                     android:text="Venta"
                     android:textColor="@color/font_hint"
                     android:textSize="12sp" />
@@ -222,9 +232,9 @@
             <LinearLayout
                 android:id="@+id/layoutOrderInfo"
                 android:layout_width="311dp"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layoutTranactions"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
@@ -233,12 +243,14 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="No. orden/venta:"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/order_no"
                     android:textColor="@color/slider_heading"
                     android:textSize="14sp"
                     android:textStyle="bold" />
+
 
                 <EditText
                     android:id="@+id/etOrderNo"
@@ -246,19 +258,23 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/border_background"
-                    android:fontFamily="@font/vag_light"
-                    android:hint="Opcional"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:gravity="center_vertical"
+                    android:hint="@string/optional"
+                    android:longClickable="false"
                     android:textColor="@color/font_hint"
                     android:textColorHint="#C4D0DC"
+                    android:textIsSelectable="false"
                     android:textSize="12sp" />
+
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutCustomerName"
                 android:layout_width="311dp"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layoutOrderInfo"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
@@ -268,8 +284,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="Nombre Cliente:"
+                    android:fontFamily="@font/montserrat_bold"
+                    android:text="@string/customer_name"
                     android:textColor="@color/slider_heading"
                     android:textSize="14sp"
                     android:textStyle="bold" />
@@ -280,8 +296,8 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/border_background"
-                    android:fontFamily="@font/vag_light"
-                    android:hint="Opcional"
+                    android:fontFamily="@font/montserrat_medium"
+                    android:hint="@string/optional"
                     android:textColor="@color/font_hint"
                     android:textColorHint="#C4D0DC"
                     android:textSize="12sp" />
@@ -290,9 +306,9 @@
             <LinearLayout
                 android:id="@+id/layoutEmail"
                 android:layout_width="311dp"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/layoutCustomerName"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
@@ -301,69 +317,24 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:fontFamily="@font/vag_bold"
-                    android:text="Correo Electrónico:"
-                    android:textColor="@color/slider_heading"
-                    android:textSize="14sp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/etEmail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/border_background"
-                    android:fontFamily="@font/vag_light"
-                    android:hint="Opcional"
-                    android:inputType="textEmailAddress"
-                    android:textColor="@color/font_hint"
-                    android:textColorHint="#C4D0DC"
-                    android:textSize="12sp" />
-            </LinearLayout>
-
-            <RelativeLayout
-                android:id="@+id/layoutITBIS"
-                android:layout_width="311dp"
-                android:layout_centerHorizontal="true"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutEmail"
-                android:layout_marginStart="32dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="32dp">
-
-                <TextView
-                    android:id="@+id/tvItbisTitle"
-                    android:layout_width="85dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
                     android:layout_gravity="center_vertical"
-                    android:fontFamily="@font/vag_bold"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/montserrat_bold"
                     android:gravity="center_vertical"
-                    android:text="Mostrar ITBIS:"
+                    android:text="@string/customer_email"
                     android:textColor="@color/slider_heading"
                     android:textSize="14sp"
                     android:textStyle="bold" />
 
-                <ImageView
-                    android:id="@+id/switchITBIS"
-                    android:layout_width="29dp"
-                    android:layout_height="16dp"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="8dp"
-                    android:layout_toRightOf="@+id/tvItbisTitle"
-                    android:src="@drawable/switch_off_state" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="17dp"
-                    android:layout_toRightOf="@+id/switchITBIS"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
                     <RelativeLayout
-                        android:id="@+id/layoutSearchByEdittext"
+                        android:id="@+id/layoutemailInfo"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
@@ -371,61 +342,44 @@
                         android:background="@drawable/border_background"
                         android:visibility="visible">
 
-                        <TextView
-                            android:id="@+id/searchinActive"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_gravity="center_vertical"
-                            android:fontFamily="@font/vag_light"
-                            android:tag="bg"
-                            android:text="RD$ "
-                            android:textColor="#C4D0DC"
-                            android:textColorHint="#C4D0DC"
-                            android:textSize="12sp" />
-
 
                         <EditText
-                            android:id="@+id/etITBISAmount"
+                            android:id="@+id/etEmail"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center_vertical"
-                            android:layout_toEndOf="@+id/searchinActive"
+                            android:layout_weight="1"
                             android:background="@null"
-                            android:digits="0123456789.,"
-                            android:enabled="false"
-                            android:fontFamily="@font/vag_light"
+                            android:fontFamily="@font/montserrat_medium"
                             android:gravity="center_vertical"
-                            android:hint="0.00"
-                            android:inputType="number"
+                            android:hint="@string/optional"
+                            android:inputType="textEmailAddress"
                             android:textColor="@color/font_hint"
                             android:textColorHint="#C4D0DC"
                             android:textSize="12sp" />
-
-
                     </RelativeLayout>
 
                     <TextView
-                        android:id="@+id/tvITBISError"
+                        android:id="@+id/tvEmailError"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:fontFamily="@font/vag_light"
+                        android:text="@string/email_error_msg"
                         android:textColor="#FF3A3A"
                         android:textSize="10sp"
                         android:textStyle="bold"
                         android:visibility="gone" />
                 </LinearLayout>
-
-            </RelativeLayout>
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutTotalAmount"
                 android:layout_width="311dp"
-                android:layout_centerHorizontal="true"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutITBIS"
+                android:layout_below="@+id/layoutEmail"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="32dp"
@@ -442,8 +396,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/vag_bold"
-                        android:text="Monto total:"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:text="@string/total_amount"
                         android:textColor="@color/slider_heading"
                         android:textSize="14sp"
                         android:textStyle="bold" />
@@ -453,8 +407,8 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:fontFamily="@font/vag_light"
-                        android:text="(Incluye ITBIS)"
+                        android:fontFamily="@font/montserrat_light"
+                        android:text="@string/include_itbis"
                         android:textColor="@color/slider_heading"
                         android:textSize="10sp"
                         android:textStyle="bold"
@@ -483,7 +437,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:layout_gravity="center_vertical"
-                            android:fontFamily="@font/vag_light"
+                            android:fontFamily="@font/montserrat_medium"
                             android:tag="bg"
                             android:text="RD$ "
                             android:textColor="#C4D0DC"
@@ -500,11 +454,14 @@
                             android:layout_toEndOf="@+id/searchinAmount"
                             android:layout_weight="1"
                             android:background="@null"
-                            android:digits="0123456789.,"
-                            android:fontFamily="@font/vag_light"
+                            android:cursorVisible="false"
+                            android:fontFamily="@font/montserrat_medium"
                             android:gravity="center_vertical"
-                            android:hint="RD$ 0.00"
-                            android:inputType="number"
+                            android:hint="0.00"
+                            android:imeOptions="actionDone"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:minEms="2"
                             android:textColor="@color/font_hint"
                             android:textColorHint="#C4D0DC"
                             android:textSize="12sp" />
@@ -523,23 +480,129 @@
                         android:visibility="gone" />
                 </LinearLayout>
 
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutITBIS"
+                android:layout_width="311dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layoutTotalAmount"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="32dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal|center_vertical"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/tvItbisTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.5"
+                        android:fontFamily="@font/montserrat_bold"
+                        android:gravity="center_vertical"
+                        android:text="@string/itbis_tax"
+                        android:textColor="@color/slider_heading"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+
+                    <ImageView
+                        android:id="@+id/switchITBIS"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="0.5"
+                        android:src="@drawable/switch_off_state" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toRightOf="@+id/switchITBIS"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <RelativeLayout
+                        android:id="@+id/layoutSearchByEdittext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:layout_weight="1"
+                        android:background="@drawable/border_background"
+                        android:visibility="visible">
+
+                        <TextView
+                            android:id="@+id/searchinActive"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:tag="bg"
+                            android:text="RD$ "
+                            android:textColor="#C4D0DC"
+                            android:textColorHint="#C4D0DC"
+                            android:textSize="12sp" />
+
+
+                        <EditText
+                            android:id="@+id/etITBISAmount"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_toEndOf="@+id/searchinActive"
+                            android:background="@null"
+                            android:enabled="true"
+                            android:fontFamily="@font/montserrat_medium"
+                            android:gravity="center_vertical"
+                            android:hint="0.00"
+                            android:imeOptions="actionDone"
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"
+                            android:minEms="2"
+                            android:textColor="@color/font_hint"
+                            android:textColorHint="#C4D0DC"
+                            android:textSize="12sp" />
+
+
+                    </RelativeLayout>
+
+                    <TextView
+                        android:id="@+id/tvITBISError"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:fontFamily="@font/vag_light"
+                        android:textColor="#FF3A3A"
+                        android:textSize="10sp"
+                        android:textStyle="bold"
+                        android:visibility="gone" />
+                </LinearLayout>
 
             </LinearLayout>
 
 
-            <Button
+            <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/btnConfirmPayment"
                 android:layout_width="311dp"
                 android:layout_height="56dp"
-                android:layout_below="@+id/layoutTotalAmount"
+                android:layout_below="@+id/layoutITBIS"
+                android:layout_centerHorizontal="true"
                 android:layout_marginStart="17dp"
                 android:layout_marginTop="24dp"
                 android:layout_marginEnd="15dp"
                 android:background="@drawable/link_button_background"
                 android:fontFamily="@font/vag_bold"
-                android:text="Confirmar"
-                android:layout_centerHorizontal="true"
                 android:gravity="center_horizontal|center_vertical"
+                android:text="@string/continue_lable"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
                 android:textSize="18sp"

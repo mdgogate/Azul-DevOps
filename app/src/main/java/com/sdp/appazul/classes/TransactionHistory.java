@@ -2,31 +2,28 @@ package com.sdp.appazul.classes;
 
 public class TransactionHistory {
 
-     String authorizationCode;
      String referenceNo;
      String location;
      String time;
+     String trDate;
      String amount;
      String transactionDate;
      String merchantId;
 
-    public TransactionHistory(String authorizationCode, String referenceNo, String location, String time, String amount, String merchantId,String date) {
-        this.authorizationCode = authorizationCode;
+
+
+    public TransactionHistory( String referenceNo, String location, String trDate,String time, String amount, String merchantId, String date) {
+
         this.referenceNo = referenceNo;
         this.location = location;
         this.time = time;
+        this.trDate = trDate;
         this.amount = amount;
         this.merchantId = merchantId;
         this.transactionDate = date;
     }
 
-    public String getAuthorizationCode() {
-        return authorizationCode;
-    }
 
-    public void setAuthorizationCode(String authorizationCode) {
-        this.authorizationCode = authorizationCode;
-    }
 
     public String getReferenceNo() {
         return referenceNo;
@@ -42,6 +39,14 @@ public class TransactionHistory {
 
     public void setLocation(String location) {
         this.location = location;
+    }
+
+    public String getTrDate() {
+        return trDate;
+    }
+
+    public void setTrDate(String trDate) {
+        this.trDate = trDate;
     }
 
     public String getTime() {

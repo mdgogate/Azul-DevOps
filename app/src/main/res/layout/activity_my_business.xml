@@ -69,6 +69,7 @@
                         android:textSize="12sp"/>
 
                     <TextView
+                        android:id="@+id/name"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
@@ -104,6 +105,7 @@
                         android:textSize="12sp"/>
 
                     <TextView
+                        android:id="@+id/rnc"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"
@@ -139,6 +141,7 @@
                         android:textSize="12sp"/>
 
                     <TextView
+                        android:id="@+id/sector"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:paddingBottom="8dp"

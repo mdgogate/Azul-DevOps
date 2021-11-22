@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/mainLayout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_background"
+    android:background="@drawable/blue_background"
     tools:context=".activities.registration.PinLoginActivity">
 
 
@@ -15,40 +14,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:scaleType="fitXY"
+        android:src="@drawable/ic_bg_texture_grid_azul"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:src="@drawable/ic_bg_texture_grid_azul"/>
+        app:layout_constraintTop_toTopOf="parent" />
 
-    <TextView
+    <ImageView
         android:id="@+id/backButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginEnd="16dp"
-        android:layout_marginTop="16dp"
-        android:textSize="16sp"
-        android:text="@string/back_text"
-        android:fontFamily="@font/vag_bold"
-        android:textColor="@color/create_font"
-        android:src="@drawable/ic_left_arrow"/>
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="21dp"
+        android:src="@drawable/ic_left_arrow" />
 
     <RelativeLayout
         android:id="@+id/azulLogoLayout"
-        android:layout_above="@+id/pinScreenText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/pinScreenText"
         android:layout_alignParentTop="true">
 
         <ImageView
             android:id="@+id/imageViewIcon"
-            android:layout_width="144dp"
-            android:layout_height="107dp"
+            android:layout_width="92dp"
+            android:layout_height="92dp"
             android:layout_centerInParent="true"
             android:layout_marginTop="45dp"
-            android:src="@drawable/ic_logo" />
+            android:src="@drawable/azul_logo_without_r" />
 
     </RelativeLayout>
 
@@ -62,66 +57,66 @@
             android:id="@+id/welcomeText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:textSize="24sp"
             android:fontFamily="@font/vag_bold"
+            android:gravity="center"
             android:text="@string/confirm_pin"
-            android:textColor="@color/create_font" />
+            android:textColor="@color/create_font"
+            android:textSize="24sp" />
 
     </RelativeLayout>
 
     <LinearLayout
         android:id="@+id/pinTextMain"
-        android:layout_above="@id/keyPad"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@id/keyPad"
+        android:layout_marginTop="65dp"
         android:gravity="center"
         android:orientation="vertical"
-        android:layout_marginTop="65dp"
         android:weightSum="3">
 
         <RelativeLayout
             android:id="@+id/relative_layout1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="horizontal">
 
             <EditText
                 android:id="@+id/edit_text_one"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@drawable/bd_pin"
+                android:layout_marginEnd="40dp"
+                android:background="@drawable/password_layout"
+                android:cursorVisible="false"
                 android:focusableInTouchMode="false"
                 android:gravity="center"
-                android:cursorVisible="false"
                 android:imeOptions="actionNext"
-                android:layout_marginEnd="40dp"
                 android:inputType="numberPassword"
                 android:maxLength="1"
-                android:textSize="16sp"/>
+                android:textSize="16sp" />
 
             <View
                 android:id="@+id/view_one"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
+                android:layout_marginEnd="8dp"
                 android:layout_alignEnd="@id/edit_text_one"
+                android:layout_centerVertical="true"
                 android:background="@drawable/pin_cursor"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/edit_text_two"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:background="@drawable/bd_pin"
-                android:focusableInTouchMode="false"
-                android:layout_toEndOf="@+id/edit_text_one"
-                android:cursorVisible="false"
-                android:gravity="center"
                 android:layout_marginEnd="40dp"
+                android:layout_toEndOf="@+id/edit_text_one"
+                android:background="@drawable/password_layout"
+                android:cursorVisible="false"
+                android:focusableInTouchMode="false"
+                android:gravity="center"
                 android:imeOptions="actionNext"
                 android:inputType="numberPassword"
                 android:maxLength="1"
@@ -129,48 +124,47 @@
 
             <View
                 android:id="@+id/view_two"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_alignEnd="@id/edit_text_two"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/pin_cursor"
-                android:visibility="invisible"
-                />
+                android:visibility="gone" />
 
             <EditText
                 android:id="@+id/edit_text_three"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
                 android:layout_marginEnd="40dp"
-                android:background="@drawable/bd_pin"
-                android:focusableInTouchMode="false"
+                android:layout_toEndOf="@+id/edit_text_two"
+                android:background="@drawable/password_layout"
                 android:cursorVisible="false"
+                android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:imeOptions="actionNext"
-                android:layout_toEndOf="@+id/edit_text_two"
                 android:inputType="numberPassword"
                 android:maxLength="1"
                 android:textSize="16sp" />
 
             <View
                 android:id="@+id/view_three"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_alignEnd="@id/edit_text_three"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/pin_cursor"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
             <EditText
                 android:id="@+id/edit_text_four"
                 android:layout_width="32dp"
                 android:layout_height="32dp"
-                android:cursorVisible="false"
-                android:background="@drawable/bd_pin"
-                android:focusableInTouchMode="false"
                 android:layout_toEndOf="@id/edit_text_three"
+                android:background="@drawable/password_layout"
+                android:cursorVisible="false"
+                android:focusableInTouchMode="false"
                 android:gravity="center"
                 android:imeOptions="actionNext"
                 android:inputType="numberPassword"
@@ -179,13 +173,13 @@
 
             <View
                 android:id="@+id/view_four"
-                android:layout_width="20dp"
-                android:layout_height="20dp"
-                android:layout_centerVertical="true"
-                android:layout_marginEnd="6dp"
+                android:layout_width="16dp"
+                android:layout_height="16dp"
                 android:layout_alignEnd="@id/edit_text_four"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
                 android:background="@drawable/pin_cursor"
-                android:visibility="invisible"/>
+                android:visibility="invisible" />
 
         </RelativeLayout>
 
@@ -197,16 +191,18 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical"
-        android:layout_marginTop="65dp"
-        android:layout_marginBottom="65dp">
+        android:layout_marginTop="62dp"
+        android:layout_marginStart="16sp"
+        android:layout_marginEnd="16sp"
+        android:layout_marginBottom="88dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:baselineAligned="false"
             android:orientation="horizontal"
-            android:weightSum="3"
-            android:baselineAligned="false">
+            android:weightSum="3">
 
 
             <LinearLayout
@@ -216,23 +212,23 @@
                 android:layout_marginBottom="4dp"
                 android:layout_weight="0.998"
                 android:paddingTop="2dp">
-                <Button
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_1"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="41dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="@font/vag_light"
-                    android:textAlignment="center"
                     android:text="@string/one"
-                    android:textColor="@color/create_font"
+                    android:textAlignment="center"
+                    android:textColor="@color/white_bg"
                     android:textSize="24sp"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
 
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -240,16 +236,17 @@
                 android:layout_marginBottom="4dp"
                 android:layout_weight="0.998"
                 android:paddingTop="2dp">
-                <Button
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="41dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="@font/vag_light"
                     android:text="@string/two"
-                    android:textColor="@color/create_font"
+                    android:textColor="@color/white_bg"
                     android:textSize="24sp"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
@@ -260,17 +257,18 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:paddingTop="2dp">
-                <Button
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/secondLoginButton"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="41dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="@font/vag_light"
-                    android:textAlignment="center"
                     android:text="@string/three"
-                    android:textColor="@color/create_font"
+                    android:textAlignment="center"
+                    android:textColor="@color/white_bg"
                     android:textSize="24sp"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
@@ -280,18 +278,20 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:baselineAligned="false"
             android:orientation="horizontal"
-            android:weightSum="3"
-            android:baselineAligned="false">
+            android:weightSum="3">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="41dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1"
                 android:paddingTop="2dp">
-                <Button
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -299,21 +299,22 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="@font/vag_light"
-                    android:textAlignment="center"
                     android:text="@string/four"
-                    android:textColor="@color/create_font"
+                    android:textAlignment="center"
+                    android:textColor="@color/white_bg"
                     android:textSize="24sp"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="41dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="0.998"
                 android:paddingTop="2dp">
-                <Button
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_5"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -322,18 +323,19 @@
                     android:focusable="true"
                     android:fontFamily="@font/vag_light"
                     android:text="@string/five"
-                    android:textColor="@color/create_font"
+                    android:textColor="@color/white_bg"
                     android:textSize="24sp"
-                    tools:ignore="ButtonStyle"  />
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="41dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1"
                 android:paddingTop="2dp">
-                <Button
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_6"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -341,9 +343,9 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="@font/vag_light"
-                    android:textAlignment="center"
                     android:text="@string/six"
-                    android:textColor="@color/create_font"
+                    android:textAlignment="center"
+                    android:textColor="@color/white_bg"
                     android:textSize="24sp"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
@@ -353,16 +355,19 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:baselineAligned="false"
             android:orientation="horizontal"
-            android:weightSum="3"
-            android:baselineAligned="false">
+            android:weightSum="3">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="41dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1">
-                <Button
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_7"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -370,20 +375,21 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="@font/vag_light"
-                    android:textAlignment="center"
                     android:text="@string/seven"
-                    android:textColor="@color/create_font"
+                    android:textAlignment="center"
+                    android:textColor="@color/white_bg"
                     android:textSize="24sp"
                     tools:ignore="ButtonStyle" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="41dp"
                 android:layout_marginEnd="4dp"
                 android:layout_marginBottom="4dp"
                 android:layout_weight="1">
-                <Button
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_8"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -392,16 +398,17 @@
                     android:focusable="true"
                     android:fontFamily="@font/vag_light"
                     android:text="@string/eight"
-                    android:textColor="@color/create_font"
+                    android:textColor="@color/white_bg"
                     android:textSize="24sp"
-                    tools:ignore="ButtonStyle"  />
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="41dp"
                 android:layout_weight="1">
-                <Button
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_9"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -409,11 +416,11 @@
                     android:clickable="true"
                     android:focusable="true"
                     android:fontFamily="@font/vag_light"
-                    android:textAlignment="center"
                     android:text="@string/nine"
-                    android:textColor="@color/create_font"
+                    android:textAlignment="center"
+                    android:textColor="@color/white_bg"
                     android:textSize="24sp"
-                    tools:ignore="ButtonStyle"  />
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
 
 
@@ -422,24 +429,26 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="32dp"
+            android:baselineAligned="false"
             android:orientation="horizontal"
-            android:weightSum="3"
-            android:baselineAligned="false">
+            android:weightSum="3">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="41dp"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1"
-                android:background="?attr/selectableItemBackgroundBorderless">
-            </LinearLayout>
+                android:background="?attr/selectableItemBackgroundBorderless"></LinearLayout>
 
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="41dp"
                 android:layout_marginEnd="4dp"
                 android:layout_weight="1">
-                <Button
+
+                <androidx.appcompat.widget.AppCompatButton
                     android:id="@+id/button_0"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -448,9 +457,9 @@
                     android:focusable="true"
                     android:fontFamily="@font/vag_light"
                     android:text="@string/zero"
-                    android:textColor="@color/create_font"
+                    android:textColor="@color/white_bg"
                     android:textSize="24sp"
-                    tools:ignore="ButtonStyle"  />
+                    tools:ignore="ButtonStyle" />
             </LinearLayout>
 
             <LinearLayout
@@ -461,7 +470,7 @@
                 <RelativeLayout
                     android:id="@+id/approve_button"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="41dp"
                     android:background="?attr/selectableItemBackgroundBorderless"
                     android:clickable="true"
                     android:focusable="true">
@@ -469,9 +478,9 @@
                     <ImageView
                         android:layout_width="24dp"
                         android:layout_height="24dp"
-                        android:scaleType="fitCenter"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/ic_icon_delete_key"/>
+                        android:scaleType="fitCenter"
+                        android:src="@drawable/ic_icon_delete_key" />
                 </RelativeLayout>
 
             </LinearLayout>

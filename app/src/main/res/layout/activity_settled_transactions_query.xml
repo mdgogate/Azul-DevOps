@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/white_bg"
     android:orientation="vertical"
+    android:id="@+id/act_settle_transaction"
     tools:context=".activities.transactions.SettledTransactionsQuery">
 
     <com.google.android.material.appbar.MaterialToolbar
@@ -20,7 +21,7 @@
 
             <ImageView
                 android:id="@+id/btnSettleTrBack"
-                android:layout_width="24dp"
+                android:layout_width="30dp"
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
                 android:src="@drawable/ic_left_arrow" />
@@ -108,42 +109,45 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/vag_bold"
                 android:text="@string/from_date"
                 android:textColor="@color/blue_2"
                 android:textSize="16sp"
-                android:layout_marginStart="5dp"
                 android:textStyle="bold" />
 
             <LinearLayout
                 android:id="@+id/layoutSinceDatePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="3dp"
                 android:background="@drawable/tv_unselect_background"
-                android:elevation="3.9dp"
                 android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:src="@drawable/pdf_calendar_icon" />
 
                 <TextView
                     android:id="@+id/tvFromActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16px"
-                    android:layout_weight="0.13"
+                    android:layout_weight="0.3"
                     android:fontFamily="@font/vag_bold"
-                    android:text="03/06/2021"
-                    android:textColor="@color/blue_3"
+                    android:text="24/05/2020"
+                    android:textColor="@color/slider_heading"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_weight="0.9"
-                    android:src="@drawable/date_box_arrows"
-                    app:tint="@color/unlink_background" />
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="0.8"
+                    android:src="@drawable/calendar_down_arrow_blue" />
             </LinearLayout>
 
         </LinearLayout>
@@ -161,9 +165,9 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="5dp"
                 android:fontFamily="@font/vag_bold"
                 android:text="@string/to_date"
-                android:layout_marginStart="5dp"
                 android:textColor="@color/blue_2"
                 android:textSize="16sp"
                 android:textStyle="bold" />
@@ -172,32 +176,36 @@
                 android:id="@+id/layoutUntilDatePicker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="5dp"
+                android:layout_marginTop="3dp"
                 android:background="@drawable/tv_unselect_background"
-                android:elevation="3.9dp"
                 android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.8"
+                    android:src="@drawable/pdf_calendar_icon" />
 
                 <TextView
                     android:id="@+id/tvToActivity"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16px"
-                    android:layout_weight="0.13"
+                    android:layout_weight="0.3"
                     android:fontFamily="@font/vag_bold"
-                    android:text="03/06/2021"
-                    android:textColor="@color/blue_3"
+                    android:text="04/06/2020"
+                    android:textColor="@color/slider_heading"
                     android:textSize="16sp"
                     android:textStyle="bold" />
 
                 <ImageView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginStart="1dp"
-                    android:layout_marginEnd="1dp"
-                    android:layout_weight="0.9"
-                    android:src="@drawable/date_box_arrows"
-                    app:tint="@color/unlink_background" />
+                    android:layout_marginEnd="5dp"
+                    android:layout_weight="0.8"
+                    android:src="@drawable/calendar_down_arrow_blue" />
             </LinearLayout>
+
 
         </LinearLayout>
 
@@ -228,7 +236,7 @@
             android:visibility="visible">
 
             <ImageView
-                android:id="@+id/searchinActive"
+                android:id="@+id/activeSearchImage"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -244,11 +252,10 @@
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="5dp"
-                android:layout_toEndOf="@+id/searchinActive"
+                android:layout_toEndOf="@+id/activeSearchImage"
                 android:background="@null"
                 android:digits="0123456789.,"
-                android:enabled="false"
-                android:fontFamily="@font/vag_light"
+                android:fontFamily="@font/vag_bold"
                 android:gravity="center_vertical"
                 android:inputType="number"
                 android:textColor="@color/font_hint"
@@ -271,76 +278,83 @@
 
     <!-- Top Bar filter -->
 
-    <RelativeLayout
-        android:id="@+id/topBarLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <HorizontalScrollView
+        android:id="@+id/scrolltopBarLayout"
+        android:layout_width="wrap_content"
+        android:scrollbars="none"
         android:layout_below="@id/layoutSearch"
-        android:layout_marginStart="15dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="20dp"
-        android:visibility="gone">
+        android:layout_height="wrap_content">
 
-        <TextView
-            android:id="@+id/tvLotNo"
-            android:layout_width="80dp"
+        <RelativeLayout
+            android:id="@+id/topBarLayout"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:background="@drawable/middle_navigation_bg"
-            android:fontFamily="@font/vag_bold"
-            android:gravity="center_horizontal"
-            android:paddingBottom="8dp"
-            android:text="@string/No.lot"
-            android:textColor="@color/blue_3"
-            android:textSize="13sp" />
+            android:layout_marginStart="15dp"
+            android:paddingEnd="30dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="25dp"
+            android:visibility="gone">
 
-        <TextView
-            android:id="@+id/tvApprovalNo"
-            android:layout_width="90dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="21dp"
-            android:layout_toEndOf="@+id/tvLotNo"
-            android:fontFamily="@font/vag_bold"
-            android:gravity="center_horizontal"
-            android:paddingBottom="8dp"
-            android:text="@string/No.approval"
-            android:textColor="@color/slider_heading"
-            android:textSize="13sp" />
+            <TextView
+                android:id="@+id/tvLotNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:background="@drawable/middle_navigation_bg"
+                android:fontFamily="@font/vag_bold"
+                android:gravity="center_horizontal"
+                android:paddingBottom="8dp"
+                android:text="@string/No.lot"
+                android:textColor="@color/blue_3"
+                android:textSize="13sp" />
 
-        <TextView
-            android:id="@+id/tvTerminalNo"
-            android:layout_width="88dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="17dp"
-            android:layout_toEndOf="@+id/tvApprovalNo"
-            android:fontFamily="@font/vag_bold"
-            android:gravity="center_horizontal"
-            android:paddingBottom="8dp"
-            android:text="@string/No.terminal"
-            android:textColor="@color/slider_heading"
-            android:textSize="13sp" />
+            <TextView
+                android:id="@+id/tvApprovalNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="21dp"
+                android:layout_toEndOf="@+id/tvLotNo"
+                android:fontFamily="@font/vag_bold"
+                android:gravity="center_horizontal"
+                android:paddingBottom="8dp"
+                android:text="@string/No.approval"
+                android:textColor="@color/slider_heading"
+                android:textSize="13sp" />
 
-        <TextView
-            android:id="@+id/tvCardNo"
-            android:layout_width="88dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="18dp"
-            android:layout_toEndOf="@+id/tvTerminalNo"
-            android:fontFamily="@font/vag_bold"
-            android:gravity="center_horizontal"
-            android:paddingBottom="8dp"
-            android:text="No. Tarjeta"
-            android:textColor="@color/slider_heading"
-            android:textSize="13sp" />
+            <TextView
+                android:id="@+id/tvTerminalNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="17dp"
+                android:layout_toEndOf="@+id/tvApprovalNo"
+                android:fontFamily="@font/vag_bold"
+                android:gravity="center_horizontal"
+                android:paddingBottom="8dp"
+                android:text="@string/No.terminal"
+                android:textColor="@color/slider_heading"
+                android:textSize="13sp" />
 
-    </RelativeLayout>
+            <TextView
+                android:id="@+id/tvCardNo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="18dp"
+                android:layout_toEndOf="@+id/tvTerminalNo"
+                android:fontFamily="@font/vag_bold"
+                android:gravity="center_horizontal"
+                android:paddingBottom="8dp"
+                android:text="@string/No.card"
+                android:textColor="@color/slider_heading"
+                android:textSize="13sp" />
 
+        </RelativeLayout>
+    </HorizontalScrollView>
     <!-- Listview Layout -->
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/topBarLayout"
+        android:layout_below="@+id/scrolltopBarLayout"
         android:background="@color/qr_button_font"
         android:orientation="vertical"
         android:paddingTop="8dp">
@@ -351,14 +365,13 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:layout_marginStart="63dp"
-            android:layout_marginTop="118dp"
+            android:layout_marginTop="90dp"
             android:layout_marginEnd="62dp"
-            android:layout_marginBottom="388dp"
             android:fontFamily="@font/vag_thin"
             android:gravity="center_horizontal"
             android:text="@string/no_records"
             android:textColor="@color/no_record_found"
-            android:textSize="24sp"
+            android:textSize="22sp"
             android:textStyle="bold"
             android:visibility="gone" />
 

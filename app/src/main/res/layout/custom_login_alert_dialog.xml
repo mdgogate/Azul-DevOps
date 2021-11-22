@@ -1,0 +1,69 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/alert_bg"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dp"
+        android:layout_marginTop="18dp"
+        android:layout_marginRight="24dp"
+        android:fontFamily="@font/vag_light"
+        android:text="@string/login_pin_error_alert_title"
+        android:textColor="#000000"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/textMsg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textTitle"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/vag_light"
+        android:text="@string/login_pin_error_alert_message"
+        android:textColor="#99000000"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textMsg"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginBottom="12dp"
+        android:orientation="horizontal">
+
+
+        <TextView
+            android:id="@+id/tvTryCount"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="1"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_vertical"
+            android:text="@string/login_try_count_label"
+            android:textColor="#9699AA"
+            android:textSize="13sp" />
+
+        <TextView
+            android:id="@+id/btnContinue"
+            android:layout_width="match_parent"
+            android:layout_height="36dp"
+            android:layout_marginStart="16dp"
+            android:layout_toEndOf="@id/btnNo"
+            android:layout_weight="1"
+            android:fontFamily="@font/vag_light"
+            android:textStyle="bold"
+            android:gravity="end|center_vertical"
+            android:text="@string/continue_lable"
+            android:textColor="#2C3B89"
+            android:textSize="14sp" />
+
+    </LinearLayout>
+</RelativeLayout>

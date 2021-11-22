@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Azul</string>
+    <string name="app_name">AZUL</string>
     <string name="user">User</string>
     <string name="ok_lable">OK</string>
     <string name="continue_lable">Continue</string>
@@ -23,7 +23,7 @@
     <string name="profile">My profile</string>
     <string name="my_info">My information</string>
     <string name="my_business">My business</string>
-    <string name="units_locations">locations</string>
+    <string name="units_locations">Localities</string>
     <string name="call_center">BLUE\nCenter</string>
     <string name="back_text">Get out</string>
     <string name="confirm_pin">Enter your PIN</string>
@@ -38,15 +38,16 @@
     <string name="linkPage">Payments Link</string>
     <string name="hello">Hello!</string>
     <string name="blue_qr_code">BLUE QR Code</string>
-    <string name="quick_sale">Quick Sale</string>
+    <string name="quick_sale">Quick sale</string>
     <string name="access_account">Access your account</string>
     <string name="Transacciones_qr">QR transactions</string>
     <string name="Settled_transactions">Settled transactions</string>
+    <string name="optional">Optional</string>
 
     <!-- Pin access-->
     <string name="alert_title">The digits don\'t match.</string>
     <string name="alert_message">Please try again.</string>
-    <string name="alert_continue">CONTINUE</string>
+    <string name="alert_continue">Continue</string>
     <string name="confirm_pin_first_time">Confirm your pin</string>
 
     <!--Error messages -->
@@ -54,7 +55,7 @@
     <string name="pass_error">Please enter your password to continue.</string>
 
     <!--Sale Widget -->
-    <string name="total_received">Total received</string>
+    <string name="total_received">Total to receive</string>
     <string name="net_sales">Net sales</string>
     <string name="total_discount">Total discount</string>
     <string name="amount">Amount:</string>
@@ -67,7 +68,7 @@
     <string name="change_profile_picture">Change profile picture</string>
     <string name="username">Username</string>
     <string name="username_lastname">Names(s)/Last Name(s)</string>
-    <string name="identification_number">No. identification (Certificate or Passport)</string>
+    <string name="identification_number">No. identification (certificate or passport)</string>
     <string name="dob">Date of birth</string>
     <string name="occupation">Occupation</string>
     <string name="telephone">Telephone</string>
@@ -117,7 +118,7 @@
     <string name="last_day">Last\nDay</string>
     <string name="month_to_date">Month to\ndate</string>
     <string name="previous_month">Previous\nMonth</string>
-    <string name="advanced">Advanced</string>
+    <string name="advanced">Range of \n date</string>
 
 
     <!--Hard value in sale widget-->
@@ -158,7 +159,120 @@
     <string name="less_tax_error">Enter an ITBIS greater than zero (0)</string>
     <string name="Tarjeta">Card</string>
     <string name="cancel_button_message">Are you sure you want to cancel?</string>
+    <string name="close_button_message">Are you sure you want to close?</string>
     <string name="qr_message">Show this QR code to your customers or send it by pressing the share icon</string>
 
     <string name="preferencias">Preferences</string>
+    <string name="itbis_tax">ITBIS:</string>
+    <string name="include_itbis">(Includes ITBIS)</string>
+    <string name="total_amount">Total amount:</string>
+    <string name="customer_email">Email:</string>
+    <string name="customer_name">Customer Name:</string>
+    <string name="order_no">No. order/sale:</string>
+    <string name="transaction_type">Transaction Type:</string>
+    <string name="localidad">Locality:</string>
+    <string name="email_error_msg">Enter a valid email</string>
+    <string name="link_share_msg">Payment link generated!</string>
+    <string name="copy_label">Copy</string>
+    <string name="share_label">Share</string>
+    <string name="next_sale">Next sale</string>
+    <string name="close">Close</string>
+    <string name="get_blue_qr">Get your BLUE QR Code</string>
+    <string name="login_pin_error_alert_title">The PIN entered is incorrect</string>
+    <string name="login_pin_error_alert_message">Please check and type again.</string>
+    <string name="login_try_count_label">(Try </string>
+    <string name="pin_blocked_message">PIN blocked for exceeding the number of attempts allowed</string>
+    <string name="pin_blocked_title">PIN blocked</string>
+    <string name="four_digits_same_error_msg">All 4 digits cannot be equal</string>
+    <string name="four_digits_same_error_title">PIN not allowed</string>
+    <string name="sequential_pin">Digits cannot be sequential</string>
+    <string name="generate_pay_link">Generate payment link</string>
+    <string name="generate_qr_location_title">Select the location of then QR code you want to display</string>
+    <string name="generate_link_location_title">Select the location to generate a payment link</string>
+    <string name="link_validation_title">Confirm the following fields before generating the payment link:</string>
+    <string name="not_permitted_title">You are not affiliated with this product</string>
+    <string name="get_blue_qr_here">Get your BLUE QR Code here</string>
+    <string name="get_blue_payment_link">Get your BLUE Payment Link here</string>
+    <string name="Paymen_link_request">Payment Link Request</string>
+    <string name="no_access_for_functionality">Your profile does not have access to this functionality</string>
+    <string name="no_access_for_functionality_msg">Please contact your company administrator to set them up.</string>
+    <string name="pravious_pin_alert">Use a different PIN than the previous one</string>
+    <string name="pin_alert_in_one_day">Action allowed 1 time per day. Try again in 24 hours</string>
+    <string name="zero_amount">0.00</string>
+    <string name="currancy_format">RD$ </string>
+
+    <string name="device_not_compatible">Sorry, this app is not compatible with this device.</string>
+    <string name="warning">Warning !</string>
+    <string name="exit_lablel">Exit</string>
+    <string name="description_fileprovider">This is for download file</string>
+    <string name="file_label"> </string>
+    <string name="internal_server_error">Error de servidor interno</string>
+    <string name="Status_Nuevo">You must configurate your username and password to be able to access to the AZUL APP</string>
+    <string name="active_temporal_password">You must configurate your username and password to be able to access to the AZUL APP</string>
+    <string name="New_Expired">Your temporal credential has expired. Do you want to generate new ones?</string>
+    <string name="Active_expired">Sorry your password is expired. Get a new one here.</string>
+    <string name="Blocked">Sorry your password is blocked. Receive assistance to get a new one here.</string>
+    <string name="Disabled">Sorry your profile is Disabled. Do you want to receive asisstence?</string>
+    <string name="Under_investigation">Sorry your profile is Disabled. Do you want to receive asisstence?</string>
+
+    <string name="Status_Nuevo_title">Set your username and password</string>
+    <string name="active_temporal_password_title">Set your password</string>
+    <string name="New_Expired_title">Your temporary access expired</string>
+    <string name="Active_expired_title">Your temporary password expired</string>
+    <string name="Blocked_title">Your profile is blocked</string>
+    <string name="Disabled_title">Your profile is disabled</string>
+    <string name="Under_investigation_title">Your profile is disabled</string>
+
+    <string name="yes">Yes</string>
+    <string name="no">No</string>
+    <string name="login_incorrect_credentials_title">The submit credentials are incorrect</string>
+    <string name="login_incorrect_credentials">Please try again</string>
+    <string name="login_user_block_title">Sorry, you have exceeded the number of attempts allowed</string>
+    <string name="login_user_block">Change your password here</string>
+
+    <string name="search_hint">Search</string>
+    <string name="amount_hint">Search by amount</string>
+    <string name="reference_no_hint">Search by reference number</string>
+
+    <string name="pay_mail_body">Pay by selecting this BLUE QR Code from your Popular App or tPago App</string>
+    <string name="save_qrcode">Downloaded QR code</string>
+    <string name="date_range">Date range</string>
+    <string name="download_title">Download</string>
+    <string name="merchant_id_title">MID: </string>
+    <string name="claendar_start_date_title">Select the start date</string>
+    <string name="claendar_end_date_title">Select the end date</string>
+    <string name="one_month_date_limit">Uses a date range of no more than 31 days</string>
+    <string name="please_try_again">Please try again.</string>
+    <string name="cobrar">Charge</string>
+    <string name="Comercio">Commerce:</string>
+    <string name="enter_amount_label">Enter the amount:</string>
+    <string name="empty_amount_error">Please enter the amount</string>
+    <string name="calculator_limit_label">You exceeded the limit amount</string>
+
+    <string name="try_after_one_day">Action allowed one (1) time per day. Enter it again in 24 hours</string>
+    <string name="try_after_label">Try After : </string>
+    <string name="use_different_pin_message">Use a different PIN than the previous one</string>
+    <string name="link_copied">Copied payment link</string>
+    <string name="payment_link_label">Payment Link</string>
+    <string name="payment_link_label_message">Hello, access this link to pay for your purchase.</string>
+    <string name="payment_link_transactions">Payment Link Transactions</string>
+    <string name="unlink_account_msg">Be sure you want unlink this account from this device ?</string>
+    <string name="unlink_lbl">Unlink</string>
+    <string name="payment_ink_transactions">Payment Link Transactions</string>
+
+    <string name="authorization_competed">Authorization completed</string>
+    <string name="more_information">More information</string>
+    <string name="transaction_information">Transaction information</string>
+    <string name="link_details">Link details:</string>
+    <string name="payment_details">Payment details:</string>
+    <string name="customer_information">Customer information:</string>
+    <string name="user_name">Name:</string>
+    <string name="filter_button_title">Filter</string>
+    <string name="filter_button_clear">Clear selection</string>
+    <string name="payment_transaction_permission_msg">Your profile does not have access to this functionality. Please contact your company administrator to establish the same</string>
+
+    <string name="alert_sorry_title">We\'re sorry</string>
+    <string name="alert_sorry_message">Your request could not be completed. Please try again later</string>
+    <string name="no_pdf_message">There are no transactions in this date range and / or your statement is not available, please try again later. If you need help, call us at 809-544-2985 </string>
+    <string name="no_pdf_message_new">Your account statement is not available. Please try again later. If you need help, call us at 809-544-2985 "</string>
 </resources>
