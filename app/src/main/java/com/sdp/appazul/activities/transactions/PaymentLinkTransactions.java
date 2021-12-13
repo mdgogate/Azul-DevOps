@@ -163,7 +163,7 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
     static int SNACK_LENGTH = 0;
     String selectedCurrency;
     Context context;
-
+    String taxExemptFlag;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -208,12 +208,11 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
 
         locationFilter = ((AzulApplication) this.getApplication()).getLocationFilter();
         if (locationFilter != null) {
-            Log.d("PaymentLinkTransactions", "initControls: " + locationFilter.getLocationNameAndId());
             mID = locationFilter.getmId();
+            taxExemptFlag = locationFilter.getTaxExempt();
             tvLocationName.setText(locationFilter.getLocationNameAndId().toLowerCase());
             selectedCurrency = locationFilter.getCurrency();
             responseCode = locationFilter.getPaymentCode();
-            Log.d("PaymentLinkTransactions", "Code:  " + locationFilter.getPaymentCode());
             getPaymentDataFromApi(formattedFromDate, formattedTODate, mID);
         } else {
             getDefaultLocation(locationJson);
@@ -221,10 +220,12 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
             if (defaultLocations != null) {
                 String defaultLocationName = defaultLocations.get("CHILD_LOC_NAME");
                 String defaultLocationId = defaultLocations.get("CHILD_LOC_ID");
+                String tax = defaultLocations.get("TAX_STATUS");
                 String locationToDisplay = defaultLocationName + " - " + defaultLocationId;
                 tvLocationName.setText(locationToDisplay);
                 selectedCurrency = defaultLocations.get("CURR");
                 mID = defaultLocationId;
+                taxExemptFlag = tax;
             }
         }
 
@@ -295,7 +296,8 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
         btnBackToPrevious.setOnClickListener(view -> {
             finish();
             Intent intent1 = new Intent(PaymentLinkTransactions.this, DashBoardActivity.class);
-            intent1.putExtra(Constants.LOCATION_RESPONSE, locationJson);
+            ((AzulApplication) ((PaymentLinkTransactions) this).getApplication()).setLocationDataShare(locationJson);
+
             startActivity(intent1);
             this.overridePendingTransition(R.anim.animation_leave,
                     R.anim.slide_nothing);
@@ -336,7 +338,6 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
 
             @Override
             public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                Log.d("TAG", "onTextChanged: " + charSequence);
                 if (etSearchBy.getText().toString().equalsIgnoreCase("")) {
                     btnClearSearchText.setVisibility(View.GONE);
                 } else {
@@ -373,7 +374,7 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
         tempList = new ArrayList<>();
         if (amountFilterList != null && !amountFilterList.isEmpty()) {
             for (PaymentTransactions pt : amountFilterList) {
-                Log.d("PaymentLinkTransactions", pt.getAmount()+"  == charSequence: " + charSequence);
+                Log.d("PaymentLinkTransactions", pt.getAmount() + "  == charSequence: " + charSequence);
                 if (pt.getAmount().contains(charSequence)) {
                     tempList.add(pt);
                 }
@@ -459,8 +460,7 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
     }
 
     private void getIntentData() {
-        Intent intent = getIntent();
-        locationJson = intent.getStringExtra(Constants.LOCATION_RESPONSE);
+        locationJson = ((AzulApplication) context.getApplicationContext()).getLocationDataShare();
     }
 
     private void locationBottomSheetMenu() {
@@ -473,9 +473,6 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
 
     private void showSearchBar() {
 
-//        if (clearEnteredText.getVisibility() == View.GONE) {
-//            clearEnteredText.setVisibility(View.VISIBLE);
-//        }
         String backgroundImageName = String.valueOf(activeSearchImage.getTag());
         if (backgroundImageName.equalsIgnoreCase("bg")) {
             activeSearchImage.setTag(R.drawable.ic_search_active);
@@ -918,6 +915,7 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
     public void setContent(String name, String content, String merchantId, int dismissFlag, String taxExempt) {
         tvLocationName.setText(content);
         mID = merchantId;
+        taxExemptFlag = taxExempt;
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(taxExempt)) {
             Log.d("Data", "" + name + taxExempt);
         }
@@ -929,7 +927,7 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
 
     @Override
     public void onItemClickListener(String trnResponse, int position, String value, String status, String amountToShow, String selectedCurrency) {
-        paymentTransactionMenu = new PaymentTransactionMenu(trnResponse, amountToShow, status, value, locationJson, responseCode, selectedCurrency);
+        paymentTransactionMenu = new PaymentTransactionMenu(trnResponse, amountToShow, status, value, responseCode, selectedCurrency,taxExemptFlag);
         paymentTransactionMenu.show(this.getSupportFragmentManager(), "PaymentTransactionMenu");
     }
 
@@ -956,11 +954,7 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
     private void loadPaymentJson(JSONObject jsonTransactionOb) {
         try {
 
-            if (transactionsList != null) {
-                transactionsList.clear();
-            } else {
-                transactionsList = new ArrayList<>();
-            }
+            checkListStatus();
 
             JSONArray parentLevelLocations = jsonTransactionOb.getJSONArray("Links");
 
@@ -985,22 +979,36 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
                 transactionsData.setStatus(parentData.getString("Status"));
                 transactionsData.setTransactionResponse(parentData.getString("TransactionResponse"));
                 transactionsData.setCurrency(parentData.getString("Currency"));
-                if (permissionList.contains("APPPaymentLinksQueryOwnTransactions")
-                        && !permissionList.contains("APPPaymentLinksQueryAllTransactions")) {
-                    if (!userName.isEmpty()) {
-                        if (transactionsData.getCreatedBy().contains(userName)) {
-                            transactionsList.add(new PaymentTransactions(transactionsData));
-                        }
-                    }
-                } else if (permissionList.contains("APPPaymentLinksQueryAllTransactions")) {
-                    transactionsList.add(new PaymentTransactions(transactionsData));
-                }
+
+
+                checkPermissionPart(permissionList, transactionsData);
             }
 
             setAdapter(transactionsList);
 
         } catch (Exception e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+        }
+    }
+
+    private void checkPermissionPart(List<String> permissionList, PaymentTransactions transactionsData) {
+        if (permissionList.contains("APPPaymentLinksQueryOwnTransactions")
+                && !permissionList.contains("APPPaymentLinksQueryAllTransactions")) {
+            if (!userName.isEmpty()) {
+                if (transactionsData.getCreatedBy().contains(userName)) {
+                    transactionsList.add(new PaymentTransactions(transactionsData));
+                }
+            }
+        } else if (permissionList.contains("APPPaymentLinksQueryAllTransactions")) {
+            transactionsList.add(new PaymentTransactions(transactionsData));
+        }
+    }
+
+    private void checkListStatus() {
+        if (transactionsList != null) {
+            transactionsList.clear();
+        } else {
+            transactionsList = new ArrayList<>();
         }
     }
 

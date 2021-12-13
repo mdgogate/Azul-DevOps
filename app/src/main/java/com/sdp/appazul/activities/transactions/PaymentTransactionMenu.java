@@ -13,6 +13,7 @@ import androidx.annotation.Nullable;
 
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
 import com.sdp.appazul.R;
+import com.sdp.appazul.activities.home.MainMenuActivity;
 import com.sdp.appazul.globals.AzulApplication;
 import com.sdp.appazul.globals.Constants;
 
@@ -29,17 +30,18 @@ public class PaymentTransactionMenu extends BottomSheetDialogFragment {
     String statusValue;
     String trnResponse;
     String amountToShow;
+    String taxExemptFlag;
     List<String> permissionList;
     List<String> productPermissionList;
 
-    public PaymentTransactionMenu(String trnResponse, String amountToShow, String statusValue, String linkId, String locationData, String responseCode, String selectedCurrency) {
+    public PaymentTransactionMenu(String trnResponse, String amountToShow, String statusValue, String linkId, String responseCode, String selectedCurrency, String taxExemptFlag) {
         this.trnResponse = trnResponse;
         this.amountToShow = amountToShow;
         this.statusValue = statusValue;
         SelectedLinkId = linkId;
-        locationJson = locationData;
         paymentCode = responseCode;
         this.currencyCode = selectedCurrency;
+        this.taxExemptFlag = taxExemptFlag;
     }
 
     @Nullable
@@ -57,6 +59,7 @@ public class PaymentTransactionMenu extends BottomSheetDialogFragment {
         permissionList = ((AzulApplication) getActivity().getApplication()).getFeaturePermissionsList();
         productPermissionList = ((AzulApplication) getActivity().getApplication()).getProductPermissionsList();
         btnResendLink = view.findViewById(R.id.btnResendLink);
+        locationJson = ((AzulApplication) getActivity().getApplicationContext()).getLocationDataShare();
 
         if (permissionList.contains("APPPaymentLinksSale")
                 || permissionList.contains("APPPaymentLinksHold")) {
@@ -87,11 +90,11 @@ public class PaymentTransactionMenu extends BottomSheetDialogFragment {
             dismiss();
 
             btnMoreInformation.setBackgroundResource(R.drawable.payment_menu_border_bg);
+            ((AzulApplication) (getActivity()).getApplication()).setLocationDataShare(locationJson);
             Intent intent = new Intent(getActivity(), PaymentLinkDetails.class);
-            intent.putExtra(Constants.LOCATION_RESPONSE, locationJson);
             intent.putExtra("LINK_ID", SelectedLinkId);
             intent.putExtra("PAYMENT_CODE", paymentCode);
-            intent.putExtra("PAYMENT_LOCATION", locationJson);
+            intent.putExtra("PAYMENT_TAX", taxExemptFlag);
             startActivity(intent);
             getActivity().overridePendingTransition(R.anim.animation_enter,
                     R.anim.slide_nothing);

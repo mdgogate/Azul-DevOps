@@ -150,6 +150,10 @@ public class SettledTransactionsQuery extends AppCompatActivity {
     ApiManager apiManager = new ApiManager(SettledTransactionsQuery.this);
     RelativeLayout act_settle_transaction;
     static int SNACK_LENGTH = 0;
+    List<SettleTransaction> transactionFilteredList;
+    SimpleDateFormat olderFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -775,8 +779,6 @@ public class SettledTransactionsQuery extends AppCompatActivity {
                 date.get(DAY_OF_MONTH));
     }
 
-    List<SettleTransaction> transactionFilteredList;
-
 
     @SuppressLint("NewApi")
     private void searchingInList(List<SettleTransaction> mainList, CharSequence charSequence,
@@ -1038,7 +1040,6 @@ public class SettledTransactionsQuery extends AppCompatActivity {
         }
     }
 
-    SimpleDateFormat olderFormat = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
 
     private void locationParseOperation(JSONArray jsonArray, String locationId) {
         try {

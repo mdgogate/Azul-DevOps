@@ -1,6 +1,7 @@
 package com.sdp.appazul.activities.transactions;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -74,23 +75,28 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
     DecimalFormat currencyFormat = new DecimalFormat("#,##0.00", symbols);
     String locationJson;
     String paymentLocation;
+    String taxExemptFlag;
     ImageView cardImgView;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_payment_link_details);
         Intent intent = getIntent();
+
+        context = this;
         selectedLinkId = intent.getStringExtra("LINK_ID");
         paymentCode = intent.getStringExtra("PAYMENT_CODE");
+        taxExemptFlag = intent.getStringExtra("PAYMENT_TAX");
         initControls();
-        locationJson = intent.getStringExtra(Constants.LOCATION_RESPONSE);
-        paymentLocation = intent.getStringExtra("PAYMENT_LOCATION");
+        locationJson = ((AzulApplication) context.getApplicationContext()).getLocationDataShare();
+        paymentLocation = ((AzulApplication) context.getApplicationContext()).getLocationDataShare();
 
         if (!TextUtils.isEmpty(selectedLinkId) && !TextUtils.isEmpty(paymentCode)) {
             getPaymentDetailsFromApi(selectedLinkId, paymentCode);
         } else {
-
+            Log.d("PayDetails", "onCreate: ");
         }
     }
 
@@ -123,7 +129,7 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
         cardImgView = findViewById(R.id.cardImgView);
         btnBackToPrevious.setOnClickListener(btnBackToPreviousView -> {
             Intent intent1 = new Intent(PaymentLinkDetails.this, PaymentLinkTransactions.class);
-            intent1.putExtra(Constants.LOCATION_RESPONSE, locationJson);
+            ((AzulApplication) ((PaymentLinkDetails) this).getApplication()).setLocationDataShare(locationJson);
             intent1.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
                     | Intent.FLAG_ACTIVITY_SINGLE_TOP);
             startActivity(intent1);
@@ -133,7 +139,6 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
     }
 
     private void getPaymentDetailsFromApi(String LinkId, String paymentCode) {
-        Log.d("TAG", "getPaymentDetailsFromApi: " + LinkId + " == " + paymentCode);
         JSONObject json = new JSONObject();
         try {
             String tcpKey = ((AzulApplication) PaymentLinkDetails.this.getApplication()).getTcpKey();
@@ -191,15 +196,11 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
             String authorizationNumber = jsonObject.getString("PayedAuthorizationNumber");
             String paymentDate = jsonObject.getString("PayedDate");
             String amount = jsonObject.getString("Amount");
-            String taxExempt = jsonObject.getString("Discounted");                            // Need to Verify
             String taxAmount = jsonObject.getString("Itbis");                                 // Need to Verify
             String orderNumber = jsonObject.getString("OrderNumber");
             String locationName = jsonObject.getString("MerchantName");                       // Need to Verify
             String locationId = jsonObject.getString("MerchantId");
-            Log.d("PaymentLinkDetails", "locationName: " + locationName);
-            Log.d("PaymentLinkDetails", "locationId: " + locationId);
-            // Need to Verify
-//            String merchantName = jsonObject.getString("");                                       // Missing merchant name
+            // Missing merchant name
             String createdBy = jsonObject.getString("AddUser");
             String createdIpAddress = jsonObject.getString("AddIpAddress");
             String clientName = jsonObject.getString("ClientName");
@@ -225,7 +226,7 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
                     tvAmount.setText(Constants.CURRENCY_FORMAT + currencyFormat.format(paymentAmount));
                 }
 
-                taxChecker(taxExempt);
+                taxChecker(taxExemptFlag);
             } else {
                 paymentMainLayout.setVisibility(View.GONE);
                 hiddenLayout.setVisibility(View.VISIBLE);
@@ -235,15 +236,17 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
                 } else {
                     tvHiddenAmount.setText(Constants.CURRENCY_FORMAT + currencyFormat.format(paymentAmount));
                 }
-                if (taxExempt.equalsIgnoreCase("true")) {
-                    tvHiddenTax.setVisibility(View.GONE);
-                } else {
+                if (taxExemptFlag.equalsIgnoreCase("true")) {
                     tvHiddenTax.setVisibility(View.VISIBLE);
+                    tvIncludeTaxTitle.setVisibility(View.VISIBLE);
+                } else {
+                    tvIncludeTaxTitle.setVisibility(View.GONE);
+                    tvHiddenTax.setVisibility(View.GONE);
                 }
 
             }
 
-            setTaxData(amountCurrency, taxAmount, taxExempt);
+            setTaxData(amountCurrency, taxAmount, taxExemptFlag);
 
             setOrderNo(orderNumber);
 
@@ -260,9 +263,9 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
 
     private void taxChecker(String taxExempt) {
         if (taxExempt.equalsIgnoreCase("true")) {
-            tvIncludeTaxTitle.setVisibility(View.GONE);
-        } else {
             tvIncludeTaxTitle.setVisibility(View.VISIBLE);
+        } else {
+            tvIncludeTaxTitle.setVisibility(View.GONE);
         }
     }
 
@@ -350,9 +353,9 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
 
     private void setTaxData(String amountCurrency, String taxAmount, String taxExempt) {
         if (taxExempt.equalsIgnoreCase("true")) {
-            itbisLayout.setVisibility(View.GONE);
-        } else {
             itbisLayout.setVisibility(View.VISIBLE);
+        } else {
+            itbisLayout.setVisibility(View.GONE);
             if (taxAmount.equalsIgnoreCase("0.0")) {
                 if (amountCurrency.equalsIgnoreCase("USD")) {
                     tvItbisAmountValue.setText(Constants.CURRENCY_USD);
@@ -520,17 +523,23 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
         } else if (Integer.parseInt(CreditCardNumber.substring(0, 2)) >= 51
                 && Integer.parseInt(CreditCardNumber.substring(0, 2)) <= 55) {
             return "Master Card";
-        } else if (CreditCardNumber.length() == 14 &&
-                CreditCardNumber.substring(0, 2).matches("30") ||
-                CreditCardNumber.substring(0, 2).matches("36") ||
-                CreditCardNumber.substring(0, 2).matches("38")) {
+        } else {
+            return callOtherLoops(CreditCardNumber);
+        }
+    }
+
+    private String callOtherLoops(String creditCardNumber) {
+        if (creditCardNumber.length() == 14 &&
+                creditCardNumber.substring(0, 2).matches("30") ||
+                creditCardNumber.substring(0, 2).matches("36") ||
+                creditCardNumber.substring(0, 2).matches("38")) {
             return "Diners";
-        } else if (CreditCardNumber.length() == 16 &&
-                CreditCardNumber.substring(0, 2).matches("35")) {
+        } else if (creditCardNumber.length() == 16 &&
+                creditCardNumber.substring(0, 2).matches("35")) {
             return "JCB";
-        } else if (CreditCardNumber.length() == 15 &&
-                CreditCardNumber.substring(0, 4).matches("2131") ||
-                CreditCardNumber.substring(0, 4).matches("1800")) {
+        } else if (creditCardNumber.length() == 15 &&
+                creditCardNumber.substring(0, 4).matches("2131") ||
+                creditCardNumber.substring(0, 4).matches("1800")) {
             return "JCB";
         } else {
             return "invalid";
@@ -563,16 +572,11 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
     }
 
     private String verifyData(String secondPositionLocationId, String secondPositionLocationName, String locationName, String locationId, String parentLocationName) {
-        Log.d("PaymentLinkDetails", "secondPositionLocationName: " + secondPositionLocationName);
-        Log.d("PaymentLinkDetails", "locationName: " + locationName);
-        Log.d("PaymentLinkDetails", "secondPositionLocationId: " + secondPositionLocationId);
-        Log.d("PaymentLinkDetails", "locationId: " + locationId);
-        Log.d("PaymentLinkDetails", "parentLocationName: " + parentLocationName);
+
         if (secondPositionLocationName.equalsIgnoreCase(locationName)
                 && secondPositionLocationId.equalsIgnoreCase(locationId)) {
             return parentLocationName;
-        } else {
-            return "";
         }
+        return "";
     }
 }

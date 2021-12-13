@@ -103,7 +103,6 @@ public class ApiService extends AsyncTask<String, Void, String> {
             Request request;
             RequestBody requestBody = RequestBody.create(mediaTypeJSON, jsonObject.toString());
             if (Boolean.TRUE.equals(checkApi(url))) {
-                Log.d("TAG", "without authTokenHeader : ");
                 request
                         = new Request.Builder()
                         .url(this.url)
@@ -114,9 +113,7 @@ public class ApiService extends AsyncTask<String, Void, String> {
                         .method("POST", requestBody)
                         .build();
             } else if (url.equalsIgnoreCase(ServiceUrls.REGISTER_PIN)) {
-                Log.d("TAG", "raccess-token : " + ((AzulApplication) ((Activity) context).getApplication()).getrAccToken());
-                Log.d("TAG", "deviceId: " + deviceId);
-                request
+               request
                         = new Request.Builder()
                         .url(this.url)
                         .addHeader(KeyConstants.SSC_KEY, Constants.SSC_MOBILE_VALUE)
@@ -126,8 +123,6 @@ public class ApiService extends AsyncTask<String, Void, String> {
                         .method("POST", requestBody)
                         .build();
             } else {
-                Log.d("TAG", "authTokenHeader: " + authTokenHeader);
-                Log.d("TAG", "deviceId: " + deviceId);
                 request
                         = new Request.Builder()
                         .url(this.url)

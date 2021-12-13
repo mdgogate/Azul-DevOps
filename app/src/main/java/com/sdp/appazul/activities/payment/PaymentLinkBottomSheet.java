@@ -18,6 +18,7 @@ import androidx.annotation.Nullable;
 
 import com.sdp.appazul.R;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.sdp.appazul.activities.dashboard.QrCode;
 import com.sdp.appazul.activities.menuitems.WebActivity;
 import com.sdp.appazul.activities.transactions.PaymentLinkTransactions;
 import com.sdp.appazul.globals.AzulApplication;
@@ -91,7 +92,8 @@ public class PaymentLinkBottomSheet extends BottomSheetDialogFragment {
                     || permissionList.contains("APPPaymentLinksQueryAllTransactions")) {
 
                 Intent intent = new Intent(getActivity(), PaymentLinkTransactions.class);
-                intent.putExtra(Constants.LOCATION_RESPONSE, locationData);
+                ((AzulApplication) (getActivity()).getApplication()).setLocationDataShare(locationJson);
+
                 startActivity(intent);
                 getActivity().overridePendingTransition(R.anim.animation_enter,
                         R.anim.slide_nothing);
