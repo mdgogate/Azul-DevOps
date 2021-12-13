@@ -138,7 +138,6 @@ public class RSAHelper {
         byte[] keyBytes = Base64.decode(readPublicKeyFromFile(context).getBytes(), Base64.DEFAULT);
         X509EncodedKeySpec spec = new X509EncodedKeySpec(keyBytes);
         KeyFactory keyFactory = KeyFactory.getInstance("RSA");
-        Log.i("TAG", "Public Key ::: " + keyFactory.generatePublic(spec));
         return keyFactory.generatePublic(spec);
     }
 

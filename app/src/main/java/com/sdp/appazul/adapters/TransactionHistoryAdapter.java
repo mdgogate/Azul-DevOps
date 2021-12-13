@@ -17,6 +17,7 @@ import com.sdp.appazul.utils.DateUtils;
 
 import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -33,6 +34,7 @@ public class TransactionHistoryAdapter extends BaseAdapter {
     SimpleDateFormat newFormat = new SimpleDateFormat(Constants.DD_MM_YYYY);
     DateUtils dateUtils = new DateUtils();
     Map<String, String> monthList = new HashMap<>();
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
 
     public TransactionHistoryAdapter(Context context, List<TransactionHistory> historyArrayList) {
         this.context = context;
@@ -70,7 +72,7 @@ public class TransactionHistoryAdapter extends BaseAdapter {
 
         tvLocationName.setText(historyArrayList.get(pos).getLocation());
         String referenceNo = historyArrayList.get(pos).getReferenceNo().substring(1);
-        DecimalFormat format = new DecimalFormat("#,##0.00");
+        DecimalFormat format = new DecimalFormat("#,##0.00",symbols);
 
         tvReferenceNo.setText(referenceNo);
         double amount = Double.parseDouble(historyArrayList.get(pos).getAmount());

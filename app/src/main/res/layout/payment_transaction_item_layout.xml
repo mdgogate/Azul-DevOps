@@ -88,7 +88,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:layout_weight="0.3"
+                        android:layout_weight="0.2"
                         android:fontFamily="@font/vag_bold"
                         android:text="RD$ 400.00"
                         android:textColor="@color/blue_3"
@@ -97,10 +97,10 @@
                     <ImageView
                         android:id="@+id/imgMoreButton"
                         android:layout_width="match_parent"
-                        android:layout_height="24dp"
+                        android:layout_height="30dp"
                         android:layout_gravity="top"
-                        android:layout_weight="0.7"
-                        android:src="@drawable/load_more_button" />
+                        android:layout_weight="0.8"
+                        android:src="@drawable/more_info_selector" />
 
                 </LinearLayout>
 

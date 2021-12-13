@@ -40,6 +40,7 @@ public class SettleTransactionAdapter extends BaseAdapter {
     TextView tvSettleDate;
     ImageView cardImgView;
     LinearLayout mainShadowItem;
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
 
     public SettleTransactionAdapter(Context context, List<SettleTransaction> list) {
         this.context = context;
@@ -113,7 +114,6 @@ public class SettleTransactionAdapter extends BaseAdapter {
         } catch (ParseException e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
-        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
 
         DecimalFormat currFormat = new DecimalFormat("#,##0.00",symbols);
 

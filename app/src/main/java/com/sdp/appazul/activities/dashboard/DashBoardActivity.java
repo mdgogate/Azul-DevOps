@@ -82,7 +82,7 @@ public class DashBoardActivity extends BaseLoggedInActivity implements Consultan
     RelativeLayout idParentLayout;
     GridView accessMenu;
     String[] numberWord;
-    int[] transportImage = {R.drawable.ic_icon_consulta_dashboard, R.drawable.ic_icon_link_de_pago_dashboard, R.drawable.ic_icon_qr_code_dashboard_3};
+    int[] transportImage = {R.drawable.ic_icon_consulta_dashboard, R.drawable.new_dashboard_payment_logo, R.drawable.ic_icon_qr_code_dashboard_3};
     TextView tvUserName;
     TextView tvUserProf;
     TextView locationTxt;

@@ -38,6 +38,7 @@ import com.sdp.appazul.globals.Constants;
 import com.sdp.appazul.globals.KeyConstants;
 import com.sdp.appazul.security.RSAHelper;
 import com.sdp.appazul.utils.DeviceUtils;
+import com.sdp.appazul.utils.KeysUtils;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -738,7 +739,7 @@ public class PinSetActivity extends BasicRegistrationActivity {
             payload.put("notify", status);
 
             json.put("payload", RSAHelper.encryptAES(payload.toString(), Base64.decode(tcpKey, 0), Base64.decode(vcr, 0)));
-            Log.d("PinSetActivity", "callApiPushToken: "+payload.toString());
+            Log.d("PinSetActivity", "callApiPushToken: " + payload.toString());
 
         } catch (Exception e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
@@ -749,4 +750,6 @@ public class PinSetActivity extends BasicRegistrationActivity {
     public void pushTokenResponse(String responseString) {
         Log.d("Data", "" + responseString);
     }
+
+
 }

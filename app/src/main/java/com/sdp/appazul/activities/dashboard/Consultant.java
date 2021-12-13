@@ -122,15 +122,15 @@ public class Consultant extends BottomSheetDialogFragment {
     }
 
     private void openSettledTransactionScreen() {
-//        if (permissionList.contains("QueryTransactions")) {
+        if (permissionList.contains("QueryTransactions")) {
             Intent intent = new Intent(getActivity(), SettledTransactionsQuery.class);
             intent.putExtra(Constants.LOCATION_RESPONSE, loc);
             startActivity(intent);
             getActivity().overridePendingTransition(R.anim.animation_enter,
                     R.anim.slide_nothing);
-//        } else {
-//            errorAlert(getActivity(), 3);
-//        }
+        } else {
+            errorAlert(getActivity(), 3);
+        }
     }
 
     public void setBottomSheetCloseEvent(BottomSheetCloseEvent bottomSheetCloseEvent) {

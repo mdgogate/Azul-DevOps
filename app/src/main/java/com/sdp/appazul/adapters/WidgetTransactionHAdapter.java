@@ -15,6 +15,7 @@ import com.sdp.appazul.globals.KeyConstants;
 
 import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
+import java.text.DecimalFormatSymbols;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -26,6 +27,7 @@ public class WidgetTransactionHAdapter extends BaseAdapter {
     private LayoutInflater inflater;
     List<TransactionHistory> historyArrayList;
 
+    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
 
     public WidgetTransactionHAdapter(Context context, List<TransactionHistory> historyArrayList) {
         this.context = context;
@@ -60,7 +62,7 @@ public class WidgetTransactionHAdapter extends BaseAdapter {
         if (view == null) {
             view = inflater.inflate(R.layout.bd_widget_transaction_list_item, null);
         }
-        DecimalFormat format = new DecimalFormat("#,##0.00");
+        DecimalFormat format = new DecimalFormat("#,##0.00",symbols);
 
         TextView tvLocationName = view.findViewById(R.id.tvLocationName);
         TextView tvTime = view.findViewById(R.id.tvTime);

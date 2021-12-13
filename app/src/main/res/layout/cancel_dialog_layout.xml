@@ -60,7 +60,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/vag_bold"
             android:gravity="center_vertical|center_horizontal"
-            android:text="No"
+            android:text="NO"
             android:textColor="#2C3B89"
             android:textSize="14sp" />
 
@@ -73,7 +73,7 @@
             android:layout_weight="1"
             android:fontFamily="@font/vag_bold"
             android:gravity="center_horizontal|center_vertical"
-            android:text="Sí"
+            android:text="SÍ"
             android:textColor="#2C3B89"
             android:textSize="14sp" />
 

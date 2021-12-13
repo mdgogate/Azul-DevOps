@@ -193,7 +193,7 @@ public class ApiManager implements CallbackListener {
     public void appPermissionsResponse(String responseString) {
         if (context.getClass().equals(MainMenuActivity.class)) {
             MainMenuActivity code = (MainMenuActivity) context;
-            code.getappPermissionsResponse(responseString);
+            code.getAppPermissionsResponse(responseString);
         } else if (context.getClass().equals(DashBoardActivity.class)) {
             DashBoardActivity code = (DashBoardActivity) context;
             code.getAppPermissionsResponse(responseString);

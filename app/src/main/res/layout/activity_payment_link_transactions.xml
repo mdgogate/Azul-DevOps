@@ -53,7 +53,7 @@
         android:padding="16dp">
 
         <ImageView
-            android:id="@+id/locationSymboltr"
+            android:id="@+id/locationSymbol"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toEndOf="@id/locationSymboltr"
+            android:layout_toEndOf="@id/locationSymbol"
             android:fontFamily="@font/vag_bold"
             android:text="Affiliated Auto Rental - 39036630010"
             android:textColor="@color/create_font"
