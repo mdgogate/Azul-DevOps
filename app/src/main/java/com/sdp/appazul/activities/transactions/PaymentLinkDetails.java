@@ -75,9 +75,10 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
     DecimalFormat currencyFormat = new DecimalFormat("#,##0.00", symbols);
     String locationJson;
     String paymentLocation;
-    String taxExemptFlag;
     ImageView cardImgView;
     Context context;
+    String returnData = "";
+    String taxExempt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,7 +89,7 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
         context = this;
         selectedLinkId = intent.getStringExtra("LINK_ID");
         paymentCode = intent.getStringExtra("PAYMENT_CODE");
-        taxExemptFlag = intent.getStringExtra("PAYMENT_TAX");
+        taxExempt = intent.getStringExtra("TAX_EXEMPT");
         initControls();
         locationJson = ((AzulApplication) context.getApplicationContext()).getLocationDataShare();
         paymentLocation = ((AzulApplication) context.getApplicationContext()).getLocationDataShare();
@@ -96,7 +97,7 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
         if (!TextUtils.isEmpty(selectedLinkId) && !TextUtils.isEmpty(paymentCode)) {
             getPaymentDetailsFromApi(selectedLinkId, paymentCode);
         } else {
-            Log.d("PayDetails", "onCreate: ");
+
         }
     }
 
@@ -139,6 +140,7 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
     }
 
     private void getPaymentDetailsFromApi(String LinkId, String paymentCode) {
+        Log.d("TAG", "getPaymentDetailsFromApi: " + LinkId + " == " + paymentCode);
         JSONObject json = new JSONObject();
         try {
             String tcpKey = ((AzulApplication) PaymentLinkDetails.this.getApplication()).getTcpKey();
@@ -150,6 +152,7 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
             payload.put("LinkId", LinkId);
 
             json.put("payload", RSAHelper.encryptAES(payload.toString(), Base64.decode(tcpKey, 0), Base64.decode(vcr, 0)));
+            Log.d("API CALL", "getPaymentDetails payload: " + payload.toString());
         } catch (Exception e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
@@ -196,11 +199,13 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
             String authorizationNumber = jsonObject.getString("PayedAuthorizationNumber");
             String paymentDate = jsonObject.getString("PayedDate");
             String amount = jsonObject.getString("Amount");
+            String taxExempt = jsonObject.getString("Discounted");                            // Need to Verify
             String taxAmount = jsonObject.getString("Itbis");                                 // Need to Verify
             String orderNumber = jsonObject.getString("OrderNumber");
             String locationName = jsonObject.getString("MerchantName");                       // Need to Verify
             String locationId = jsonObject.getString("MerchantId");
-            // Missing merchant name
+            // Need to Verify
+//            String merchantName = jsonObject.getString("");                                       // Missing merchant name
             String createdBy = jsonObject.getString("AddUser");
             String createdIpAddress = jsonObject.getString("AddIpAddress");
             String clientName = jsonObject.getString("ClientName");
@@ -226,7 +231,7 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
                     tvAmount.setText(Constants.CURRENCY_FORMAT + currencyFormat.format(paymentAmount));
                 }
 
-                taxChecker(taxExemptFlag);
+                taxChecker(taxExempt);
             } else {
                 paymentMainLayout.setVisibility(View.GONE);
                 hiddenLayout.setVisibility(View.VISIBLE);
@@ -236,17 +241,15 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
                 } else {
                     tvHiddenAmount.setText(Constants.CURRENCY_FORMAT + currencyFormat.format(paymentAmount));
                 }
-                if (taxExemptFlag.equalsIgnoreCase("true")) {
-                    tvHiddenTax.setVisibility(View.VISIBLE);
-                    tvIncludeTaxTitle.setVisibility(View.VISIBLE);
-                } else {
-                    tvIncludeTaxTitle.setVisibility(View.GONE);
+                if (taxExempt.equalsIgnoreCase("true")) {
                     tvHiddenTax.setVisibility(View.GONE);
+                } else {
+                    tvHiddenTax.setVisibility(View.VISIBLE);
                 }
 
             }
 
-            setTaxData(amountCurrency, taxAmount, taxExemptFlag);
+            setTaxData(amountCurrency, taxAmount, taxExempt);
 
             setOrderNo(orderNumber);
 
@@ -255,24 +258,39 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
             setAddressAndName(createdIpAddress, clientName);
             setEmail(clientEmail);
             setParentName(locationName, locationId);
+
+            setTaxExemptStatus();
         } catch (Exception e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
 
     }
 
+    private void setTaxExemptStatus() {
+        if (taxExempt.equalsIgnoreCase(Constants.BOOLEAN_TRUE)) {
+            tvHiddenTax.setVisibility(View.VISIBLE);
+            itbisLayout.setVisibility(View.VISIBLE);
+        } else {
+            tvHiddenTax.setVisibility(View.GONE);
+            itbisLayout.setVisibility(View.GONE);
+        }
+    }
+
     private void taxChecker(String taxExempt) {
         if (taxExempt.equalsIgnoreCase("true")) {
-            tvIncludeTaxTitle.setVisibility(View.VISIBLE);
-        } else {
             tvIncludeTaxTitle.setVisibility(View.GONE);
+        } else {
+            tvIncludeTaxTitle.setVisibility(View.VISIBLE);
         }
     }
 
     private void setParentName(String locationName, String locationId) {
         if (paymentLocation != null && !TextUtils.isEmpty(paymentLocation)) {
-            Log.d("PaymentLinkDetails", locationName + "  == setParentName: == " + locationId);
-            String parentLocationName = getGroupName(paymentLocation, locationName, locationId);
+            getGroupName(paymentLocation, locationName, locationId);
+            String parentLocationName = "";
+            if (returnData != null && !TextUtils.isEmpty(returnData)) {
+                parentLocationName = returnData;
+            }
             if (parentLocationName != null && !TextUtils.isEmpty(parentLocationName)) {
                 tvComercioValue.setText(parentLocationName);
             } else {
@@ -353,9 +371,9 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
 
     private void setTaxData(String amountCurrency, String taxAmount, String taxExempt) {
         if (taxExempt.equalsIgnoreCase("true")) {
-            itbisLayout.setVisibility(View.VISIBLE);
-        } else {
             itbisLayout.setVisibility(View.GONE);
+        } else {
+            itbisLayout.setVisibility(View.VISIBLE);
             if (taxAmount.equalsIgnoreCase("0.0")) {
                 if (amountCurrency.equalsIgnoreCase("USD")) {
                     tvItbisAmountValue.setText(Constants.CURRENCY_USD);
@@ -524,29 +542,29 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
                 && Integer.parseInt(CreditCardNumber.substring(0, 2)) <= 55) {
             return "Master Card";
         } else {
-            return callOtherLoops(CreditCardNumber);
+            return checkRemainingCondition(CreditCardNumber);
         }
     }
 
-    private String callOtherLoops(String creditCardNumber) {
-        if (creditCardNumber.length() == 14 &&
-                creditCardNumber.substring(0, 2).matches("30") ||
-                creditCardNumber.substring(0, 2).matches("36") ||
-                creditCardNumber.substring(0, 2).matches("38")) {
+    private String checkRemainingCondition(String CreditCardNumber) {
+        if (CreditCardNumber.length() == 14 &&
+                CreditCardNumber.substring(0, 2).matches("30") ||
+                CreditCardNumber.substring(0, 2).matches("36") ||
+                CreditCardNumber.substring(0, 2).matches("38")) {
             return "Diners";
-        } else if (creditCardNumber.length() == 16 &&
-                creditCardNumber.substring(0, 2).matches("35")) {
+        } else if (CreditCardNumber.length() == 16 &&
+                CreditCardNumber.substring(0, 2).matches("35")) {
             return "JCB";
-        } else if (creditCardNumber.length() == 15 &&
-                creditCardNumber.substring(0, 4).matches("2131") ||
-                creditCardNumber.substring(0, 4).matches("1800")) {
+        } else if (CreditCardNumber.length() == 15 &&
+                CreditCardNumber.substring(0, 4).matches("2131") ||
+                CreditCardNumber.substring(0, 4).matches("1800")) {
             return "JCB";
         } else {
             return "invalid";
         }
     }
 
-    private String getGroupName(String locationResponse, String locationName, String locationId) {
+    private void getGroupName(String locationResponse, String locationName, String locationId) {
 
         try {
             JSONObject jsonResponse = new JSONObject(locationResponse);
@@ -554,29 +572,31 @@ public class PaymentLinkDetails extends BaseLoggedInActivity {
             for (int i = 0; i < parentLevelLocations.length(); i++) {
 
                 JSONObject parentData = parentLevelLocations.getJSONObject(i);
-
                 String parentLocationName = parentData.getString("Name");
                 JSONArray assignedLocationsObject = parentData.getJSONArray("Merchants");
-                for (int j = 0; j < assignedLocationsObject.length(); j++) {
-                    JSONObject secondPositionLocation = assignedLocationsObject.getJSONObject(j);
-                    String secondPositionLocationId = secondPositionLocation.getString(Constants.MERCHANT_ID);
-                    String secondPositionLocationName = secondPositionLocation.getString("Name");
-                    return verifyData(secondPositionLocationId, secondPositionLocationName, locationName, locationId, parentLocationName);
-                }
+                verifyData(assignedLocationsObject, parentLocationName, locationName, locationId);
             }
         } catch (JSONException e) {
             e.printStackTrace();
         }
 
-        return "";
     }
 
-    private String verifyData(String secondPositionLocationId, String secondPositionLocationName, String locationName, String locationId, String parentLocationName) {
-
-        if (secondPositionLocationName.equalsIgnoreCase(locationName)
-                && secondPositionLocationId.equalsIgnoreCase(locationId)) {
-            return parentLocationName;
+    private void verifyData(JSONArray locationsArray, String parentLocationName, String locationName, String locationId) {
+        try {
+            for (int j = 0; j < locationsArray.length(); j++) {
+                JSONObject locationObject = locationsArray.getJSONObject(j);
+                String secondPositionLocationId = locationObject.getString(Constants.MERCHANT_ID);
+                String secondPositionLocationName = locationObject.getString("Name");
+                if (secondPositionLocationName.equalsIgnoreCase(locationName)
+                        && secondPositionLocationId.equalsIgnoreCase(locationId)) {
+                    returnData = parentLocationName;
+                }
+            }
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        return "";
     }
+
+
 }

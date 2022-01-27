@@ -45,6 +45,7 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.tabs.TabLayout;
 import com.sdp.appazul.globals.AzulApplication;
 import com.sdp.appazul.globals.EncodingHelper;
+import com.sdp.appazul.globals.GlobalFunctions;
 import com.sdp.appazul.globals.KeyConstants;
 import com.sdp.appazul.security.RSAHelper;
 import com.sdp.appazul.utils.DateUtils;
@@ -55,8 +56,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.GregorianCalendar;
@@ -82,7 +81,7 @@ public class DashBoardActivity extends BaseLoggedInActivity implements Consultan
     RelativeLayout idParentLayout;
     GridView accessMenu;
     String[] numberWord;
-    int[] transportImage = {R.drawable.ic_icon_consulta_dashboard, R.drawable.new_dashboard_payment_logo, R.drawable.ic_icon_qr_code_dashboard_3};
+    int[] transportImage = {R.drawable.ic_icon_consulta_dashboard, R.drawable.dashboard_link_de_pagos_icon, R.drawable.ic_icon_qr_code_dashboard_3};
     TextView tvUserName;
     TextView tvUserProf;
     TextView locationTxt;
@@ -114,6 +113,8 @@ public class DashBoardActivity extends BaseLoggedInActivity implements Consultan
     EncodingHelper encodingHelper = new EncodingHelper(this);
     String selectedCurrency;
     String selectedLocationId;
+    String appVersion;
+    GlobalFunctions gFunc = new GlobalFunctions(this);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -127,8 +128,12 @@ public class DashBoardActivity extends BaseLoggedInActivity implements Consultan
         setMainMenuAdapter();
         onClickListeners();
         burgerMenu();
+//        checkLocationPermission();
+//        checkLocationPermissionForPhone();
 
+        Log.d("DashBoardActivity", "APP Version ::::::: " +  context.getString(R.string.version_label).concat(" ").concat(gFunc.getAppVersion()));
     }
+
 
     private void getAppRelatedPermissions() {
         JSONObject json = new JSONObject();
@@ -137,7 +142,7 @@ public class DashBoardActivity extends BaseLoggedInActivity implements Consultan
             String vcr = ((AzulApplication) this.getApplicationContext()).getVcr();
             json.put("tcp", RSAHelper.ecryptRSA(this, tcpKey));
             JSONObject payload = new JSONObject();
-            payload.put("device", DeviceUtils.getDeviceId(this));
+            payload.put(Constants.DEVICE, DeviceUtils.getDeviceId(this));
 
             json.put(Constants.PAYLOAD, RSAHelper.encryptAES(payload.toString(), Base64.decode(tcpKey, 0), Base64.decode(vcr, 0)));
         } catch (Exception e) {
@@ -179,7 +184,7 @@ public class DashBoardActivity extends BaseLoggedInActivity implements Consultan
 
             newJsonObject.put("tcp", RSAHelper.ecryptRSA(DashBoardActivity.this, tcpKey));
             JSONObject newPayload = new JSONObject();
-            newPayload.put("device", DeviceUtils.getDeviceId(this));
+            newPayload.put(Constants.DEVICE, DeviceUtils.getDeviceId(this));
             newPayload.put("merchantId", lastLocationMid);
 
             newJsonObject.put(Constants.PAYLOAD, RSAHelper.encryptAES(newPayload.toString(), Base64.decode(tcpKey, 0), Base64.decode(vcr, 0)));
@@ -269,6 +274,27 @@ public class DashBoardActivity extends BaseLoggedInActivity implements Consultan
 
         String currentDateToDisplay = date + " de " + spanishMonthName + " del " + year;
         currentDayDate.setText(currentDateToDisplay);
+//        paymentLinkRegenerateApiCall();
+    }
+
+    private void paymentLinkRegenerateApiCall() {
+        JSONObject newJsonObject = new JSONObject();
+        try {
+            String tcpKey = ((AzulApplication) this.getApplication()).getTcpKey();
+            String vcr = ((AzulApplication) this.getApplication()).getVcr();
+
+            newJsonObject.put("tcp", RSAHelper.ecryptRSA(DashBoardActivity.this, tcpKey));
+            JSONObject newPayload = new JSONObject();
+            newPayload.put(Constants.DEVICE, DeviceUtils.getDeviceId(DashBoardActivity.this));
+            newPayload.put("Code", "AZÚL 2");
+            newPayload.put("LinkId", "93b4fdfc");
+
+            newJsonObject.put(Constants.PAYLOAD, RSAHelper.encryptAES(newPayload.toString(), Base64.decode(tcpKey, 0), Base64.decode(vcr, 0)));
+
+        } catch (Exception e) {
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+        }
+        apiManager.callAPI(ServiceUrls.PAYMENT_LINK_RE_GENERATE, newJsonObject);
 
     }
 
@@ -804,7 +830,7 @@ public class DashBoardActivity extends BaseLoggedInActivity implements Consultan
             AppAlters.showCustomAlert(this, this.getResources().getString(R.string.alert_sorry_title), this.getResources().getString(R.string.no_pdf_message_new), Constants.ACCEPT_BUTTON);
         } else if (responseString != null && responseString.contains("Error: Error generating report (System.Exception)")) {
             AppAlters.showCustomAlert(this, this.getResources().getString(R.string.alert_sorry_title), this.getResources().getString(R.string.no_pdf_message_new), Constants.ACCEPT_BUTTON);
-        }else if (responseString != null && responseString.contains("Error: The remote server returned an error: (500) Internal Server Error.:")) {
+        } else if (responseString != null && responseString.contains("Error: The remote server returned an error: (500) Internal Server Error.:")) {
             AppAlters.showCustomAlert(this, this.getResources().getString(R.string.alert_sorry_title), this.getResources().getString(R.string.no_pdf_message_new), Constants.ACCEPT_BUTTON);
         } else {
             boolean pdfFound = ((AzulApplication) this.getApplicationContext()).isPdfAvailable();
@@ -816,7 +842,7 @@ public class DashBoardActivity extends BaseLoggedInActivity implements Consultan
     }
 
     public static void verifyStoragePermissions(Activity activity) {
-        String[] permissionArray = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA};
+        String[] permissionArray = {Manifest.permission.READ_EXTERNAL_STORAGE, Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.CAMERA, Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.CALL_PHONE};
         int permission = ContextCompat.checkSelfPermission(activity, Manifest.permission.CAMERA);
         if (permission != PackageManager.PERMISSION_GRANTED) {
             ActivityCompat.requestPermissions(activity, permissionArray, 1);

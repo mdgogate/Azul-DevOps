@@ -164,6 +164,7 @@ public class PaymentLocationFilter extends BottomSheetDialogFragment {
                     parentLocationCode = parentData.getString("Code");
                 }
                 String parentLocationId = parentData.getString("Id");
+                Log.d("PaymentLocationFilter", "normalLocationsFilter: 1111   " + parentLocationName);
                 parentLevelLocationsList.add(new LocationFilterSecondGroup(parentLocationId, parentLocationName, parentLocationCode));
 
                 locationArrayParsing(parentLevelLocationsList, parentLocationId, parentLocationCode, parentData, childLevelLocationsList, parentLocationName);

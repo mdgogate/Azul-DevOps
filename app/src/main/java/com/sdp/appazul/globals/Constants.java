@@ -107,8 +107,10 @@ public class Constants {
     public static final String DEVICE = "device";
     public static final String SETTLE_TRANSACTION = "SettledTransactionsQuery";
     public static final String SET_PAYMENT = "SET_PAYMENT";
+    public static final String TAP_TRANSACTIONS = "TAP_TRANSACTIONS";
     public static final String SET_QUICK_PAYMENT = "SET_QUICK_PAYMENT";
     public static final String QUICK_PAYMENT_CONFIRM = "QUICK_PAYMENT_CONFIRM";
+    public static final String PHOS_CALCULATOR = "PHOS_CALCULATOR";
     public static final String PAYMENT_CONFIRM = "PAYMENT_CONFIRM";
     public static final String ASSIGNED_LOCATION_QR = "AssignedLocationsQR";
     public static final String MERCHANT_ID = "MerchantId";
@@ -159,6 +161,7 @@ public class Constants {
     public static final String CREDIT_SPANISH_SMALL = "Crédito";
     public static final String DEBIT_SPANISH_SMALL = "Débito";
     public static final String AMOUNT_LABEL = "AMOUNT";
+    public static final String REFUND = "REFUND";
 
 
 }

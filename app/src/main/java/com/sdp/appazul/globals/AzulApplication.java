@@ -3,16 +3,21 @@ package com.sdp.appazul.globals;
 import android.app.Application;
 import android.content.SharedPreferences;
 
+import com.sdp.appazul.classes.CardLessPayment;
 import com.sdp.appazul.classes.LocationFilter;
 import com.sdp.appazul.classes.LoginData;
 import com.sdp.appazul.classes.PaymentDetails;
+import com.sdp.appazul.classes.TapOnPhone;
 
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class AzulApplication extends Application {
+import digital.paynetics.phos.sdk.entities.Transaction;
+
+
+public class AzulApplication extends Application{
 
     private SharedPreferences prefs;
     private String tcpKey = "";
@@ -31,7 +36,51 @@ public class AzulApplication extends Application {
     private String rAccToken = "";
     private String pdfJson = "";
     private boolean isPdfAvailable = false;
+    private CardLessPayment cardLessPayment;
+    private TapOnPhone tap;
+    List<TapOnPhone> tapOnPhoneList;
+    private Transaction transaction;
+    private Transaction declinedTransaction;
 
+    public Transaction getDeclinedTransaction() {
+        return declinedTransaction;
+    }
+
+    public void setDeclinedTransaction(Transaction declinedTransaction) {
+        this.declinedTransaction = declinedTransaction;
+    }
+
+    public Transaction getTransaction() {
+        return transaction;
+    }
+
+    public void setTransaction(Transaction transaction) {
+        this.transaction = transaction;
+    }
+
+    public List<TapOnPhone> getTapOnPhoneList() {
+        return tapOnPhoneList;
+    }
+
+    public void setTapOnPhoneList(List<TapOnPhone> tapOnPhoneList) {
+        this.tapOnPhoneList = tapOnPhoneList;
+    }
+
+    public TapOnPhone getTap() {
+        return tap;
+    }
+
+    public void setTap(TapOnPhone tap) {
+        this.tap = tap;
+    }
+
+    public CardLessPayment getCardLessPayment() {
+        return cardLessPayment;
+    }
+
+    public void setCardLessPayment(CardLessPayment cardLessPayment) {
+        this.cardLessPayment = cardLessPayment;
+    }
 
     public String getLocationDataShare() {
         return locationDataShare;

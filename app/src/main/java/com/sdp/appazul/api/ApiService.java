@@ -113,7 +113,7 @@ public class ApiService extends AsyncTask<String, Void, String> {
                         .method("POST", requestBody)
                         .build();
             } else if (url.equalsIgnoreCase(ServiceUrls.REGISTER_PIN)) {
-               request
+                request
                         = new Request.Builder()
                         .url(this.url)
                         .addHeader(KeyConstants.SSC_KEY, Constants.SSC_MOBILE_VALUE)
@@ -272,6 +272,9 @@ public class ApiService extends AsyncTask<String, Void, String> {
                 case ServiceUrls.GET_USER:
                     listener.getUserResponse(responseString);
                     break;
+                case ServiceUrls.PAYMENT_LINK_RE_GENERATE:
+                    listener.getRegenerateResponse(responseString);
+                    break;
 
                 default:
                     break;
@@ -325,6 +328,7 @@ public class ApiService extends AsyncTask<String, Void, String> {
         serviceCallList.add(ServiceUrls.PAYMENT_LINK_INFO);
         serviceCallList.add(ServiceUrls.LOGIN_TOKEN);
         serviceCallList.add(ServiceUrls.DASHBOARD_CALL);
+        serviceCallList.add(ServiceUrls.PAYMENT_LINK_RE_GENERATE);
         return serviceCallList;
     }
 

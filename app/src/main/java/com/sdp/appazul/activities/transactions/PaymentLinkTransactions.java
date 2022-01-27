@@ -162,8 +162,9 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
     RelativeLayout actPaymentLinkTransactio;
     static int SNACK_LENGTH = 0;
     String selectedCurrency;
+    String taxExempt;
     Context context;
-    String taxExemptFlag;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -209,23 +210,24 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
         locationFilter = ((AzulApplication) this.getApplication()).getLocationFilter();
         if (locationFilter != null) {
             mID = locationFilter.getmId();
-            taxExemptFlag = locationFilter.getTaxExempt();
             tvLocationName.setText(locationFilter.getLocationNameAndId().toLowerCase());
             selectedCurrency = locationFilter.getCurrency();
             responseCode = locationFilter.getPaymentCode();
+            taxExempt = locationFilter.getTaxExempt();
             getPaymentDataFromApi(formattedFromDate, formattedTODate, mID);
         } else {
             getDefaultLocation(locationJson);
             defaultLocations = ((AzulApplication) this.getApplication()).getDefaultLocation();
             if (defaultLocations != null) {
+                String defaultTaxStatus = defaultLocations.get("TAX_STATUS");
                 String defaultLocationName = defaultLocations.get("CHILD_LOC_NAME");
                 String defaultLocationId = defaultLocations.get("CHILD_LOC_ID");
-                String tax = defaultLocations.get("TAX_STATUS");
                 String locationToDisplay = defaultLocationName + " - " + defaultLocationId;
                 tvLocationName.setText(locationToDisplay);
                 selectedCurrency = defaultLocations.get("CURR");
                 mID = defaultLocationId;
-                taxExemptFlag = tax;
+                taxExempt = defaultTaxStatus;
+
             }
         }
 
@@ -374,7 +376,6 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
         tempList = new ArrayList<>();
         if (amountFilterList != null && !amountFilterList.isEmpty()) {
             for (PaymentTransactions pt : amountFilterList) {
-                Log.d("PaymentLinkTransactions", pt.getAmount() + "  == charSequence: " + charSequence);
                 if (pt.getAmount().contains(charSequence)) {
                     tempList.add(pt);
                 }
@@ -473,6 +474,9 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
 
     private void showSearchBar() {
 
+//        if (clearEnteredText.getVisibility() == View.GONE) {
+//            clearEnteredText.setVisibility(View.VISIBLE);
+//        }
         String backgroundImageName = String.valueOf(activeSearchImage.getTag());
         if (backgroundImageName.equalsIgnoreCase("bg")) {
             activeSearchImage.setTag(R.drawable.ic_search_active);
@@ -912,10 +916,9 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
     }
 
 
-    public void setContent(String name, String content, String merchantId, int dismissFlag, String taxExempt) {
+    public void setContent(String name, String content, String merchantId, int dismissFlag, String taxExemptStatus) {
         tvLocationName.setText(content);
         mID = merchantId;
-        taxExemptFlag = taxExempt;
         if (!TextUtils.isEmpty(name) && !TextUtils.isEmpty(taxExempt)) {
             Log.d("Data", "" + name + taxExempt);
         }
@@ -923,11 +926,12 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
             getPaymentDataFromApi(selectedFromDateForApi, selectedToDateForApi, mID);
             locationsBottomSheet.dismiss();
         }
+        taxExempt = taxExemptStatus;
     }
 
     @Override
     public void onItemClickListener(String trnResponse, int position, String value, String status, String amountToShow, String selectedCurrency) {
-        paymentTransactionMenu = new PaymentTransactionMenu(trnResponse, amountToShow, status, value, responseCode, selectedCurrency,taxExemptFlag);
+        paymentTransactionMenu = new PaymentTransactionMenu(trnResponse, amountToShow, status, value, responseCode, selectedCurrency, taxExempt);
         paymentTransactionMenu.show(this.getSupportFragmentManager(), "PaymentTransactionMenu");
     }
 
@@ -953,8 +957,7 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
 
     private void loadPaymentJson(JSONObject jsonTransactionOb) {
         try {
-
-            checkListStatus();
+            checkTransactionListStatus();
 
             JSONArray parentLevelLocations = jsonTransactionOb.getJSONArray("Links");
 
@@ -980,8 +983,7 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
                 transactionsData.setTransactionResponse(parentData.getString("TransactionResponse"));
                 transactionsData.setCurrency(parentData.getString("Currency"));
 
-
-                checkPermissionPart(permissionList, transactionsData);
+                checkPermissionPart(transactionsData);
             }
 
             setAdapter(transactionsList);
@@ -991,7 +993,7 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
         }
     }
 
-    private void checkPermissionPart(List<String> permissionList, PaymentTransactions transactionsData) {
+    private void checkPermissionPart(PaymentTransactions transactionsData) {
         if (permissionList.contains("APPPaymentLinksQueryOwnTransactions")
                 && !permissionList.contains("APPPaymentLinksQueryAllTransactions")) {
             if (!userName.isEmpty()) {
@@ -1004,7 +1006,7 @@ public class PaymentLinkTransactions extends BaseLoggedInActivity implements Pay
         }
     }
 
-    private void checkListStatus() {
+    private void checkTransactionListStatus() {
         if (transactionsList != null) {
             transactionsList.clear();
         } else {

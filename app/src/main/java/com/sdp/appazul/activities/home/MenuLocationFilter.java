@@ -76,6 +76,9 @@ public class MenuLocationFilter extends BottomSheetDialogFragment {
         if (functionalityType == 1) {
             tvLocationTitle.setVisibility(View.VISIBLE);
             tvLocationTitle.setText(getResources().getString(R.string.generate_link_location_title));
+        } else if (functionalityType == 3) {
+            tvLocationTitle.setVisibility(View.VISIBLE);
+            tvLocationTitle.setText(getResources().getString(R.string.card_location_message));
         } else if (functionalityType == 4) {
             tvLocationTitle.setVisibility(View.GONE);
         } else {
@@ -120,7 +123,7 @@ public class MenuLocationFilter extends BottomSheetDialogFragment {
             JSONObject jsonResponse = new JSONObject(locationResponse);
             JSONArray parentLevelLocations;
 
-            if (functionalityType == 1 || functionalityType == 4) {
+            if (functionalityType == 1 || functionalityType == 3 || functionalityType == 4) {
                 parentLevelLocations = jsonResponse.getJSONArray("CallCenters");
             } else {
                 parentLevelLocations = jsonResponse.getJSONArray("AssignedUnits");
@@ -153,7 +156,7 @@ public class MenuLocationFilter extends BottomSheetDialogFragment {
         try {
             String parentLocationName = parentData.getString("Name");
             String parentLocationId = parentData.getString("Id");
-            if (functionalityType == 1 || functionalityType == 4) { //156
+            if (functionalityType == 1 || functionalityType == 3 || functionalityType == 4) { //156
                 parentLocationCode = parentData.getString("Code");
             }
             parentLevelLocationsList.add(new LocationFilterSecondGroup(parentLocationId, parentLocationName, parentLocationCode));
@@ -175,7 +178,7 @@ public class MenuLocationFilter extends BottomSheetDialogFragment {
             } else {
                 String parentLocationName = parentData.getString("Name");
                 String parentLocationId = parentData.getString("Id");
-                if (functionalityType == 1 || functionalityType == 4) {
+                if (functionalityType == 1 || functionalityType == 3 || functionalityType == 4) {
                     parentLocationCode = parentData.getString("Code");
                 }
                 parentLevelLocationsList.add(new LocationFilterSecondGroup(parentLocationId, parentLocationName, parentLocationCode));
@@ -192,7 +195,7 @@ public class MenuLocationFilter extends BottomSheetDialogFragment {
 
     private void locationArrayParsing(String parentLocationId, String parentLocationCode, JSONObject parentData, List<LocationFilterThirdGroup> childLevelLocationsList, String parentLocationName) {
         try {
-            if (functionalityType == 1 || functionalityType == 4) {
+            if (functionalityType == 1 || functionalityType == 3|| functionalityType == 4) {
                 JSONArray locationsForPayment = parentData.getJSONArray("Merchants");
 
                 for (int j = 0; j < locationsForPayment.length(); j++) {

@@ -30,18 +30,18 @@ public class PaymentTransactionMenu extends BottomSheetDialogFragment {
     String statusValue;
     String trnResponse;
     String amountToShow;
-    String taxExemptFlag;
+    String taxExempt;
     List<String> permissionList;
     List<String> productPermissionList;
 
-    public PaymentTransactionMenu(String trnResponse, String amountToShow, String statusValue, String linkId, String responseCode, String selectedCurrency, String taxExemptFlag) {
+    public PaymentTransactionMenu(String trnResponse, String amountToShow, String statusValue, String linkId, String responseCode, String selectedCurrency, String taxExempt) {
         this.trnResponse = trnResponse;
         this.amountToShow = amountToShow;
         this.statusValue = statusValue;
         SelectedLinkId = linkId;
         paymentCode = responseCode;
         this.currencyCode = selectedCurrency;
-        this.taxExemptFlag = taxExemptFlag;
+        this.taxExempt = taxExempt;
     }
 
     @Nullable
@@ -94,7 +94,7 @@ public class PaymentTransactionMenu extends BottomSheetDialogFragment {
             Intent intent = new Intent(getActivity(), PaymentLinkDetails.class);
             intent.putExtra("LINK_ID", SelectedLinkId);
             intent.putExtra("PAYMENT_CODE", paymentCode);
-            intent.putExtra("PAYMENT_TAX", taxExemptFlag);
+            intent.putExtra("TAX_EXEMPT", taxExempt);
             startActivity(intent);
             getActivity().overridePendingTransition(R.anim.animation_enter,
                     R.anim.slide_nothing);

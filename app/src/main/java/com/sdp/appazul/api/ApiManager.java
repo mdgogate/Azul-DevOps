@@ -3,6 +3,7 @@ package com.sdp.appazul.api;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.util.Log;
 
 import com.sdp.appazul.activities.notifications.PushNotificationSettings;
 import com.sdp.appazul.activities.dashboard.DashBoardActivity;
@@ -193,7 +194,7 @@ public class ApiManager implements CallbackListener {
     public void appPermissionsResponse(String responseString) {
         if (context.getClass().equals(MainMenuActivity.class)) {
             MainMenuActivity code = (MainMenuActivity) context;
-            code.getAppPermissionsResponse(responseString);
+            code.getappPermissionsResponse(responseString);
         } else if (context.getClass().equals(DashBoardActivity.class)) {
             DashBoardActivity code = (DashBoardActivity) context;
             code.getAppPermissionsResponse(responseString);
@@ -260,6 +261,11 @@ public class ApiManager implements CallbackListener {
             MainMenuActivity mainMenuActivity = (MainMenuActivity) context;
             mainMenuActivity.getUserResponseData(responseString);
         }
+    }
+
+    @Override
+    public void getRegenerateResponse(String responseString) {
+        Log.d("TAG", "getRegenerateResponse: ");
     }
 
 

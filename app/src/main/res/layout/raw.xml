@@ -11,17 +11,17 @@
     android:paddingBottom="8dp">
 
 
-    <TextView
-        android:id="@+id/tvSpinnerItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:layout_marginTop="4dp"
-        android:gravity="center_vertical"
-        android:fontFamily="@font/vag_bold"
-        android:text="Monto"
-        android:textColor="#0091DF"
-        android:textSize="16sp" />
+  <TextView
+      android:id="@+id/tvSpinnerItem"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_weight="1"
+      android:layout_marginTop="4dp"
+      android:gravity="center_vertical"
+      android:fontFamily="@font/vag_bold"
+      android:text="Monto"
+      android:textColor="#0091DF"
+      android:textSize="16sp" />
 
 
 </LinearLayout>

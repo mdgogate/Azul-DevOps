@@ -151,6 +151,29 @@
                 android:textSize="20sp"
                 app:drawableStartCompat="@drawable/unlink_icon"/>
 
+            <TextView
+                android:id="@+id/tvVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/font_hint"
+                android:fontFamily="@font/vag_light"
+                android:textSize="12sp"
+                android:layout_below="@+id/unlink_account"
+                android:layout_marginTop="22dp"
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:text="Version "/>
+            <TextView
+                android:layout_centerHorizontal="true"
+                android:gravity="center_horizontal"
+                android:id="@+id/tvComapnyName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/font_hint"
+                android:fontFamily="@font/vag_light"
+                android:textSize="12sp"
+                android:layout_below="@+id/tvVersion"
+                android:text="© Servicios Digitales Popular, S.A."/>
 
         </RelativeLayout>
 

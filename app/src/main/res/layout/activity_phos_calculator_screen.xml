@@ -1,0 +1,512 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_phos_calc"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background_phos_calc"
+    tools:context=".activities.TapOnPhone.PhosCalculatorScreen">
+
+  <ImageView
+      android:id="@+id/btnBackScreen"
+      android:layout_width="30dp"
+      android:layout_height="24dp"
+      android:layout_alignParentTop="true"
+      android:layout_centerVertical="true"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:src="@drawable/ic_left_arrow" />
+
+  <ImageView
+      android:id="@+id/tapOnPhoneIc"
+      android:layout_width="64dp"
+      android:layout_height="57dp"
+      android:layout_centerHorizontal="true"
+      android:layout_below="@+id/btnBackScreen"
+      android:src="@drawable/calculator_screen_tap_on_phone_icon" />
+
+  <TextView
+      android:id="@+id/titleSdk"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/tapOnPhoneIc"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/vag_bold"
+      android:text="Tap on Phone"
+      android:textColor="@color/white_bg"
+      android:textSize="20sp"
+      android:textStyle="bold" />
+
+  <TextView
+      android:id="@+id/titleSdkDesc"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/titleSdk"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/vag_light"
+      android:text="Auto Rental - Jardines Sur - 391677031618"
+      android:textColor="@color/qr_button_font"
+      android:textSize="12sp"
+      android:textStyle="bold" />
+
+  <androidx.cardview.widget.CardView
+      android:id="@+id/sdkLocationFilterLayout"
+      android:layout_width="match_parent"
+      android:layout_height="40dp"
+      android:layout_below="@id/titleSdk"
+      android:layout_marginStart="43dp"
+      android:layout_marginTop="8dp"
+      android:layout_marginEnd="43dp"
+      android:elevation="0dp"
+      android:outlineAmbientShadowColor="#8C2C3B89"
+      android:outlineSpotShadowColor="#8C2C3B89"
+      android:visibility="gone"
+      app:cardBackgroundColor="#8C2C3B89"
+      app:cardCornerRadius="8dp">
+
+    <RelativeLayout
+        android:id="@+id/locaFilterForTran"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal|center_vertical"
+        android:orientation="horizontal">
+
+      <ImageView
+          android:id="@+id/locationSymboltr"
+          android:layout_width="15dp"
+          android:layout_height="wrap_content"
+          android:layout_alignParentStart="true"
+          android:layout_centerVertical="true"
+          android:layout_marginStart="8dp"
+          android:layout_marginEnd="8dp"
+          android:src="@drawable/phos_sdk_location_ic" />
+
+      <TextView
+          android:id="@+id/tvSelectedPaymentLocation"
+          android:layout_width="234dp"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          android:layout_toEndOf="@id/locationSymboltr"
+          android:fontFamily="@font/vag_bold"
+          android:text="CASA AZUL SDP - RAM(USD) - 39036630010"
+          android:textAllCaps="false"
+          android:textColor="@color/white_bg"
+          android:textSize="12sp"
+          android:textStyle="bold" />
+
+      <ImageView
+          android:id="@+id/paymentLocationSelector"
+          android:layout_width="14dp"
+          android:layout_height="wrap_content"
+          android:layout_alignParentEnd="true"
+          android:layout_centerVertical="true"
+          android:layout_marginEnd="8dp"
+          android:layout_toLeftOf="@id/tvSelectedPaymentLocation"
+          android:src="@drawable/phos_sdk_down_arrow" />
+
+    </RelativeLayout>
+
+  </androidx.cardview.widget.CardView>
+
+
+  <RelativeLayout
+      android:id="@+id/AmountTab"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/titleSdkDesc"
+      android:layout_marginStart="35dp"
+      android:layout_marginTop="72dp"
+      android:layout_marginEnd="35dp">
+
+    <TextView
+        android:id="@+id/tvTotalAmountSdkTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/vag_light"
+        android:text="Ingresa el monto:"
+        android:textColor="@color/white_bg"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvVisibleAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTotalAmountSdkTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/vag_bold"
+        android:text="RD$ 0.00"
+        android:textColor="@color/white_bg"
+        android:textSize="32sp"
+        android:textStyle="bold" />
+  </RelativeLayout>
+
+  <RelativeLayout
+      android:id="@+id/layoutFinalAmtInfo"
+      android:layout_width="match_parent"
+      android:layout_height="56dp"
+      android:layout_below="@+id/AmountTab"
+      android:layout_centerHorizontal="true"
+      android:layout_marginStart="28dp"
+      android:layout_marginTop="151dp"
+      android:layout_marginEnd="28dp"
+      android:background="@drawable/button_background"
+      android:padding="16dp"
+      android:visibility="gone">
+
+
+    <TextView
+        android:id="@+id/tvFinalAmount"
+        android:layout_width="255dp"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_centerHorizontal="true"
+        android:fontFamily="@font/vag_bold"
+        android:gravity="center_vertical|center_horizontal"
+        android:hint="@string/cobrar"
+        android:longClickable="false"
+        android:textColor="@color/white_bg"
+        android:textColorHint="@color/white_bg"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+
+    <ImageView
+        android:id="@+id/nextIcon"
+        android:layout_width="24dp"
+        android:layout_height="16dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/tvFinalAmount"
+        android:src="@drawable/cobrar_arrow"
+        android:visibility="visible" />
+  </RelativeLayout>
+  <!-- Buttons Code Start  -->
+
+  <LinearLayout
+      android:id="@+id/numPad"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/layoutFinalAmtInfo"
+      android:layout_marginTop="112dp"
+      android:background="@drawable/calc_background"
+      android:orientation="vertical"
+      android:visibility="visible">
+
+    <RelativeLayout
+        android:id="@+id/mainCalcLayput"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="40dp"
+        android:layout_marginEnd="40dp">
+
+      <RelativeLayout
+          android:id="@+id/layoutFirstRow"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginTop="24dp"
+          android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tvFirstNo"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:clickable="true"
+            android:focusable="true"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_horizontal|center_vertical"
+            android:longClickable="false"
+            android:text="1"
+            android:textColor="@color/font_hint"
+            android:textColorHint="#C4D0DC"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvFourthNo"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tvFirstNo"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:digits="0123456789.,"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="0.00"
+            android:inputType="number"
+            android:longClickable="false"
+            android:text="4"
+            android:textColor="@color/font_hint"
+            android:textColorHint="#C4D0DC"
+            android:textSize="24sp"
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvSeventhNo"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tvFourthNo"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:digits="0123456789.,"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_horizontal|center_vertical"
+            android:longClickable="false"
+            android:text="7"
+            android:textColor="@color/font_hint"
+            android:textSize="24sp"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/tvDelete"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tvSeventhNo"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:gravity="center_horizontal|center_vertical"
+            android:longClickable="false"
+            android:padding="15dp"
+            android:src="@drawable/phos_delete_cancel"
+            android:visibility="visible" />
+
+
+        <RelativeLayout
+            android:id="@+id/layoutDeletCancel"
+            android:layout_width="72dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tvDelete"
+            android:layout_marginTop="35dp"
+            android:background="@drawable/phos_delete_cancel_background"
+            android:visibility="gone">
+
+          <ImageView
+              android:id="@+id/deleteFromInside"
+              android:layout_width="56dp"
+              android:layout_height="46dp"
+              android:layout_centerHorizontal="true"
+              android:background="@drawable/phos_delete_cencel_btn_selector"
+              android:gravity="center_horizontal|center_vertical"
+              android:longClickable="false"
+              android:padding="15dp"
+              android:src="@drawable/phos_delete_arrow_white" />
+
+          <ImageView
+              android:id="@+id/cancelFromInside"
+              android:layout_width="56dp"
+              android:layout_height="46dp"
+              android:layout_below="@+id/deleteFromInside"
+              android:layout_centerHorizontal="true"
+              android:layout_marginTop="6dp"
+              android:background="@drawable/phos_delete_cencel_btn_selector"
+              android:gravity="center_horizontal|center_vertical"
+              android:longClickable="false"
+              android:padding="15dp"
+              android:src="@drawable/phos_cancel_white" />
+
+          <ImageView
+              android:id="@+id/closeDeleteLayout"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_below="@+id/cancelFromInside"
+              android:layout_centerHorizontal="true"
+              android:layout_centerVertical="true"
+              android:layout_marginStart="1dp"
+              android:layout_marginTop="14dp"
+              android:layout_marginEnd="1dp"
+              android:layout_marginBottom="16dp"
+              android:layout_weight="1"
+              android:gravity="center_horizontal|center_vertical"
+              android:longClickable="false"
+              android:src="@drawable/phos_cancel__delete_inactive"
+              app:tint="#C4D0DC" />
+        </RelativeLayout>
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/layoutSecondRow"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical"
+          android:layout_marginStart="35dp"
+          android:layout_marginTop="24dp"
+          android:layout_toEndOf="@+id/layoutFirstRow"
+          android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tvSecondNo"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:digits="0123456789.,"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="0.00"
+            android:inputType="number"
+            android:longClickable="false"
+            android:text="2"
+            android:textColor="@color/font_hint"
+            android:textColorHint="#C4D0DC"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvFifthNo"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tvSecondNo"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:digits="0123456789.,"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="0.00"
+            android:inputType="number"
+            android:longClickable="false"
+            android:text="5"
+            android:textColor="@color/font_hint"
+            android:textColorHint="#C4D0DC"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvEightNo"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tvFifthNo"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:digits="0123456789.,"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_horizontal|center_vertical"
+            android:longClickable="false"
+            android:text="8"
+            android:textColor="@color/font_hint"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvZero"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tvEightNo"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:digits="0123456789.,"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_horizontal|center_vertical"
+            android:longClickable="false"
+            android:text="0"
+            android:textColor="@color/font_hint"
+            android:textSize="24sp" />
+
+      </RelativeLayout>
+
+      <RelativeLayout
+          android:id="@+id/layoutThirdRow"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_marginStart="35dp"
+          android:layout_marginTop="24dp"
+          android:layout_toEndOf="@+id/layoutSecondRow"
+          android:visibility="visible">
+
+        <TextView
+            android:id="@+id/tvThirdNo"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:digits="0123456789.,"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="0.00"
+            android:inputType="number"
+            android:longClickable="false"
+            android:text="3"
+            android:textColor="@color/font_hint"
+            android:textColorHint="#C4D0DC"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvSixthNo"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tvThirdNo"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:digits="0123456789.,"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_horizontal|center_vertical"
+            android:hint="0.00"
+            android:inputType="number"
+            android:longClickable="false"
+            android:text="6"
+            android:textColor="@color/font_hint"
+            android:textColorHint="#C4D0DC"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/tvNine"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tvSixthNo"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:digits="0123456789.,"
+            android:fontFamily="@font/vag_light"
+            android:gravity="center_horizontal|center_vertical"
+            android:longClickable="false"
+            android:text="9"
+            android:textColor="@color/font_hint"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/tvAddAndEquals"
+            android:layout_width="72dp"
+            android:layout_height="48dp"
+            android:layout_below="@+id/tvNine"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:background="@drawable/phos_nupad_style"
+            android:gravity="center_horizontal|center_vertical"
+            android:longClickable="false"
+            android:padding="15dp"
+            android:src="@drawable/ic_icon_plus_equal" />
+
+      </RelativeLayout>
+
+    </RelativeLayout>
+
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/btnConfirmAmount"
+        android:layout_width="311dp"
+        android:layout_height="56dp"
+        android:layout_below="@+id/mainCalcLayput"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="18dp"
+        android:layout_marginBottom="21dp"
+        android:background="@drawable/textview_show_amount_bg"
+        android:fontFamily="@font/vag_bold"
+        android:text="@string/continue_lable"
+        android:textAlignment="center"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="20sp"
+        android:textStyle="bold" />
+  </LinearLayout>
+
+  <!-- Buttons Code End -->
+</RelativeLayout>

@@ -116,6 +116,7 @@
     <string name="consultation">Consulta</string>
     <string name="liquidated_transactions">Transacciones Liquidadas</string>
     <string name="qr_transactions">Transacciones QR</string>
+    <string name="top_transactions">Transacciones Tap on Phone</string>
 
 
     <!-- bottom message dialog-->
@@ -276,6 +277,20 @@
     <string name="alert_sorry_message">Tu requerimiento no pudo ser completado. Por favor inténtalo más tarde</string>
     <string name="no_pdf_message">No existen transacciones en este rango de fecha y/o tu estado de cuentas no se encuentra disponible.Por favor vuelve a intentarlo más tarde. Si necesitas ayuda, llámanos al 809-544-2985</string>
     <string name="no_pdf_message_new">Tu estado de cuentas no se encuentra disponible. Por favor vuelve intentarlo más tarde. Si necesitas ayuda, llámanos al 809-544-2985”</string>
+    <string name="enter_amount_message">Ingresa el monto</string>
+    <string name="card_location_message">Selecciona la localidad para vender con tarjeta</string>
+    <string name="version_label">Version</string>
+    <string name="void_label">Anular</string>
+    <string name="refund_label">Devolver</string>
+    <string name="payment_declined">Pago declinado</string>
+    <string name="new_sale_label">Nueva venta</string>
+    <string name="try_again_label">Inténtalo de nuevo</string>
+    <string name="declined_1">Intenta con otra tarjeta, dispositivo \n o método de pago</string>
+    <string name="declined_2">Lo sentimos. Contacta a tu oficial de cuentas para verificar la configuración de tu localidad</string>
+    <string name="declined_3">Tarjeta vencida</string>
+    <string name="declined_4">Favor contacta tu banco emisor y/o intenta el pago con otra tarjeta</string>
+    <string name="internet_connection_status">Por favor revisa tu conexión internet</string>
+    <string name="Network_lbl">Sin conexión</string>
 
 
 </resources>

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.Environment;
 import android.util.Log;
 
-import com.sdp.appazul.globals.Constants;
+
 import com.sdp.appazul.globals.KeyConstants;
 
 import java.io.File;

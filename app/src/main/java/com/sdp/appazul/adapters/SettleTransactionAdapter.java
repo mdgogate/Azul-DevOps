@@ -40,7 +40,6 @@ public class SettleTransactionAdapter extends BaseAdapter {
     TextView tvSettleDate;
     ImageView cardImgView;
     LinearLayout mainShadowItem;
-    DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
 
     public SettleTransactionAdapter(Context context, List<SettleTransaction> list) {
         this.context = context;
@@ -114,6 +113,7 @@ public class SettleTransactionAdapter extends BaseAdapter {
         } catch (ParseException e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
+        DecimalFormatSymbols symbols = new DecimalFormatSymbols(Locale.US);
 
         DecimalFormat currFormat = new DecimalFormat("#,##0.00",symbols);
 
@@ -145,11 +145,11 @@ public class SettleTransactionAdapter extends BaseAdapter {
     }
 
     private void setCardType(SettleTransaction st) {
-        if (st.getCardType().equalsIgnoreCase("MasterCard")) {
-            cardImgView.setImageResource(R.drawable.ic_marca_mastercard);
-        } else if (st.getCardType().equalsIgnoreCase("Visa")) {
-            cardImgView.setImageResource(R.drawable.ic_marca_visa);
-        } else if (st.getCardType().equalsIgnoreCase("Discover")) {
+            if (st.getCardType().equalsIgnoreCase("MasterCard")) {
+                cardImgView.setImageResource(R.drawable.ic_marca_mastercard);
+            } else if (st.getCardType().equalsIgnoreCase("Visa")) {
+                cardImgView.setImageResource(R.drawable.ic_marca_visa);
+            } else if (st.getCardType().equalsIgnoreCase("Discover")) {
             cardImgView.setImageResource(R.drawable.ic_marca_discover);
         }else if (st.getCardType().equalsIgnoreCase("American Express")) {
             cardImgView.setImageResource(R.drawable.ic_marca_tarjeta___amex);

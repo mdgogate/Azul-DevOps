@@ -3,23 +3,32 @@ plugins {
     id 'kotlin-android'
 //    apply plugin: 'org.sonarqube'
 
+    id 'com.google.gms.google-services'
+    id 'com.google.firebase.crashlytics'
 }
+
+repositories {
+    maven { url "https://jitpack.io" }
+}
+
 if (isTestMode) {
     apply plugin: 'org.sonarqube'
 }
 
 android {
     compileOptions.encoding = 'UTF-8'
-    compileSdkVersion 30
+    compileSdkVersion 31
     buildToolsVersion "30.0.3"
 
     defaultConfig {
         applicationId "com.sdp.appazul"
-        minSdkVersion 21
-        targetSdkVersion 30
+        minSdkVersion 27
+        targetSdkVersion 31
         versionCode 1
         versionName "1.0"
-
+        packagingOptions {
+            doNotStrip "*/*/*.so"
+        }
         if (isTestMode) {
             buildConfigField "boolean", "APP_TEST_MODE", "true"
         } else {
@@ -40,7 +49,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
         dev {
-            minifyEnabled true
+            minifyEnabled false
             debuggable false
             useProguard true
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
@@ -73,13 +82,16 @@ android {
         disable 'MissingTranslation'
         //abortOnError false
     }
-}
 
+}
+repositories {
+    maven { url "https://repo.phos.dev/artifactory/phos-sdk-dependencies" }
+}
 dependencies {
     //Android dependencies
-    implementation 'androidx.appcompat:appcompat:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.3.0'
     implementation 'com.google.android.material:material:1.4.0'
-    implementation 'androidx.constraintlayout:constraintlayout:2.1.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.1.2'
     implementation 'androidx.preference:preference:1.1.1'
     implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 
@@ -95,18 +107,27 @@ dependencies {
     implementation 'com.caverock:androidsvg-aar:1.4'
 
     //Push notification and firebase
-    implementation 'com.google.firebase:firebase-core:19.0.0'
-    implementation 'com.google.firebase:firebase-auth:21.0.1'
-    implementation 'com.google.firebase:firebase-messaging:22.0.0'
-    implementation 'com.google.firebase:firebase-core:19.0.0'
-    implementation 'com.google.firebase:firebase-analytics-ktx:19.0.0'
+    implementation platform('com.google.firebase:firebase-bom:28.4.2')
 
+//    implementation 'com.google.firebase:firebase-core:19.0.0'
+    implementation 'com.google.firebase:firebase-auth'
+    implementation 'com.google.firebase:firebase-messaging'
+    implementation 'com.google.firebase:firebase-analytics-ktx'
+    implementation 'com.google.firebase:firebase-analytics'
     // for gif in SplashScreen
     implementation 'com.github.bumptech.glide:glide:4.9.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.9.0'
 
     // Root check
-    implementation files('libs/rootbeer-lib-0.0.6.aar')
+    implementation 'com.scottyab:rootbeer-lib:0.1.0'
 
+//    implementation file (name: 'libs/phos-sdk-release', ext: 'aarinclude "armeabi-v7a"')
+
+    implementation files('libs/phos-sdk-release-1.2.0-beta.aar')
+
+    implementation 'digital.paynetics.phos:sdk-dependencies:1.0.3'
+
+//    implementation 'com.github.ybq:Android-SpinKit:1.4.0'
+    implementation 'com.tbuonomo:dotsindicator:4.2'
 }
 apply plugin: 'com.google.gms.google-services'

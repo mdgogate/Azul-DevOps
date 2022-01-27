@@ -1,0 +1,183 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background_phos_calc"
+    tools:context=".activities.TapOnPhone.RefundReceiptActivity">
+
+  <ImageView
+      android:id="@+id/btnClose"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      android:src="@drawable/phos_btn_close"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <RelativeLayout
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_centerInParent="true">
+
+    <ImageView
+        android:id="@+id/icon_check"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/receipt_check_icon" />
+
+    <TextView
+        android:id="@+id/tvSuccessTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/icon_check"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/vag_bold"
+        android:text="¡Devolución exitosa!"
+        android:textColor="@color/white_bg"
+        android:textSize="24sp" />
+
+    <TextView
+        android:id="@+id/tvLocationName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSuccessTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/vag_light"
+        android:text="Auto Rental - Jardines Sur - 391677031618"
+        android:textColor="@color/white_bg"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/tvTotalAmountTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvLocationName"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="24dp"
+        android:fontFamily="@font/semi_bold"
+        android:text="Monto total:"
+        android:textColor="@color/white_bg"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/tvTotalAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvTotalAmountTitle"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="8dp"
+        android:fontFamily="@font/vag_bold"
+        android:text="RD$ 1,000.00"
+        android:textColor="@color/white_bg"
+        android:textSize="32sp" />
+
+
+    <LinearLayout
+        android:id="@+id/grid_adapter"
+        android:layout_width="match_parent"
+        android:layout_height="64dp"
+        android:layout_below="@+id/tvTotalAmount"
+        android:layout_gravity="center|center_vertical"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="24dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="2dp"
+        android:background="@drawable/transaction_list_item_background">
+
+      <ImageView
+          android:id="@+id/imgLogoVoid"
+          android:layout_width="32dp"
+          android:layout_height="32dp"
+          android:layout_gravity="center"
+          android:layout_marginStart="16dp"
+          android:layout_marginEnd="8dp"
+          android:src="@drawable/phos_mastercard_logo" />
+
+      <RelativeLayout
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_gravity="center_vertical">
+
+        <RelativeLayout
+            android:id="@+id/layoutLocation_ref_no"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="16dp">
+
+          <TextView
+              android:id="@+id/tvCardNumber"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
+              android:fontFamily="@font/vag_bold"
+              android:text="sasas"
+              android:textColor="@color/blue_3"
+              android:textSize="14sp" />
+
+          <TextView
+              android:id="@+id/tvAppVNo"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_below="@+id/tvCardNumber"
+              android:layout_alignParentStart="true"
+              android:layout_marginTop="2dp"
+              android:fontFamily="@font/montserrat_bold"
+              android:text="dadadadad"
+              android:textColor="@color/gradient_button_right"
+              android:textSize="12sp"
+              android:textStyle="normal" />
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutLocation_Price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="19dp"
+            android:layout_marginBottom="16dp"
+            android:layout_toRightOf="@+id/layoutLocation_ref_no">
+
+          <TextView
+              android:id="@+id/tvTime"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_alignParentStart="true"
+              android:fontFamily="@font/vag_bold"
+              android:gravity="center_vertical"
+              android:text="sss"
+              android:textColor="@color/font_hint"
+              android:textSize="12sp" />
+
+          <TextView
+              android:id="@+id/tvPrice"
+              android:layout_width="wrap_content"
+              android:layout_height="wrap_content"
+              android:layout_below="@+id/tvTime"
+              android:layout_alignParentStart="true"
+              android:layout_marginTop="1dp"
+              android:layout_marginEnd="36dp"
+              android:fontFamily="@font/montserrat_medium"
+              android:gravity="center_vertical"
+              android:text="sasa"
+              android:textColor="@color/font_hint"
+              android:textSize="12sp" />
+
+
+        </RelativeLayout>
+      </RelativeLayout>
+
+    </LinearLayout>
+
+  </RelativeLayout>
+</RelativeLayout>

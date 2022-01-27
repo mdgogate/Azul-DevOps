@@ -18,9 +18,11 @@ import com.sdp.appazul.activities.notifications.PushNotificationSettings;
 import com.sdp.appazul.activities.home.MainMenuActivity;
 import com.sdp.appazul.activities.menuitems.MyProfile;
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment;
+import com.sdp.appazul.globals.GlobalFunctions;
 
 public class DashboardMenuBottomSheet extends BottomSheetDialogFragment {
     TextView tvLogout;
+    TextView tvVersion;
     RelativeLayout myProfileLayout;
     RelativeLayout preferenceLayout;
     String locationJson;
@@ -37,6 +39,7 @@ public class DashboardMenuBottomSheet extends BottomSheetDialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.dashboard_menu_bottomsheet, container, false);
         tvLogout = view.findViewById(R.id.tvLogout);
+        tvVersion = view.findViewById(R.id.tvVersion);
         preferenceLayout = view.findViewById(R.id.preferenciasLayout);
         myProfileLayout = view.findViewById(R.id.miPerfilLayout);
         myProfileLayout.setOnClickListener(v1 -> {
@@ -68,6 +71,9 @@ public class DashboardMenuBottomSheet extends BottomSheetDialogFragment {
             context.overridePendingTransition(R.anim.animation_leave,
                     R.anim.slide_nothing);
         });
+        GlobalFunctions globalFunctions = new GlobalFunctions(getActivity());
+
+        tvVersion.setText(context.getString(R.string.version_label).concat(" ").concat(globalFunctions.getAppVersion()));
         return view;
     }
 }

@@ -13,6 +13,8 @@ import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.sdp.appazul.R;
+import com.sdp.appazul.activities.TapOnPhone.PhosCalculatorScreen;
+import com.sdp.appazul.activities.TapOnPhone.TapTransactions;
 import com.sdp.appazul.activities.dashboard.DashBoardActivity;
 import com.sdp.appazul.activities.dashboard.QrCode;
 import com.sdp.appazul.activities.home.MainMenuActivity;
@@ -180,6 +182,17 @@ public class ListViewAdapter extends BaseExpandableListAdapter {
                         locationFilterThirdGroup.getMerchantId(),
                         groupPosition, (Integer) view.getTag(), locationFilterThirdGroup.getTaxExempt());
 
+            } else if (actName.equalsIgnoreCase(Constants.TAP_TRANSACTIONS)) {
+                LocationFilterSecondGroup locationFilterSecondGroup = (LocationFilterSecondGroup) getGroup(groupPosition);
+                LocationFilterThirdGroup locationFilterThirdGroup = (LocationFilterThirdGroup) getChild(groupPosition, (Integer) view.getTag());
+                TapTransactions query = (TapTransactions) context;
+                query.setContent(tvItem.getText().toString() + " - " + tvRealAmount.getText().toString(),
+                        locationFilterThirdGroup.getMerchantId(), 1, locationFilterSecondGroup.getCode(), locationFilterThirdGroup);
+
+                setLocationData(locationFilterThirdGroup, Constants.TAP_TRANSACTIONS, tvItem.getText().toString() + " - " + tvRealAmount.getText().toString(),
+                        locationFilterThirdGroup.getMerchantId(),
+                        groupPosition, (Integer) view.getTag(), locationFilterThirdGroup.getTaxExempt());
+
             } else if (actName.equalsIgnoreCase(Constants.SET_QUICK_PAYMENT)) {
                 LocationFilterSecondGroup locationFilterSecondGroup = (LocationFilterSecondGroup) getGroup(groupPosition);
                 LocationFilterThirdGroup locationFilterThirdGroup = (LocationFilterThirdGroup) getChild(groupPosition, (Integer) view.getTag());
@@ -217,6 +230,19 @@ public class ListViewAdapter extends BaseExpandableListAdapter {
                         locationFilterThirdGroup.getMerchantId(), 1, locationFilterThirdGroup, locationFilterSecondGroup.getCode());
 
                 setLocationData(locationFilterThirdGroup, Constants.QUICK_PAYMENT_CONFIRM, tvItem.getText().toString() + " - " + tvRealAmount.getText().toString(),
+                        locationFilterThirdGroup.getMerchantId(),
+                        groupPosition, (Integer) view.getTag(), locationFilterThirdGroup.getTaxExempt());
+
+            } else if (actName.equalsIgnoreCase(Constants.PHOS_CALCULATOR)) {
+                LocationFilterSecondGroup locationFilterSecondGroup = (LocationFilterSecondGroup) getGroup(groupPosition);
+                LocationFilterThirdGroup locationFilterThirdGroup = (LocationFilterThirdGroup) getChild(groupPosition, (Integer) view.getTag());
+
+
+                PhosCalculatorScreen query = (PhosCalculatorScreen) context;
+                query.setContent(parentObjectData.getName(), locationFilterThirdGroup.getName(), tvItem.getText().toString() + " - " + tvRealAmount.getText().toString(),
+                        locationFilterThirdGroup.getMerchantId(), 1, locationFilterThirdGroup, locationFilterSecondGroup.getCode());
+
+                setLocationData(locationFilterThirdGroup, Constants.PHOS_CALCULATOR, tvItem.getText().toString() + " - " + tvRealAmount.getText().toString(),
                         locationFilterThirdGroup.getMerchantId(),
                         groupPosition, (Integer) view.getTag(), locationFilterThirdGroup.getTaxExempt());
 
@@ -284,7 +310,9 @@ public class ListViewAdapter extends BaseExpandableListAdapter {
                 && !actName.equalsIgnoreCase(Constants.PAYMENT_CONFIRM)
                 && !actName.equalsIgnoreCase(Constants.QUICK_PAYMENT_CONFIRM)) {
 
-            if (!actName.equalsIgnoreCase("Menu")) {
+            if (!actName.equalsIgnoreCase("Menu") &&
+                    !actName.equalsIgnoreCase(Constants.TAP_TRANSACTIONS) &&
+                    !actName.equalsIgnoreCase(Constants.PHOS_CALCULATOR)) {
                 if (!actName.equalsIgnoreCase(Constants.SET_QUICK_PAYMENT)
                         && !actName.equalsIgnoreCase(Constants.PAYMENT_TRANSACTION)
                         && !actName.equalsIgnoreCase(Constants.PAYMENT_VALIDATE)) {
@@ -324,8 +352,8 @@ public class ListViewAdapter extends BaseExpandableListAdapter {
                 }
             } else if (actName.equalsIgnoreCase(Constants.DASH_BOARD)) {
                 if (lastChildPosDashLong != 0) {
-                    previousSelectedDashboard(lastLocationLoc,lastChildPosDash,previousLocationName,lastParentPosDash,
-                            lastChildPosDashLong,groupPosition,childPosition);
+                    previousSelectedDashboard(lastLocationLoc, lastChildPosDash, previousLocationName, lastParentPosDash,
+                            lastChildPosDashLong, groupPosition, childPosition);
 
 
                 } else {
@@ -340,7 +368,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter {
         }
     }
 
-    private void previousSelectedDashboard(String lastLocationLoc, int lastChildPosDash, String previousLocationName, int lastParentPosDash, long lastChildPosDashLong, int groupPosition, int childPosition){
+    private void previousSelectedDashboard(String lastLocationLoc, int lastChildPosDash, String previousLocationName, int lastParentPosDash, long lastChildPosDashLong, int groupPosition, int childPosition) {
         LocationFilterThirdGroup childLocName = (LocationFilterThirdGroup) getChild(groupPosition, childPosition);
         String lastChildTypeDash = sharedPreferences.getString(Constants.SELECTED_LOCATION_TYPE_DASHBOARD, "");
         String lastChildMidDash = sharedPreferences.getString(Constants.SELECTED_LOCATION_MID_DASHBOARD, "");
@@ -354,6 +382,7 @@ public class ListViewAdapter extends BaseExpandableListAdapter {
             toggleButton.setChecked(childPosition == mChildCheckStates.get(groupPosition));
         }
     }
+
     private void dashboardPositionCheck(int groupPosition, int lastChildPosDash, int childPosition, String lastLocationLoc, String previousLocationName, String lastChildTypeDash) {
         int lastParentPosDash = sharedPreferences.getInt(Constants.SELECTED_PARENT_DASHBOARD, 0);
         String lastChildMidDash = sharedPreferences.getString(Constants.SELECTED_LOCATION_MID_DASHBOARD, "");
@@ -417,6 +446,9 @@ public class ListViewAdapter extends BaseExpandableListAdapter {
         } else if (actName.equalsIgnoreCase(Constants.SET_PAYMENT)) {
             setPaymentOperations(groupPosition, childPosition);
 
+        } else if (actName.equalsIgnoreCase(Constants.TAP_TRANSACTIONS)) {
+            tapTransactionsOperations(groupPosition, childPosition);
+
         } else if (actName.equalsIgnoreCase(Constants.SET_QUICK_PAYMENT)) {
             setPaymentQuick(groupPosition, childPosition);
         } else if (actName.equalsIgnoreCase(Constants.PAYMENT_VALIDATE)) {
@@ -438,8 +470,53 @@ public class ListViewAdapter extends BaseExpandableListAdapter {
 
             quickPaymentConfirmation(groupPosition, childPosition);
 
+        } else if (actName.equalsIgnoreCase(Constants.PHOS_CALCULATOR)) {
+
+            quickCardCalcScreen(groupPosition, childPosition);
+
         } else {
             sharedPreferences = ((AzulApplication) ((DashBoardActivity) context).getApplication()).getPrefs();
+        }
+    }
+
+    private void tapTransactionsOperations(int groupPosition, int childPosition) {
+        LocationFilterSecondGroup locationFilterSecondGroup = (LocationFilterSecondGroup) getGroup(groupPosition);
+        gettingLocationsData = ((AzulApplication) ((TapTransactions) context).getApplication()).getLocationFilter();
+        if (gettingLocationsData != null) {
+            LocationFilterThirdGroup childLocName = (LocationFilterThirdGroup) getChild(groupPosition, childPosition);
+            String pravLocationName = childLocName.getName() + " - " + childLocName.getMerchantId();
+            String nameMid = gettingLocationsData.getLocationNameAndId();
+            if (gettingLocationsData.getParentPosition() == groupPosition
+                    && gettingLocationsData.getChildPosition() == childPosition
+                    && nameMid.equalsIgnoreCase(pravLocationName)) {
+                toggleButton.setChecked(gettingLocationsData.getChildPosition() == childPosition);
+                TapTransactions act = (TapTransactions) context;
+                act.setContent(nameMid, gettingLocationsData.getmId(), 0, locationFilterSecondGroup.getCode(), childLocName);
+            } else {
+                toggleButton.setChecked(childPosition == mChildCheckStates.get(groupPosition));
+            }
+        }
+    }
+
+    private void quickCardCalcScreen(int groupPosition, int childPosition) {
+        LocationFilterSecondGroup locationFilterSecondGroup = (LocationFilterSecondGroup) getGroup(groupPosition);
+        gettingLocationsData = ((AzulApplication) ((PhosCalculatorScreen) context).getApplication()).getLocationFilter();
+
+        if (gettingLocationsData != null) {
+            LocationFilterThirdGroup childLocName = (LocationFilterThirdGroup) getChild(groupPosition, childPosition);
+            String pravLocationName = childLocName.getName() + " - " + childLocName.getMerchantId();
+            String nameMid = gettingLocationsData.getLocationNameAndId();
+            if (gettingLocationsData.getParentPosition() == groupPosition
+                    && gettingLocationsData.getChildPosition() == childPosition
+                    && nameMid.equalsIgnoreCase(pravLocationName)) {
+                toggleButton.setChecked(gettingLocationsData.getChildPosition() == childPosition);
+                PhosCalculatorScreen act = (PhosCalculatorScreen) context;
+                LocationFilterSecondGroup parentObject = (LocationFilterSecondGroup) getGroup(groupPosition);
+
+                act.setContent(parentObject.getName(), childLocName.getName(), nameMid, gettingLocationsData.getmId(), 0, childLocName, locationFilterSecondGroup.getCode());
+            } else {
+                toggleButton.setChecked(childPosition == mChildCheckStates.get(groupPosition));
+            }
         }
     }
 
@@ -610,6 +687,10 @@ public class ListViewAdapter extends BaseExpandableListAdapter {
             ((AzulApplication) ((PaymentLinkTransactions) context).getApplication()).setLocationFilter(locationFilterObj);
         } else if (paymentConfirm.equalsIgnoreCase("Menu")) {
             ((AzulApplication) ((MainMenuActivity) context).getApplication()).setLocationFilter(locationFilterObj);
+        } else if (paymentConfirm.equalsIgnoreCase(Constants.PHOS_CALCULATOR)) {
+            ((AzulApplication) ((PhosCalculatorScreen) context).getApplication()).setLocationFilter(locationFilterObj);
+        } else if (paymentConfirm.equalsIgnoreCase(Constants.TAP_TRANSACTIONS)) {
+            ((AzulApplication) ((TapTransactions) context).getApplication()).setLocationFilter(locationFilterObj);
         } else {
             ((AzulApplication) ((PaymentConfirmActivity) context).getApplication()).setLocationFilter(locationFilterObj);
         }

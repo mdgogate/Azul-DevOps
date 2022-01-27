@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/top_cancel_back_design"
+    android:elevation="10dp"
+    android:layout_gravity="center_horizontal"
+    android:paddingTop="26dp"
+    android:paddingEnd="26dp"
+    android:paddingBottom="24dp">
+
+  <ImageView
+      android:id="@+id/btnCloaseCancelDialog"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_marginEnd="16dp"
+      android:src="@drawable/cancel_dialogbtn_close" />
+
+  <ImageView
+      android:id="@+id/alertImage"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="14dp"
+      android:src="@drawable/cancel_dialog_card_alert" />
+
+  <TextView
+      android:id="@+id/tvCancelAlertText"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/alertImage"
+      android:layout_centerHorizontal="true"
+      android:fontFamily="@font/vag_bold"
+      android:gravity="center_horizontal"
+      android:layout_marginTop="16dp"
+      android:lineSpacingExtra="4dp"
+      android:text="¿Estás seguro que deseas \n devolver esta transacción?"
+      android:textColor="@color/blue_3"
+      android:textSize="20sp" />
+
+
+  <RelativeLayout
+      android:id="@+id/btnCancelPayment"
+      android:layout_width="144dp"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/tvCancelAlertText"
+      android:layout_centerHorizontal="true"
+      android:layout_marginStart="16dp"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="10dp"
+      android:background="@drawable/payment_link_menu_inactive"
+      android:orientation="horizontal">
+
+    <TextView
+        android:id="@+id/tvButtonText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="8dp"
+        android:fontFamily="@font/vag_bold"
+        android:gravity="center_vertical|center_horizontal"
+        android:text="Inténtalo de nuevo"
+        android:textColor="@color/slider_heading"
+        android:textSize="16sp" />
+
+
+  </RelativeLayout>
+</RelativeLayout>

@@ -340,9 +340,9 @@
 
             <LinearLayout
                 android:id="@+id/layoutQrCode"
-                android:layout_width="wrap_content"
-                android:layout_height="152dp"
-                android:layout_marginEnd="8dp"
+                android:layout_width="108dp"
+                android:layout_height="136dp"
+                android:layout_marginEnd="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/bd_square_style"
                 android:gravity="center"
@@ -353,7 +353,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
-                    android:layout_marginBottom="22dp"
+                    android:layout_marginBottom="9dp"
                     android:src="@drawable/ic_venta_rapida___qr_code_2021" />
 
                 <TextView
@@ -362,21 +362,22 @@
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
+                    android:layout_marginTop="9dp"
                     android:layout_marginBottom="16dp"
                     android:fontFamily="@font/vag_bold"
                     android:gravity="center_horizontal"
                     android:text="@string/my_qr_code"
                     android:textColor="@color/create_font"
-                    android:textSize="16sp" />
+                    android:textSize="12sp" />
 
 
             </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/layoutTarjeta"
-                android:layout_width="wrap_content"
-                android:layout_height="152dp"
-                android:layout_marginStart="8dp"
+                android:layout_width="108dp"
+                android:layout_height="136dp"
+                android:layout_marginStart="4dp"
                 android:layout_weight="1"
                 android:background="@drawable/bd_square_style"
                 android:gravity="center"
@@ -387,21 +388,55 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="22dp"
-                    android:layout_marginBottom="28dp"
-                    android:src="@drawable/new_pr_login_payment_logo" />
+                    android:layout_marginBottom="12dp"
+                    android:src="@drawable/ic_2022_link_de_pagos" />
 
                 <TextView
+                    android:layout_marginTop="12dp"
                     android:id="@+id/linkText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
+                    android:layout_marginBottom="12dp"
                     android:fontFamily="@font/vag_bold"
                     android:gravity="center_horizontal"
                     android:text="@string/payment_link"
                     android:textColor="@color/create_font"
-                    android:textSize="16sp" />
+                    android:textSize="12sp" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutTapOnPhone"
+                android:layout_width="108dp"
+                android:layout_height="136dp"
+                android:layout_marginStart="8dp"
+                android:layout_weight="1"
+                android:background="@drawable/bd_square_style"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="22dp"
+                    android:layout_marginBottom="8dp"
+                    android:src="@drawable/ic_venta_rapida___tap_on_phone_icon" />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:fontFamily="@font/vag_bold"
+                    android:gravity="center_horizontal"
+                    android:text="Tap on Phone"
+                    android:textColor="@color/create_font"
+                    android:textSize="12sp" />
 
 
             </LinearLayout>

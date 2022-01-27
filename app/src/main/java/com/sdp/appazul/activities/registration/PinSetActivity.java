@@ -25,7 +25,6 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationManagerCompat;
 
 import com.google.firebase.messaging.FirebaseMessaging;
-import com.scottyab.rootbeer.Const;
 import com.sdp.appazul.R;
 import com.sdp.appazul.activities.dashboard.DashBoardActivity;
 import com.sdp.appazul.activities.home.BasicRegistrationActivity;

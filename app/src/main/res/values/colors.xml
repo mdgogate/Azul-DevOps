@@ -55,5 +55,6 @@
     <color name="date_range_bg">#F6F9FB</color>
     <color name="light_blue">#9ADCFF</color>
     <color name="light_gray">#C4D0DC</color>
+    <color name="loading_indicator">#0091DF</color>
 
 </resources>

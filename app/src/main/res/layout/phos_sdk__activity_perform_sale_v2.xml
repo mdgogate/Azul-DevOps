@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/vg__present_card"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background_phos_calc">
+
+  <include
+      android:id="@+id/include2"
+      layout="@layout/phos_sdk__btn_back"
+      app:layout_constraintEnd_toStartOf="@+id/btnClose"
+      tools:layout_editor_absoluteY="18dp" />
+
+  <ImageView
+      android:id="@+id/btnClose"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:layout_marginEnd="16dp"
+      android:visibility="gone"
+      android:src="@drawable/phos_btn_close"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintTop_toTopOf="parent" />
+
+  <ImageView
+      android:id="@+id/mainLogo"
+      android:layout_width="55dp"
+      android:layout_height="48dp"
+      android:layout_marginTop="16dp"
+      android:src="@drawable/phos_azul_logo"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/include2" />
+
+
+  <TextView
+      android:id="@+id/tvToPay"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="24dp"
+      android:fontFamily="@font/vag_light"
+      android:text="Total a pagar:"
+      android:textColor="@color/qr_button_font"
+      android:textSize="16sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/mainLogo" />
+
+  <TextView
+      android:id="@+id/tv_amount_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/vag_bold"
+      android:text="RD$ 1,000.00"
+      android:textColor="@color/qr_button_font"
+      android:textSize="32sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvToPay" />
+
+
+  <TextView
+      android:id="@+id/tvCardShowInfo"
+      android:layout_width="283dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/montserrat_medium"
+      android:gravity="center_horizontal"
+      android:text="Acerca tu tarjeta o dispositivo a la parte de atrás del teléfono para realizar el pago"
+      android:textColor="@color/qr_button_font"
+      android:textSize="12sp"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tv_amount_value" />
+
+  <FrameLayout
+      android:id="@+id/nfc_marker"
+      android:layout_width="264dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="18dp"
+      android:elevation="2dp"
+      android:gravity="center|top"
+      android:orientation="vertical"
+      android:visibility="gone"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvCardShowInfo">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+  </FrameLayout>
+
+  <ImageView
+      android:id="@+id/imgView"
+      android:layout_width="326dp"
+      android:layout_height="366dp"
+      android:layout_gravity="center"
+      android:layout_marginStart="59dp"
+      android:layout_marginTop="40dp"
+      android:layout_marginEnd="50dp"
+      android:elevation="2dp"
+      android:gravity="center|top"
+      android:orientation="vertical"
+      android:src="@drawable/phos_device_icon"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/tvCardShowInfo" />
+
+
+  <TextView
+      android:id="@+id/hint"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="16dp"
+      android:gravity="center_horizontal"
+      android:minLines="2"
+      android:tag="indicatorText"
+      android:textColor="@color/black"
+      android:textSize="@dimen/txtSubtitleSmaller"
+      android:visibility="gone"
+      app:layout_constraintBottom_toBottomOf="parent"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintStart_toStartOf="parent"
+      tools:text="Present card" />
+
+  <ImageView
+      android:id="@+id/iv_company_logo"
+      android:layout_width="wrap_content"
+      android:layout_height="@dimen/logoSize"
+      android:maxHeight="66dp"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@+id/tv_company_name"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/hint"
+      app:layout_constraintVertical_bias="0.7"
+      app:layout_constraintVertical_chainStyle="packed"
+      app:srcCompat="@drawable/app_logo" />
+
+  <TextView
+      android:id="@+id/tv_company_name"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="8dp"
+      android:text="Reward Labs"
+      android:textColor="@color/black"
+      android:textSize="@dimen/txtTitleSize"
+      android:visibility="gone"
+      app:layout_constraintBottom_toTopOf="@+id/iv_company_logo"
+      app:layout_constraintEnd_toEndOf="parent"
+      app:layout_constraintHorizontal_bias="0.5"
+      app:layout_constraintStart_toStartOf="parent"
+      app:layout_constraintTop_toBottomOf="@+id/iv_company_logo" />
+
+  <LinearLayout
+      android:id="@+id/numPad"
+      android:layout_width="match_parent"
+      android:layout_height="230dp"
+      android:layout_alignParentBottom="true"
+      android:background="@drawable/calc_background"
+      android:orientation="vertical"
+      android:visibility="visible"
+      app:layout_constraintBottom_toBottomOf="parent">
+
+    <digital.paynetics.phos.screens.views.IndicatorView
+        android:id="@+id/labelAmount"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="110dp"
+        android:padding="8dp"
+        android:layout_gravity="center_horizontal"
+        android:tag="indicatorView"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imgView"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <ImageView
+        android:id="@+id/iconCards"
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:layout_gravity="center_horizontal"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
+        android:layout_marginTop="8dp"
+        android:src="@drawable/phos_card_brand_logos" />
+
+  </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

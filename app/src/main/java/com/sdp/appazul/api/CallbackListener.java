@@ -38,4 +38,6 @@ public interface CallbackListener {
     void getNewTokenAtPreLogin(String responseString);
 
     void getUserResponse(String responseString);
+
+    void getRegenerateResponse(String responseString);
 }

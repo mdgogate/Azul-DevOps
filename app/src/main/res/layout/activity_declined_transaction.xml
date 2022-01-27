@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/font_hint"
+    tools:context=".activities.TapOnPhone.DeclinedTransactionActivity">
+
+  <ImageView
+      android:id="@+id/btnCloseDeclined"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_alignParentEnd="true"
+      android:layout_marginTop="16dp"
+      android:layout_marginEnd="16dp"
+      android:layout_marginBottom="33dp"
+      android:src="@drawable/white_btn_close_blue_border" />
+
+  <ImageView
+      android:id="@+id/imgMainErrorLogo"
+      android:layout_width="272dp"
+      android:layout_height="272dp"
+      android:layout_below="@+id/btnCloseDeclined"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="33dp"
+      android:src="@drawable/ic_tap_on_phone_issue" />
+
+  <TextView
+      android:id="@+id/tvPayment_declined_lbl"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/imgMainErrorLogo"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="16dp"
+      android:fontFamily="@font/vag_bold"
+      android:gravity="center_horizontal"
+      android:layout_marginBottom="8dp"
+      android:text="@string/payment_declined"
+      android:textColor="@color/white_bg"
+      android:textSize="24sp" />
+
+  <TextView
+      android:id="@+id/tvPayment_declined_lbl_one"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/tvPayment_declined_lbl"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/montserrat_regular"
+      android:gravity="center_horizontal"
+      android:text="@string/declined_1"
+      android:textColor="@color/white_bg"
+      android:textSize="14sp" />
+
+  <TextView
+      android:id="@+id/tvPayment_declined_lbl_two"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/tvPayment_declined_lbl_one"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="16dp"
+      android:fontFamily="@font/montserrat_medium"
+      android:gravity="center_horizontal"
+      android:text="@string/declined_2"
+      android:textColor="@color/white_bg"
+      android:textSize="16sp" />
+
+  <RelativeLayout
+      android:id="@+id/btnTryAgain"
+      android:layout_width="wrap_content"
+      android:layout_height="40dp"
+      android:layout_below="@+id/tvPayment_declined_lbl_two"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="16dp"
+      android:background="@drawable/button_border_solidless"
+      android:gravity="center_vertical">
+
+    <ImageView
+        android:id="@+id/btn_try_again"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="4.5dp"
+        android:src="@drawable/ic_icon_refresh"
+        app:tint="@color/white_bg" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="4.5dp"
+        android:layout_toRightOf="@id/btn_try_again"
+        android:fontFamily="@font/vag_bold"
+        android:text="@string/try_again_label"
+        android:textColor="@color/white_bg"
+        android:textSize="16sp" />
+  </RelativeLayout>
+
+  <TextView
+      android:id="@+id/btn_new_sale"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:fontFamily="@font/vag_bold"
+      android:text="@string/new_sale_label"
+      android:textColor="@color/gradient_button_right"
+      android:textSize="16sp"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="16dp"
+      android:layout_below="@id/btnTryAgain"/>
+</RelativeLayout>

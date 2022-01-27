@@ -202,21 +202,12 @@ public class QrCode extends BaseLoggedInActivity {
         String lastLocationNameWithId = sharedPreferences.getString(Constants.SELECTED_LOCATION_QRCODE, "");
         String lastLocationName = sharedPreferences.getString(Constants.SELECTED_LOCATION_NAME_QRCODE, "");
         String lastLocationMid = sharedPreferences.getString(Constants.SELECTED_LOCATION_MID_QRCODE, "");
-
+        mID = lastLocationMid;
+        locName = lastLocationName;
         if (lastLocationNameWithId != null && !TextUtils.isEmpty(lastLocationNameWithId)) {
             selectedLocationName.setText(lastLocationNameWithId);
-            mID = lastLocationMid;
-            locName = lastLocationName;
-            callGetQrApi(lastLocationMid);
 
-            viewPagerTwo.setAdapter(new ViewPagerAdapterTwo(this, "", mID, locName));
-            circleIndicatorTwo = findViewById(R.id.circleIndicatorTwo);
-            circleIndicatorTwo.setupWithViewPager(viewPagerTwo, true);
-            if (pagerPosition == 0) {
-                viewPagerTwo.setCurrentItem(0);
-            } else {
-                viewPagerTwo.setCurrentItem(1);
-            }
+            callGetQrApi(lastLocationMid);
         } else {
             getDefaultLocationForQr(locationJson);
 
@@ -808,14 +799,6 @@ public class QrCode extends BaseLoggedInActivity {
             callGetQrApi(lastChildMidQr);
             selectedLocationName.setText(content);
             homeLocationBottomSheet.dismiss();
-            viewPagerTwo.setAdapter(new ViewPagerAdapterTwo(this, "", mID, locName));
-            circleIndicatorTwo = findViewById(R.id.circleIndicatorTwo);
-            circleIndicatorTwo.setupWithViewPager(viewPagerTwo, true);
-            if (pagerPosition == 0) {
-                viewPagerTwo.setCurrentItem(0);
-            } else {
-                viewPagerTwo.setCurrentItem(1);
-            }
         }
 
 
@@ -896,7 +879,6 @@ public class QrCode extends BaseLoggedInActivity {
                 } else {
                     viewPagerTwo.setCurrentItem(1);
                 }
-
                 Toast.makeText(getApplicationContext(), "No se recibieron los datos del código QR", Toast.LENGTH_SHORT).show();
             }
 

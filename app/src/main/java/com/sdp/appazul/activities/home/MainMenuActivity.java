@@ -6,8 +6,10 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
+import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 
@@ -17,6 +19,8 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.PictureDrawable;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -45,9 +49,13 @@ import androidx.core.content.FileProvider;
 import androidx.core.text.HtmlCompat;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.sdp.appazul.BuildConfig;
 import com.sdp.appazul.R;
+import com.sdp.appazul.activities.TapOnPhone.LoadingAnimationActivity;
+import com.sdp.appazul.activities.TapOnPhone.PhosCalculatorScreen;
 import com.sdp.appazul.activities.dashboard.DashBoardActivity;
 import com.sdp.appazul.activities.dashboard.QrCode;
 import com.sdp.appazul.activities.menuitems.BurgerMenuBottomSheet;
@@ -57,6 +65,7 @@ import com.sdp.appazul.activities.payment.PaymentLocationFilter;
 import com.sdp.appazul.activities.payment.QuickSetPaymentActivity;
 import com.sdp.appazul.activities.registration.PinLoginActivity;
 import com.sdp.appazul.activities.registration.UserRegisterActivity;
+import com.sdp.appazul.activities.transactions.PaymentLinkDetails;
 import com.sdp.appazul.api.ApiManager;
 import com.sdp.appazul.api.ServiceUrls;
 import com.sdp.appazul.classes.LocationFilter;
@@ -82,9 +91,15 @@ import org.json.JSONObject;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.Locale;
+import java.util.TimeZone;
 
 import kotlin.text.Regex;
 
@@ -97,6 +112,7 @@ public class MainMenuActivity extends BasicRegistrationActivity {
     GlobalFunctions globals = new GlobalFunctions(this);
     LinearLayout layoutQrCode;
     LinearLayout layoutTarjeta;
+    LinearLayout layoutTapOnPhone;
     ApiManager apiManager = new ApiManager(this);
     String midQrLogin;
     ImageView azulLogoLayout;
@@ -107,7 +123,6 @@ public class MainMenuActivity extends BasicRegistrationActivity {
     LinearLayout qrLocationButton;
     CardView qrViewPager;
     ImageView backBtnMenu;
-    ImageView imageView2;
     ImageView imgDownloadQrCode;
     ImageView imgShareQrCode;
     RelativeLayout layoutDownloadShare;
@@ -163,11 +178,17 @@ public class MainMenuActivity extends BasicRegistrationActivity {
         context = this;
         locationFilter = ((AzulApplication) this.getApplication()).getLocationFilter();
 
-
+        getPushToken();
+        boolean notificationStatus = NotificationManagerCompat.from(this).areNotificationsEnabled();
+        if (!notificationStatus) {
+            customPermissionDialog();
+        }
         createUpdateUiHandler();
+
     }
 
     private void getPushToken() {
+        FirebaseApp.initializeApp(MainMenuActivity.this);
         FirebaseMessaging.getInstance().getToken().addOnCompleteListener(task -> {
             if (!task.isSuccessful()) {
                 Log.w("TAG", "Fetching FCM registration token failed", task.getException());
@@ -282,7 +303,7 @@ public class MainMenuActivity extends BasicRegistrationActivity {
 
 
     private void initControls() {
-        imageView2 = findViewById(R.id.imageView2);
+        layoutTapOnPhone = findViewById(R.id.layoutTapOnPhone);
         login_two_layout = findViewById(R.id.login_two_layout);
         downloadLayout = findViewById(R.id.downloadLayout);
         shareLayout = findViewById(R.id.shareLayout);
@@ -311,13 +332,9 @@ public class MainMenuActivity extends BasicRegistrationActivity {
 
         backBtnMenu.setOnClickListener(backBtnMenuView -> {
             azulLogoLayout.setVisibility(View.VISIBLE);
-            btnBurgerMenu.setVisibility(View.VISIBLE);
-            imageView2.setVisibility(View.VISIBLE);
             welcomeText.setVisibility(View.VISIBLE);
             azulLayout.setVisibility(View.VISIBLE);
             callCenter.setVisibility(View.VISIBLE);
-            backBtnMenu.setVisibility(View.GONE);
-            qrLayout.setVisibility(View.GONE);
             if (productPermissionList != null && !productPermissionList.contains(Constants.HAS_QR)) {
                 qrFormButton.setVisibility(View.VISIBLE);
             } else {
@@ -327,12 +344,14 @@ public class MainMenuActivity extends BasicRegistrationActivity {
                 callCenter.setLayoutParams(paramsq);
             }
 
-
+            backBtnMenu.setVisibility(View.GONE);
+            qrLayout.setVisibility(View.GONE);
         });
 
 
         callCenter.setOnClickListener(callCenterView -> {
-                    CallingCallCenter();
+
+                    callCallCenterScreen();
                 }
         );
 
@@ -346,7 +365,12 @@ public class MainMenuActivity extends BasicRegistrationActivity {
         verifyStoragePermissions(this);
 
         downloadQrListener();
+        shareQrListener();
 
+
+    }
+
+    private void shareQrListener() {
         shareLayout.setOnClickListener(imgDownloadQrCodeView -> {
                     if (imgResponse != null && !TextUtils.isEmpty(imgResponse)) {
                         new Thread(new Runnable() {
@@ -369,11 +393,9 @@ public class MainMenuActivity extends BasicRegistrationActivity {
                     }
                 }
         );
-
-
     }
 
-    private void CallingCallCenter() {
+    private void callCallCenterScreen() {
         try {
             Intent intent = new Intent(Intent.ACTION_DIAL);
             intent.setData(Uri.parse("tel:8095442985"));
@@ -496,7 +518,7 @@ public class MainMenuActivity extends BasicRegistrationActivity {
     }
 
     //Permission api
-    public void getAppPermissionsResponse(String responseString) {
+    public void getappPermissionsResponse(String responseString) {
         permissionList = new ArrayList<>();
         productPermissionList = new ArrayList<>();
         JSONObject jsonObject;
@@ -507,8 +529,9 @@ public class MainMenuActivity extends BasicRegistrationActivity {
             for (int i = 0; i < permitArray.length(); i++) {
                 permissionList.add(permitArray.get(i).toString());
             }
-
-            CheckPermissionListSize(permissionList);
+            if (!permissionList.isEmpty()) {
+                ((AzulApplication) (this).getApplication()).setFeaturePermissionsList(permissionList);
+            }
             if (jsonPermissionData.has(Constants.HAS_QR) &&
                     jsonPermissionData.getString(Constants.HAS_QR).equalsIgnoreCase("true")) {
                 qrPermission = Constants.HAS_QR;
@@ -530,27 +553,23 @@ public class MainMenuActivity extends BasicRegistrationActivity {
             }
             ((AzulApplication) (this).getApplication()).setProductPermissionsList(productPermissionList);
 
-            if (productPermissionList != null && !productPermissionList.contains(Constants.HAS_QR)) {
-                qrFormButton.setVisibility(View.VISIBLE);
-            } else {
-                qrFormButton.setVisibility(View.GONE);
-                RelativeLayout.LayoutParams paramsq = (RelativeLayout.LayoutParams) callCenter.getLayoutParams();
-                paramsq.setMargins(0, 96, 0, 0);
-                callCenter.setLayoutParams(paramsq);
-            }
-            getPushToken();
-            boolean notificationStatus = NotificationManagerCompat.from(this).areNotificationsEnabled();
-            if (!notificationStatus) {
-                customPermissionDialog();
-            }
+
+            checkProductPermission();
+
         } catch (Exception e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }
     }
 
-    private void CheckPermissionListSize(List<String> permissionList) {
-        if (!permissionList.isEmpty()) {
-            ((AzulApplication) (this).getApplication()).setFeaturePermissionsList(permissionList);
+    private void checkProductPermission() {
+        if (productPermissionList != null && !productPermissionList.contains(Constants.HAS_QR)) {
+            qrFormButton.setVisibility(View.VISIBLE);
+        } else {
+            qrFormButton.setVisibility(View.GONE);
+
+            RelativeLayout.LayoutParams paramsq = (RelativeLayout.LayoutParams) callCenter.getLayoutParams();
+            paramsq.setMargins(0, 96, 0, 0);
+            callCenter.setLayoutParams(paramsq);
         }
     }
 
@@ -706,6 +725,19 @@ public class MainMenuActivity extends BasicRegistrationActivity {
 
             }
         });
+
+        layoutTapOnPhone.setOnClickListener(layoutTapOnPhoneView -> {
+            openToPTransactions();
+        });
+    }
+
+    private void openToPTransactions() {
+        Intent intent = new Intent(this, LoadingAnimationActivity.class);
+        ((AzulApplication) (this).getApplication()).setLocationDataShare(locationFilterJson);
+        intent.putExtra("OPTION", 2);
+        startActivity(intent);
+        this.overridePendingTransition(R.anim.animation_enter,
+                R.anim.slide_nothing);
     }
 
     private void openQrWithPermission() {
@@ -727,13 +759,14 @@ public class MainMenuActivity extends BasicRegistrationActivity {
     private void openQrScreen() {
         if (midQrLogin != null && midQrLogin.length() > 0) {
             azulLogoLayout.setVisibility(View.GONE);
-            imageView2.setVisibility(View.GONE);
             welcomeText.setVisibility(View.GONE);
             azulLayout.setVisibility(View.GONE);
             callCenter.setVisibility(View.GONE);
             qrFormButton.setVisibility(View.GONE);
+            RelativeLayout.LayoutParams paramsq = (RelativeLayout.LayoutParams) callCenter.getLayoutParams();
+            paramsq.setMargins(0, 96, 0, 0);
+            callCenter.setLayoutParams(paramsq);
             btnBurgerMenu.setVisibility(View.GONE);
-
 
             backBtnMenu.setVisibility(View.VISIBLE);
             qrLayout.setVisibility(View.VISIBLE);
@@ -772,17 +805,13 @@ public class MainMenuActivity extends BasicRegistrationActivity {
 
     private void insideLocationFilter() {
         azulLogoLayout.setVisibility(View.VISIBLE);
-        imageView2.setVisibility(View.VISIBLE);
         welcomeText.setVisibility(View.VISIBLE);
         azulLayout.setVisibility(View.VISIBLE);
         callCenter.setVisibility(View.VISIBLE);
         if (productPermissionList != null && !productPermissionList.contains(Constants.HAS_QR)) {
             qrFormButton.setVisibility(View.VISIBLE);
         } else {
-            qrFormButton.setVisibility(View.GONE);
-            RelativeLayout.LayoutParams paramsq = (RelativeLayout.LayoutParams) callCenter.getLayoutParams();
-            paramsq.setMargins(0, 96, 0, 0);
-            callCenter.setLayoutParams(paramsq);
+            qrFormButton.setVisibility(View.INVISIBLE);
         }
 
         btnBurgerMenu.setVisibility(View.VISIBLE);
@@ -803,11 +832,14 @@ public class MainMenuActivity extends BasicRegistrationActivity {
                 Intent intent = new Intent(MainMenuActivity.this, QuickSetPaymentActivity.class);
 
                 ((AzulApplication) ((MainMenuActivity) this).getApplication()).setLocationDataShare(locationFilterJson);
-                 intent.putExtra("CODE", selectedCode);
+                Log.d("TAG", "selectedCode: " + selectedCode);
+                intent.putExtra("CODE", selectedCode);
                 intent.putExtra(Constants.LOCATION_NAME_SELECTED, locNameselected);
                 intent.putExtra(Constants.LOCATION_ID_SELECTED, lastChildMidQr);
                 intent.putExtra("TAX_STATUS", locationFilterThirdGroup.getTaxExempt());
                 intent.putExtra("CURRENCY", locationFilterThirdGroup.getCurrency());
+                Log.d("TAG", "setContent: main screen TAX_STATUS " + locationFilterThirdGroup.getTaxExempt());
+                Log.d("TAG", "setContent: main screen Currency " + locationFilterThirdGroup.getCurrency());
                 intent.putExtra(Constants.LOCATION_PARENT_NAME_SELECTED, parentLocation);
                 startActivity(intent);
                 this.overridePendingTransition(R.anim.animation_enter,
@@ -817,7 +849,6 @@ public class MainMenuActivity extends BasicRegistrationActivity {
                 midQrLogin = lastChildMidQr;
                 locName = locNameselected;
                 azulLogoLayout.setVisibility(View.GONE);
-                imageView2.setVisibility(View.GONE);
                 welcomeText.setVisibility(View.GONE);
                 azulLayout.setVisibility(View.GONE);
                 callCenter.setVisibility(View.GONE);
@@ -1067,5 +1098,28 @@ public class MainMenuActivity extends BasicRegistrationActivity {
         locationFilterJson = responseString;
         checkUserStatus(responseString);
         getAppRelatedPermissions();
+//        getWidgetDataFromAPi();
     }
+
+    private void getWidgetDataFromAPi() {
+        JSONObject newJsonObject = new JSONObject();
+        try {
+            String tcpKey = ((AzulApplication) this.getApplication()).getTcpKey();
+            String vcr = ((AzulApplication) this.getApplication()).getVcr();
+
+            newJsonObject.put("tcp", RSAHelper.ecryptRSA(MainMenuActivity.this, tcpKey));
+            JSONObject newPayload = new JSONObject();
+            newPayload.put("device", DeviceUtils.getDeviceId(this));
+            newPayload.put("merchantId", "67703162438");
+
+            newJsonObject.put(Constants.PAYLOAD, RSAHelper.encryptAES(newPayload.toString(), Base64.decode(tcpKey, 0), Base64.decode(vcr, 0)));
+
+        } catch (Exception e) {
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+        }
+        apiManager.callAPI(ServiceUrls.TRANSACTION_WIDGET, newJsonObject);
+
+    }
+
+
 }

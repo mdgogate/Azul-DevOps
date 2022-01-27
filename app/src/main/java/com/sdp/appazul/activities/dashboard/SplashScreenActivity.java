@@ -14,9 +14,12 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bumptech.glide.Glide;
-import com.scottyab.rootbeer.RootBeer;
+
 import com.sdp.appazul.BuildConfig;
 import com.sdp.appazul.R;
+
+
+import com.sdp.appazul.activities.home.BasicRegistrationActivity;
 import com.sdp.appazul.activities.home.MainMenuActivity;
 import com.sdp.appazul.activities.registration.UserRegisterActivity;
 import com.sdp.appazul.globals.AzulApplication;
@@ -25,9 +28,10 @@ import com.sdp.appazul.globals.GlobalFunctions;
 import com.sdp.appazul.globals.KeyConstants;
 import com.sdp.appazul.security.SecurePreferences;
 
+
 import org.json.JSONObject;
 
-public class SplashScreenActivity extends AppCompatActivity {
+public class SplashScreenActivity extends BasicRegistrationActivity {
 
     ImageView gifImageView;
     SharedPreferences sscPref;
@@ -40,13 +44,15 @@ public class SplashScreenActivity extends AppCompatActivity {
         gifImageView = findViewById(R.id.GifImageView);
         Glide.with(this).asGif().load(R.raw.azul_splash_112).into(gifImageView);
 
-        RootBeer rootBeer = new RootBeer(getApplicationContext());
+//        RootBeer rootBeer = new RootBeer(getApplicationContext());
         furtherAction();
-        if (!BuildConfig.APP_TEST_MODE) {
-            if (rootBeer.isRooted()) {
-                restrictUser();
-            } else redirectLoginActivity();
-        } else redirectLoginActivity();
+//        if (!BuildConfig.APP_TEST_MODE) {
+//            if (rootBeer.isRooted()) {
+//                restrictUser();
+//            } else redirectLoginActivity();
+//        } else
+        redirectLoginActivity();
+
 
     }
 

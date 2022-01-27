@@ -26,17 +26,19 @@
         android:layout_marginTop="8dp"
         android:fontFamily="@font/vag_bold"
         android:gravity="center_horizontal"
-        android:text="@string/cancel_button_message"
+        android:text="@string/close_button_message"
         android:textColor="@color/aert_light_black"
         android:textSize="14sp" />
 
     <LinearLayout
+        android:id="@+id/buttonsLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/textMsg"
         android:layout_marginStart="170dp"
         android:layout_marginTop="31dp"
         android:layout_marginEnd="20dp"
+        android:visibility="visible"
         android:layout_marginBottom="12dp"
         android:orientation="horizontal">
 
@@ -60,7 +62,8 @@
             android:layout_weight="1"
             android:fontFamily="@font/vag_bold"
             android:gravity="center_vertical|center_horizontal"
-            android:text="NO"
+            android:text="No"
+            android:visibility="visible"
             android:textColor="#2C3B89"
             android:textSize="14sp" />
 
@@ -73,9 +76,26 @@
             android:layout_weight="1"
             android:fontFamily="@font/vag_bold"
             android:gravity="center_horizontal|center_vertical"
-            android:text="SÍ"
+            android:text="Si"
             android:textColor="#2C3B89"
             android:textSize="14sp" />
 
     </LinearLayout>
+    <TextView
+        android:id="@+id/btnYesHide"
+        android:layout_width="100dp"
+        android:layout_height="36dp"
+        android:layout_marginStart="16dp"
+        android:layout_below="@+id/textMsg"
+        android:layout_weight="1"
+        android:layout_marginTop="23dp"
+        android:layout_marginEnd="20dp"
+        android:layout_alignParentEnd="true"
+        android:fontFamily="@font/vag_bold"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Aceptar"
+        android:layout_marginBottom="16dp"
+        android:visibility="gone"
+        android:textColor="#2C3B89"
+        android:textSize="14sp" />
 </RelativeLayout>

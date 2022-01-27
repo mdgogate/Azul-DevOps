@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/act_top_transaction"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".activities.TapOnPhone.TapTransactions">
+
+  <com.google.android.material.appbar.MaterialToolbar
+      android:id="@+id/materialToolbar"
+      android:layout_width="match_parent"
+      android:layout_height="?attr/actionBarSize"
+      android:background="@color/blue_2">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+      <ImageView
+          android:id="@+id/btnTransactionBack"
+          android:layout_width="30dp"
+          android:layout_height="24dp"
+          android:layout_centerVertical="true"
+          android:src="@drawable/ic_left_arrow" />
+
+      <TextView
+          android:id="@+id/toolbarTextTitle"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_centerVertical="true"
+          android:fontFamily="@font/vag_bold"
+          android:text="@string/top_transactions"
+          android:textAlignment="center"
+          android:textColor="@color/create_font"
+          android:textSize="16sp" />
+
+    </RelativeLayout>
+
+  </com.google.android.material.appbar.MaterialToolbar>
+
+  <RelativeLayout
+      android:id="@+id/locationFilter"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/materialToolbar"
+      android:background="@color/font_hint"
+      android:orientation="horizontal"
+      android:padding="16dp">
+
+    <ImageView
+        android:id="@+id/locationSymbol"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_centerVertical="true"
+        android:layout_marginEnd="8dp"
+        android:src="@drawable/ic_icon_location" />
+
+    <TextView
+        android:id="@+id/tvSelectedLocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_toEndOf="@id/locationSymbol"
+        android:fontFamily="@font/vag_bold"
+        android:text="Affiliated Auto Rental - 39036630010"
+        android:textColor="@color/create_font"
+        android:textSize="14sp" />
+
+    <ImageView
+        android:id="@+id/tran_locationSelector"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/ic_icon_down_arrow_24x24" />
+
+  </RelativeLayout>
+
+  <LinearLayout
+      android:id="@+id/headerLayout"
+      android:layout_width="match_parent"
+      android:layout_height="match_parent"
+      android:layout_below="@+id/locationFilter"
+      android:orientation="vertical">
+
+    <RelativeLayout
+        android:id="@+id/layoutDateFilter"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+      <LinearLayout
+          android:id="@+id/layoutDateRangeFilter"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:background="@color/white_bg"
+          android:orientation="horizontal"
+          android:visibility="visible">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:fontFamily="@font/vag_bold"
+              android:text="@string/from_date"
+              android:visibility="gone"
+              android:textColor="@color/blue_3"
+              android:textSize="16sp"
+              android:textStyle="bold" />
+
+          <RelativeLayout
+              android:id="@+id/layoutSinceDatePicker"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:background="@drawable/tv_unselect_background">
+
+            <ImageView
+                android:id="@+id/imgCalendarIcon"
+                android:layout_width="22dp"
+                android:layout_height="22dp"
+                android:layout_marginStart="8dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/gray_calendar_ic" />
+
+            <TextView
+                android:id="@+id/tvFromActivity"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/vag_bold"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="16dp"
+                android:text="24/05/2020"
+                android:layout_toRightOf="@+id/imgCalendarIcon"
+                android:textColor="@color/slider_heading"
+                android:textSize="24sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="18dp"
+                android:layout_height="18dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="8dp"
+                android:layout_alignParentEnd="true"
+                android:src="@drawable/phos_cal_down_arrow" />
+          </RelativeLayout>
+
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="16dp"
+            android:visibility="gone"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="16dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+          <TextView
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:fontFamily="@font/vag_bold"
+              android:text="@string/to_date"
+              android:textColor="@color/blue_3"
+              android:textSize="16sp"
+              android:textStyle="bold" />
+
+          <LinearLayout
+              android:id="@+id/layoutUntilDatePicker"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_marginTop="3dp"
+              android:background="@drawable/tv_unselect_background"
+              android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:src="@drawable/pdf_calendar_icon" />
+
+            <TextView
+                android:id="@+id/tvToActivity"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16px"
+                android:layout_weight="0.3"
+                android:fontFamily="@font/vag_bold"
+                android:text="04/06/2020"
+                android:textColor="@color/slider_heading"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginEnd="5dp"
+                android:layout_weight="0.8"
+                android:src="@drawable/calendar_down_arrow_blue" />
+          </LinearLayout>
+
+
+        </LinearLayout>
+
+      </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/headerLayout"
+        android:background="@color/create_font"
+        android:orientation="vertical"
+        android:paddingTop="8dp">
+
+      <TextView
+          android:id="@+id/tvNoRecordFound"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_centerHorizontal="true"
+          android:layout_marginStart="63dp"
+          android:layout_marginTop="157dp"
+          android:layout_marginEnd="62dp"
+          android:fontFamily="@font/vag_thin"
+          android:gravity="center_horizontal"
+          android:text="No existen resultados con esta busquedad"
+          android:textColor="@color/font_hint"
+          android:textSize="24dp"
+          android:textStyle="bold"
+          android:visibility="visible" />
+
+      <ListView
+          android:id="@+id/lvTransaction"
+          android:layout_width="match_parent"
+          android:layout_height="match_parent"
+          android:divider="@null"
+          android:visibility="gone"
+          tools:listitem="@layout/tap_on_phone_adapter_layout" />
+    </RelativeLayout>
+
+  </LinearLayout>
+
+</RelativeLayout>

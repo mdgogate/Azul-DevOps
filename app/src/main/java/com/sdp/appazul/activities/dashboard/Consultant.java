@@ -18,6 +18,8 @@ import androidx.annotation.Nullable;
 
 import com.sdp.appazul.R;
 
+import com.sdp.appazul.activities.TapOnPhone.LoadingAnimationActivity;
+import com.sdp.appazul.activities.TapOnPhone.TapTransactions;
 import com.sdp.appazul.activities.menuitems.WebActivity;
 import com.sdp.appazul.activities.transactions.QrTransactions;
 import com.sdp.appazul.activities.transactions.SettledTransactionsQuery;
@@ -37,6 +39,7 @@ public class Consultant extends BottomSheetDialogFragment {
 
     TextView tvLiquidatedTrans;
     TextView tvQrTransactions;
+    TextView tvToPTransactions;
     String loc;
     BottomSheetCloseEvent bottomSheetCloseEvent;
     List<String> permissionList;
@@ -64,6 +67,7 @@ public class Consultant extends BottomSheetDialogFragment {
 
         tvLiquidatedTrans = view.findViewById(R.id.tvLiquidatedTrans);
         tvQrTransactions = view.findViewById(R.id.tvQrTransactions);
+        tvToPTransactions = view.findViewById(R.id.tvToPTransactions);
 
         tvQrTransactions.setOnClickListener(tvQrTransactionsView -> {
             if (productPermissionList != null && !productPermissionList.isEmpty()) {
@@ -80,6 +84,9 @@ public class Consultant extends BottomSheetDialogFragment {
                 AppAlters.errorAlert(getActivity(), 4);
             }
         });
+        tvToPTransactions.setOnClickListener(tvToPTransactionsView -> {
+            openToPTransactions();
+        });
 
         permissionList = new ArrayList<>();
         productPermissionList = new ArrayList<>();
@@ -87,6 +94,15 @@ public class Consultant extends BottomSheetDialogFragment {
         permissionList = ((AzulApplication) getActivity().getApplication()).getFeaturePermissionsList();
         productPermissionList = ((AzulApplication) getActivity().getApplication()).getProductPermissionsList();
 
+    }
+
+    private void openToPTransactions() {
+        Intent intent = new Intent(getActivity(), LoadingAnimationActivity.class);
+        ((AzulApplication) (getActivity()).getApplication()).setLocationDataShare(loc);
+        intent.putExtra("OPTION", 1);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.animation_enter,
+                R.anim.slide_nothing);
     }
 
     private void openQrTransactionScreen() {
@@ -122,15 +138,15 @@ public class Consultant extends BottomSheetDialogFragment {
     }
 
     private void openSettledTransactionScreen() {
-        if (permissionList.contains("QueryTransactions")) {
-            Intent intent = new Intent(getActivity(), SettledTransactionsQuery.class);
-            intent.putExtra(Constants.LOCATION_RESPONSE, loc);
-            startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.animation_enter,
-                    R.anim.slide_nothing);
-        } else {
-            errorAlert(getActivity(), 3);
-        }
+//        if (permissionList.contains("QueryTransactions")) {
+        Intent intent = new Intent(getActivity(), SettledTransactionsQuery.class);
+        intent.putExtra(Constants.LOCATION_RESPONSE, loc);
+        startActivity(intent);
+        getActivity().overridePendingTransition(R.anim.animation_enter,
+                R.anim.slide_nothing);
+//        } else {
+//            errorAlert(getActivity(), 3);
+//        }
     }
 
     public void setBottomSheetCloseEvent(BottomSheetCloseEvent bottomSheetCloseEvent) {

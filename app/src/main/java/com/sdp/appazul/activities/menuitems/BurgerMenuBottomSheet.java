@@ -20,6 +20,7 @@ import com.sdp.appazul.api.ApiManager;
 import com.sdp.appazul.api.ServiceUrls;
 import com.sdp.appazul.globals.AzulApplication;
 import com.sdp.appazul.globals.Constants;
+import com.sdp.appazul.globals.GlobalFunctions;
 import com.sdp.appazul.globals.KeyConstants;
 import com.sdp.appazul.security.RSAHelper;
 import com.sdp.appazul.utils.DateUtils;
@@ -41,6 +42,7 @@ public class BurgerMenuBottomSheet extends BottomSheetDialogFragment {
     String loginResponse;
     TextView clientUserName;
     TextView clientUserProfile;
+    TextView tvVersion;
     TextView lastLoginDate;
     GregorianCalendar month;
     List<String> monthList = new ArrayList<>();
@@ -59,10 +61,14 @@ public class BurgerMenuBottomSheet extends BottomSheetDialogFragment {
         View view = inflater.inflate(R.layout.activity_burger_menu_bottomsheet, container, false);
         deregisterUser = view.findViewById(R.id.deregisterUser);
         clientUserName = view.findViewById(R.id.clientUserName);
+        tvVersion = view.findViewById(R.id.tvVersion);
         clientUserProfile = view.findViewById(R.id.clientUserProfile);
         lastLoginDate = view.findViewById(R.id.lastLoginDate);
         setUserData(loginResponse);
         onClickListener();
+        GlobalFunctions globalFunctions = new GlobalFunctions(getActivity());
+        tvVersion.setText(getActivity().getString(R.string.version_label).concat(" ").concat(globalFunctions.getAppVersion()));
+
         return view;
     }
 

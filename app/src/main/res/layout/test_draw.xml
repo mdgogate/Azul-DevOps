@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/vg__present_card"
+    android:background="@drawable/gradient_background_phos_calc"
+    android:orientation="vertical">
+
+  <RelativeLayout
+      android:id="@+id/headerLayout"
+      android:layout_width="match_parent"
+      android:layout_height="wrap_content">
+
+    <include
+        android:id="@+id/include2"
+        layout="@layout/phos_sdk__btn_back"
+        tools:layout_editor_absoluteY="18dp" />
+
+    <ImageView
+        android:id="@+id/btnClose"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="16dp"
+        android:src="@drawable/phos_btn_close" />
+
+  </RelativeLayout>
+
+  <ImageView
+      android:id="@+id/mainLogo"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/headerLayout"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="11dp"
+      android:src="@drawable/phos_azul_logo" />
+
+  <TextView
+      android:id="@+id/tvLocationSelected"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/mainLogo"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="9dp"
+      android:fontFamily="@font/vag_light"
+      android:text="Auto Rental - Jardines Sur - 391677031618"
+      android:textColor="@color/qr_button_font"
+      android:textSize="12sp" />
+
+  <TextView
+      android:id="@+id/tvToPay"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/tvLocationSelected"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="32dp"
+      android:fontFamily="@font/vag_light"
+      android:text="Total a pagar:"
+      android:textColor="@color/qr_button_font"
+      android:textSize="16sp" />
+
+  <TextView
+      android:id="@+id/tv_amount_value"
+      android:layout_width="wrap_content"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/tvToPay"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/vag_bold"
+      android:text="RD$ 1,000.00"
+      android:textColor="@color/qr_button_font"
+      android:textSize="32sp" />
+
+  <TextView
+      android:id="@+id/tvCardShowInfo"
+      android:layout_width="283dp"
+      android:layout_height="wrap_content"
+      android:layout_below="@+id/tv_amount_value"
+      android:layout_centerHorizontal="true"
+      android:layout_marginTop="8dp"
+      android:fontFamily="@font/montserrat_medium"
+      android:gravity="center_horizontal"
+      android:text="Acerca tu tarjeta o dispositivo a la parte de atrás del teléfono para realizar el pago"
+      android:textColor="@color/qr_button_font"
+      android:textSize="12sp" />
+
+  <RelativeLayout
+      android:id="@+id/nfc_marker"
+      android:layout_width="264dp"
+      android:layout_height="wrap_content"
+      android:layout_marginTop="18dp"
+      android:elevation="2dp"
+      android:layout_centerHorizontal="true"
+      android:orientation="vertical"
+      android:layout_below="@+id/tvCardShowInfo"
+      android:layout_centerInParent="true">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/tap_on_phone_guide" />
+
+  </RelativeLayout>
+
+  <LinearLayout
+      android:id="@+id/numPad"
+      android:layout_width="match_parent"
+      android:layout_height="284dp"
+      android:background="@drawable/calc_background"
+      android:orientation="vertical"
+      android:layout_alignParentBottom="true"
+      android:visibility="visible">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="56dp"
+        android:adjustViewBounds="true"
+        android:layout_marginTop="163dp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="fitCenter"
+        android:src="@drawable/phos_card_brand_logos" />
+
+  </LinearLayout>
+
+</RelativeLayout>

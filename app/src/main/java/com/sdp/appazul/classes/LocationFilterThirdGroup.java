@@ -36,7 +36,6 @@ public class LocationFilterThirdGroup {
 
     public LocationFilterThirdGroup(String parentLocationId, String name, String merchantId, String parent, String locationType) {
         this.parentLocationId = parentLocationId;
-        this.parentCode = parentCode;
         this.name = name;
         this.merchantId = merchantId;
         this.parent = parent;

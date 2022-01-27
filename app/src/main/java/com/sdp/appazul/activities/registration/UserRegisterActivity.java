@@ -212,6 +212,7 @@ public class UserRegisterActivity extends BasicRegistrationActivity {
             object.put("os_type", RSAHelper.ecryptRSA(this, Constants.ANDROID_LABEL));
             object.put("mdpk", mdpk);
             Log.d("TAG", "callLoginService: " + DeviceUtils.getDeviceId(this));
+            Log.d("TAG", "Register User Req : " + object.toString());
         } catch (Exception e) {
             Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
         }

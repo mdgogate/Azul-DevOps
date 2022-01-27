@@ -1,9 +1,11 @@
 package com.sdp.appazul.globals;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.text.TextUtils;
 import android.util.Base64;
 import android.util.Log;
+
 
 import com.sdp.appazul.security.RSAHelper;
 import com.sdp.appazul.utils.KeysUtils;
@@ -105,5 +107,18 @@ public class GlobalFunctions {
             }
         }
         return formattedDate;
+    }
+
+
+    public String getAppVersion() {
+        String versionCode = "1.1.1";
+        try {
+            versionCode = context.getPackageManager().getPackageInfo(context.getPackageName(), 0).versionName;
+        } catch (PackageManager.NameNotFoundException e) {
+            Log.e("NameNotFoundException:", Log.getStackTraceString(e));
+        } catch (Exception e) {
+            Log.e(KeyConstants.EXCEPTION_LABEL, Log.getStackTraceString(e));
+        }
+        return versionCode;
     }
 }
